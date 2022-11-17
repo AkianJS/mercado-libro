@@ -1,0 +1,26 @@
+.navItems li {
+  cursor: pointer;
+  transition: 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.navItems li:hover {
+  scale: 1.1;
+}
+
+.dropdownMenu {
+  height: calc(100vh - 4rem);
+  transition: .5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.dropdownMenu li {
+  font-size: 1.2rem;
+  border-bottom: 2px solid black;
+}
+
+.dropdownMenuIn {
+  transform: translateX(0);
+}
+
+.dropdownMenuOut {
+  transform: translateX(-100%);
+}
