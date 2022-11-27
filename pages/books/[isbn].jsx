@@ -6,7 +6,6 @@ const Book = () => {
   const router = useRouter()
   const { isbn } = router.query
   const book = books.find(item => item.isbn === isbn)
-  console.log(book)
   return (
     <div>
       {book.title}

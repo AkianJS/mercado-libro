@@ -9,13 +9,14 @@ import {
 } from "react-icons/fa";
 import Link from "next/link";
 import NavLinks from "./NavLinks";
+import NavSearch from "./NavSearch";
 import { useEffect, useState, useRef, useContext } from "react";
 
 const Navbar = () => {
-  const {state, setIslogged} = useContext(AppContext);
-  console.log(state);
+  const { state, setIslogged } = useContext(AppContext);
 
   const [dropdownMenu, setDropdownMenu] = useState(false);
+  const [isSearching, setIsSearching] = useState(false);
   const dropdownBar = useRef();
 
   const handleClickOutside = (e) => {
@@ -66,12 +67,16 @@ const Navbar = () => {
         <div className="flex gap-4 max-md:hidden">
           <NavLinks />
         </div>
-        <li className="ml-auto mr-1 max-md:-order-4 max-md:ml-0 text-2xl">
+        <li
+          onClick={() => setIsSearching(!isSearching)}
+          className="ml-auto max-md:-order-4 max-md:ml-0 text-2xl"
+        >
           <FaSearch />
         </li>
-        <div className="flex gap-4 mr-2 text-2xl">
+        <NavSearch isSearching={isSearching} setIsSearching={setIsSearching} />
+        <div className="flex gap-5 mr-2 text-2xl">
           <li>
-            <Link href="/login">
+            <Link href={state.logged ? '/profile' : '/login'}>
               <FaUser />
             </Link>
           </li>

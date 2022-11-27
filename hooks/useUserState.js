@@ -1,12 +1,12 @@
 import { useState } from "react";
 
 const useUserState = () => {
-  const [state, setState] = useState({ logged: false });
+  const [state, setState] = useState({ logged: true });
 
   const setIsLogged = (payload) => {
     setState({
       ...state,
-      logged: [payload]
+      logged: payload
     });
   };
 
