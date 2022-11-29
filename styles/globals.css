@@ -9,7 +9,7 @@
 
 html,
 body {
-  font-family: "Roboto";
+  font-family: "Roboto", system-ui;
   color: var(--primary-color);
   scroll-behavior: smooth;
 }

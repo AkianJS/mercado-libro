@@ -7,7 +7,9 @@ const NavLinks = () => {
       <Link href="/books">
         <li>Libros</li>
       </Link>
+      <Link href="/categories">
       <li>Categorías</li>
+      </Link>
     </>
   );
 };

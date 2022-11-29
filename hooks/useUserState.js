@@ -1,18 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getUserState } from "../utils/getUserState";
 
 const useUserState = () => {
-  const [state, setState] = useState({ logged: true });
+  const [state, setState] = useState({ Login: { success: false } });
 
   const setIsLogged = (payload) => {
     setState({
       ...state,
-      logged: payload
+      logged: payload,
     });
   };
 
   return {
+    setState,
     setIsLogged,
-    state
+    state,
   };
 };
 

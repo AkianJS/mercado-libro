@@ -13,7 +13,8 @@ import NavSearch from "./NavSearch";
 import { useEffect, useState, useRef, useContext } from "react";
 
 const Navbar = () => {
-  const { state, setIslogged } = useContext(AppContext);
+  const { state } = useContext(AppContext);
+  const { Login } = state
 
   const [dropdownMenu, setDropdownMenu] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
@@ -52,7 +53,7 @@ const Navbar = () => {
         </li>
         <div
           ref={dropdownBar}
-          className={`absolute bg-white top-16 left-0 w-2/4 z-20 flex flex-col items-center ${
+          className={`absolute bg-white top-16 left-0 w-2/4 flex flex-col items-center z-50 ${
             styles.dropdownMenu
           } ${dropdownMenu ? styles.dropdownMenuIn : styles.dropdownMenuOut}`}
         >
@@ -76,7 +77,7 @@ const Navbar = () => {
         <NavSearch isSearching={isSearching} setIsSearching={setIsSearching} />
         <div className="flex gap-5 mr-2 text-2xl">
           <li>
-            <Link href={state.logged ? '/profile' : '/login'}>
+            <Link href={Login?.success ? '/profile' : '/login'}>
               <FaUser />
             </Link>
           </li>

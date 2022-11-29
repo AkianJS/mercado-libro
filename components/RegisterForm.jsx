@@ -9,10 +9,12 @@ const RegisterForm = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    console.log(data);
+  };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={() => handleSubmit(onSubmit)}>
       <div className="flex items-center h-screen w-full flex-col gap-8 pt-[30vh]">
         <div className="w-3/4 flex justify-center relative items-center">
           <input
@@ -20,7 +22,7 @@ const RegisterForm = () => {
             {...register("user", {
               minLength: {
                 value: 6,
-                message: 'Mínimo 6 caracteres',
+                message: "Mínimo 6 caracteres",
               },
             })}
             className={`bg-gray-200 border-2 border-black rounded-sm w-full p-2 outline-none ${styles.placeholder}`}
@@ -33,7 +35,6 @@ const RegisterForm = () => {
           </span>
         </div>
         {errors.user && <p>{errors.user?.message}</p>}
-        { console.log(errors) }
 
         <div className="w-3/4 flex justify-center relative items-center">
           <input

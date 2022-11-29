@@ -1,13 +1,12 @@
 import React from "react";
 import Layout from "../components/layout/Layout";
-import NavLinks from "../components/layout/Layout";
 
-const profile = () => {
+const Profile = () => {
   return (
     <Layout title='MercadoLibro Perfil'>
-      <div>profile</div>
+      <div>Profile</div>
     </Layout>
   );
 };
 
-export default profile;
+export default Profile;
