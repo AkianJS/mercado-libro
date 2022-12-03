@@ -2,9 +2,9 @@ import Image from "next/image";
 import BooksGrid from "../components/BooksGrid";
 import Layout from "../components/layout/Layout";
 import book from "../public/book-cover.webp";
+import { getBooks } from "../utils/getBooks";
 
-export default function Home() {
-
+const Home = ({ books }) => {
   return (
     <Layout>
       <div className="w-full relative h-90vh bg-black">
@@ -28,7 +28,22 @@ export default function Home() {
         </h2>
       </div>
 
-      <BooksGrid texth3="Ofertas" />
+      <BooksGrid books={books} texth3="Ofertas" />
     </Layout>
   );
+};
+
+export async function getStaticProps() {
+  const res = await getBooks();
+  const {
+    data: { getLibros },
+  } = res;
+  const books = getLibros;
+  return {
+    props: {
+      books,
+    },
+  };
 }
+
+export default Home

@@ -58,7 +58,7 @@ const Checkout = () => {
             <span
               className={`absolute left-0 pl-2 pr-2 opacity-60 duration-300 pointer-events-none`}
             >
-              Provincia
+              Código Postal
             </span>
           </div>
 
@@ -100,9 +100,10 @@ const Checkout = () => {
             <span
               className={`absolute left-0 pl-2 pr-2 opacity-60 duration-300 pointer-events-none`}
             >
-              Dirección
+              Información Adicional
             </span>
           </div>
+          
           <div className="w-3/4">
             <Link href='/checkout/payment'>
               <Button type="submit" text="pagar" />

@@ -9,7 +9,7 @@ const LoginPage = () => {
   const userState = useContext(AppContext);
   const { state } = userState;
   const router = useRouter();
-  if (state?.Login?.success) router.push("/");
+  if (state?.login?.success) router.push("/");
 
   return (
     <Layout>

@@ -1,24 +1,50 @@
-import { gql, useQuery } from "@apollo/client"
+export const getUserState = ({
+  email = "",
+  password = "",
+  token = "",
+} = {}) => {
 
-export const getUserApollo =() => {
-  const apolloQuery = `query getAllInfo($email: String!, $password: String!){
-    Login(
-      correo: $email, 
-      contrasenia: $password)
-    {
-      mensaj,
-      success,
-      accessToken,
-      usuario {
+  const QUERY = `query
+  {
+      login(correo: "${email}", contrasenia: "${password}" , tokenUser: "${token}") {
+          message
+      success
+      status
+      accessToken
+      usuario{
         id
         nombre
         correo
         contrasenia
         admin
-        telefono
-        orden
+        favorito{
+          isbn
+          url_imagen
+          titulo
+          fecha_edicion
+          precio
+          stock
+            fecha_ingreso
+          descuento
+          idioma
+          {
+            nombre
+          }
+          editorial
+          {
+            nombre
+          }
+          autor
+          {
+            nombre
+          }
+          tema
+          {
+            nombre
+          }
+        }
+          orden
         {
-          id
           fecha
           total
           cupon
@@ -30,18 +56,20 @@ export const getUserApollo =() => {
           direccion_entrega
           {
             id
-            calle
-            numero
-            piso_departamento
+            direccion
+            infoAdicional
             dni
-            id_usuario
+            telefono
+            usuario
             ciudad
             {
               cp
               nombre
               provincia{
+                id
                 nombre
-                pais{
+                pais
+                {
                   nombre
                 }
               }
@@ -56,16 +84,29 @@ export const getUserApollo =() => {
             libro
             {
               isbn
-              url_imagen
-              titulo
-              fecha_edicion
-              precio
             }
+          }
+        }
+        carrito
+        {
+          nro_linea
+          cantidad
+          libro
+          {
+            isbn
+            url_imagen
+            titulo
           }
         }
       }
     }
-  }`;
+  } `;
 
-  return apolloQuery
-}
+  return fetch("http://localhost:3001/graphql", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ query: QUERY }),
+  }).then((res) => res.json());
+};

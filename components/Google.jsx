@@ -9,7 +9,7 @@ const Google = ({handleGoogleSuccess, handleGoogleError}) => {
       <GoogleLogin
         onSuccess={handleGoogleSuccess}
         onError={() => {
-          console.log("Login Failed");
+          
         }}
       ></GoogleLogin>
     </GoogleOAuthProvider>
