@@ -1,20 +1,16 @@
 import styles from "../styles/FormSpan.module.css";
 import { set, useForm } from "react-hook-form";
-import { getUserState } from "../utils/getUserState";
-import { useContext, useEffect, useMemo } from "react";
+import { useContext, useEffect, useState } from "react";
 import Button from "./ui/Button";
 import Google from "./Google";
 import AppContext from "../context/AppContext";
 import jwt_decode from "jwt-decode";
-import { useLazyQuery, gql } from "@apollo/client";
-import { getUserApollo } from "../utils/getUserState";
+import { getUserState } from "../utils/getUserState";
 
 const Login = () => {
-  const query = gql(getUserApollo());
-  const { setState } = useContext(AppContext);
-  const [apolloQuery, { loading, error, data }] = useLazyQuery(query);
-  console.log(error);
-  
+  const { setState, state } = useContext(AppContext);
+  const [isLoading, setIsLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -22,19 +18,26 @@ const Login = () => {
   } = useForm();
 
   const onSubmit = (loginData) => {
-    console.log(loginData);
     let email = loginData.email;
     let password = loginData.password;
-    apolloQuery({ variables: { email: email, password: password } }).then((d) =>
-      d.error ? alert("No se pudo loguear") : setState(d.data)
-    );
+    getUserState({ email: email, password: password })
+      .then((data) => {
+        data.errors
+          ? setState({ login: false, errors: data.errors })
+          : setState(data.data);
+        if (data.data?.login?.success)
+          window.localStorage.setItem(
+            "userToken",
+            JSON.stringify(data.data.login.accessToken)
+          );
+      })
+      .catch((errors) => console.error(`error: ${errors}`));
   };
 
   const handleGoogleSuccess = (credentialResponse) => {
     const decoded = jwt_decode(credentialResponse.credential);
     let email = decoded.email;
     let password = decoded.sub;
-    apolloQuery({ variables: { email: email, password: password } });
   };
 
   return (
@@ -48,9 +51,9 @@ const Login = () => {
             type="text"
           />
           <span
-            className={`absolute left-0 pl-2 pr-2 opacity-60 duration-300 pointer-events-none`}
+            className={`absolute left-0 pl-2 pr-2 opacity-60 duration-300 pointer-events-none font-bold`}
           >
-            Ingrese su email
+            Email
           </span>
         </div>
 
@@ -62,15 +65,14 @@ const Login = () => {
             type="password"
           />
           <span
-            className={`absolute left-0 pl-2 pr-2 opacity-60 duration-300 pointer-events-none`}
+            className={`absolute left-0 pl-2 pr-2 opacity-60 duration-300 pointer-events-none font-bold`}
           >
-            Ingrese su password
+            Contraseña
           </span>
+          {state?.errors?.message && <p>{state.errors.message}</p>}
         </div>
         <div className="w-3/4">
           <Button text="Ingresar" type="submit" />
-          {loading && <p>Estoy cargan2...</p>}
-          {error && <p>Error {error.message}</p>}
         </div>
         <Google handleGoogleSuccess={handleGoogleSuccess} />
       </div>

@@ -4,17 +4,17 @@ import {
   FaBars,
   FaSearch,
   FaShoppingCart,
-  FaUser,
   FaWindowClose,
 } from "react-icons/fa";
 import Link from "next/link";
 import NavLinks from "./NavLinks";
 import NavSearch from "./NavSearch";
 import { useEffect, useState, useRef, useContext } from "react";
+import NavUser from "./NavUser";
 
 const Navbar = () => {
-  const { state } = useContext(AppContext);
-  const { Login } = state
+  const { state, setState } = useContext(AppContext);
+  const { login } = state;
 
   const [dropdownMenu, setDropdownMenu] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
@@ -53,7 +53,7 @@ const Navbar = () => {
         </li>
         <div
           ref={dropdownBar}
-          className={`absolute bg-white top-16 left-0 w-2/4 flex flex-col items-center z-50 ${
+          className={`absolute bg-white top-16 left-0 w-2/4 flex flex-col gap-2 items-center z-50 ${
             styles.dropdownMenu
           } ${dropdownMenu ? styles.dropdownMenuIn : styles.dropdownMenuOut}`}
         >
@@ -68,6 +68,8 @@ const Navbar = () => {
         <div className="flex gap-4 max-md:hidden">
           <NavLinks />
         </div>
+
+        {/* Icono de búsqueda junto con su funcionalidad*/}
         <li
           onClick={() => setIsSearching(!isSearching)}
           className="ml-auto max-md:-order-4 max-md:ml-0 text-2xl"
@@ -75,14 +77,16 @@ const Navbar = () => {
           <FaSearch />
         </li>
         <NavSearch isSearching={isSearching} setIsSearching={setIsSearching} />
-        <div className="flex gap-5 mr-2 text-2xl">
+
+        {/* Icono de usuario  y carrito con sus funcionalidades*/}
+        <div className="flex gap-5 mr-4">
+          <div className="flex">
+            <NavUser login={login} setState={setState}/>
+          </div>
           <li>
-            <Link href={Login?.success ? '/profile' : '/login'}>
-              <FaUser />
+            <Link href="/cart">
+              <FaShoppingCart className="text-2xl" />
             </Link>
-          </li>
-          <li>
-            <FaShoppingCart />
           </li>
         </div>
       </ul>

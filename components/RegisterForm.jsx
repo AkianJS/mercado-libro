@@ -14,12 +14,12 @@ const RegisterForm = () => {
   };
 
   return (
-    <form onSubmit={() => handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex items-center h-screen w-full flex-col gap-8 pt-[30vh]">
         <div className="w-3/4 flex justify-center relative items-center">
           <input
             required="required"
-            {...register("user", {
+            {...register("email", {
               minLength: {
                 value: 6,
                 message: "Mínimo 6 caracteres",
@@ -29,12 +29,12 @@ const RegisterForm = () => {
             type="text"
           />
           <span
-            className={`absolute left-0 pl-2 pr-2 opacity-60 duration-300 pointer-events-none`}
+            className={`absolute left-0 pl-2 pr-2 opacity-60 duration-300 pointer-events-none font-bold`}
           >
-            Ingrese su usuario
+            Email
           </span>
         </div>
-        {errors.user && <p>{errors.user?.message}</p>}
+        {errors.email && <p className="text-red-700">{errors.email?.message}</p>}
 
         <div className="w-3/4 flex justify-center relative items-center">
           <input
@@ -44,9 +44,9 @@ const RegisterForm = () => {
             type="password"
           />
           <span
-            className={`absolute left-0 pl-2 pr-2 opacity-60 duration-300 pointer-events-none`}
+            className={`absolute left-0 pl-2 pr-2 opacity-60 duration-300 pointer-events-none font-bold`}
           >
-            Ingrese su password
+            Contraseña
           </span>
         </div>
         <div className="w-3/4">

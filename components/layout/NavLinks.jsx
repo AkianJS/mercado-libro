@@ -8,7 +8,10 @@ const NavLinks = () => {
         <li>Libros</li>
       </Link>
       <Link href="/categories">
-      <li>Categorías</li>
+        <li>Categorías</li>
+      </Link>
+      <Link href='/history'>
+        <li>Historial</li>
       </Link>
     </>
   );
