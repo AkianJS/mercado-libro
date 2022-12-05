@@ -34,7 +34,7 @@ const NavUser = ({ login, setState }) => {
 
   const handleCloseSesion = () => {
     setState({ login: { success: false } });
-    window.localStorage.removeItem('userToken')
+    window.localStorage.removeItem("userToken");
     router.push("/login");
   };
 
@@ -51,23 +51,28 @@ const NavUser = ({ login, setState }) => {
           <FaUser className="text-2xl" />
         </li>
       )}
-      <div
-        ref={dropdownUserRef}
-        className={`absolute right-0 top-16 w-52 h-28 overflow-hidden ${
-          dropdownUser ? "pointer-events-auto" : "pointer-events-none"
-        }`}
-      >
+      <div className="relative">
         <div
-          className={`text-[1.2rem] flex flex-col items-center justify-center h-full transition-all bg-white ${
-            dropdownUser ? "translate-y-0" : "-translate-y-full"
+          ref={dropdownUserRef}
+          className={`absolute -right-6 top-11 w-52 h-28 overflow-hidden ${
+            dropdownUser ? "pointer-events-auto" : "pointer-events-none"
           }`}
         >
-          <Link href='/profile'>
-            <li className="border-b-2 border-b-black">Perfil</li>
-          </Link>
-          <li onClick={handleCloseSesion} className="border-b-2 border-b-black">
-            Cerrar sesión
-          </li>
+          <div
+            className={`text-[1.2rem] flex flex-col items-center justify-center h-full transition-all bg-white ${
+              dropdownUser ? "translate-y-0" : "-translate-y-full"
+            }`}
+          >
+            <Link href={login?.usuario?.admin ? '/admin-panel' : 'profile'}>
+              <li className="border-b-2 border-b-black">Perfil</li>
+            </Link>
+            <li
+              onClick={handleCloseSesion}
+              className="border-b-2 border-b-black"
+            >
+              Cerrar sesión
+            </li>
+          </div>
         </div>
       </div>
     </>

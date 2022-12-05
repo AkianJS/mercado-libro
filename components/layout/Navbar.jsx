@@ -66,7 +66,7 @@ const Navbar = () => {
           </Link>
         </li>
         <div className="flex gap-4 max-md:hidden">
-          <NavLinks />
+          <NavLinks login={login} />
         </div>
 
         {/* Icono de búsqueda junto con su funcionalidad*/}

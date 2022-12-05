@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 
-const NavLinks = () => {
+const NavLinks = ({ login }) => {
   return (
     <>
       <Link href="/books">
@@ -10,9 +10,11 @@ const NavLinks = () => {
       <Link href="/categories">
         <li>Categorías</li>
       </Link>
-      <Link href='/history'>
-        <li>Historial</li>
-      </Link>
+      {login?.success && (
+        <Link href="/history">
+          <li>Historial</li>
+        </Link>
+      )}
     </>
   );
 };
