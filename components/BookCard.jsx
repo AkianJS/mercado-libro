@@ -4,13 +4,13 @@ import React from "react";
 import noImage from "../public/NoImage.png";
 
 const BookCard = ({ book }) => {
-  const autor = book.autor.map(item => item.nombre)
+  const autor = book?.autor?.map(item => item.nombre) || ['Nigga']
   return (
     <li className="rounded-md shadow-lg bg-white flex flex-col items-center">
       <Link className="flex flex-col items-center" href={`/books/${book.isbn}`}>
         <Image
-          width={150}
-          height={188}
+          width='150'
+          height='220'
           src={book?.url_imagen || noImage}
           alt={book?.titulo}
         />

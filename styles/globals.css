@@ -24,3 +24,7 @@ body {
 li {
   list-style: none;
 }
+
+.body-layout {
+  min-height: calc(100vh - 4rem);
+}

@@ -16,9 +16,9 @@ export async function getServerSideProps(context) {
 
   const res = await getBooks({ title: query });
   const {
-    data: { getLibros },
+    data: { getLibro },
   } = res;
-  const books = getLibros;
+  const books = getLibro;
   return {
     props: {
       books,

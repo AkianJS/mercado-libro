@@ -2,21 +2,21 @@ import Login from "../components/Login";
 import Layout from "../components/layout/Layout";
 import RegisterForm from "../components/RegisterForm";
 import { useContext } from "react";
-import { useRouter } from "next/router";
+import ProtectedRoute from "../components/ProtectedRoute";
 import AppContext from "../context/AppContext";
 
 const LoginPage = () => {
   const userState = useContext(AppContext);
-  const { state } = userState;
-  const router = useRouter();
-  if (state?.login?.success) router.push("/");
+  const { state: { login } } = userState;
 
   return (
     <Layout>
-      <div className="grid grid-cols-1 md:grid-cols-2">
-        <Login />
-        <RegisterForm />
-      </div>
+      <ProtectedRoute isLoading={login.isLoading} myBoolean={!login?.success} path='/'>
+        <div className="grid grid-cols-1 md:grid-cols-2">
+          <Login />
+          <RegisterForm />
+        </div>
+      </ProtectedRoute>
     </Layout>
   );
 };

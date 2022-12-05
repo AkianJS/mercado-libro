@@ -1,4 +1,5 @@
 import Image from "next/image";
+import styles from "../styles/Home.module.css";
 import BooksGrid from "../components/BooksGrid";
 import Layout from "../components/layout/Layout";
 import book from "../public/book-cover.webp";
@@ -9,21 +10,21 @@ const Home = ({ books }) => {
     <Layout>
       <div className="w-full relative h-90vh bg-black">
         <Image
-          className="object-cover h-90vh opacity-90"
+          className="object-cover h-90vh opacity-80"
           alt="prueba"
           src={book}
         />
-        <div className="w-3/4 h-auto sm:whitespace-pre text-[15vw] sm:text-[10vw] absolute text-white text-center uppercase top-10 left-2/4 -translate-x-2/4">
+        <div className={`w-3/4 h-auto xl:whitespace-pre absolute  text-white text-center uppercase top-24 max-xl:top-12 left-2/4 -translate-x-2/4 text-9xl max-sm:text-[18vw] max-lg:text-9xl xl:text-9xl ${styles.headerText}`}>
           <h1 className={`leading-tight`}>
             <strong>cyber </strong>
             <i>monday</i>
           </h1>
         </div>
         <h2
-          className={`text-white text-center bottom-10 absolute left-2/4 -translate-x-2/4 whitespace-pre text-[18vw] sm:text-[10vw]`}
+          className={`text-white text-center bottom-28 absolute left-2/4 -translate-x-2/4 whitespace-pre text-9xl max-sm:text-[18vw] max-lg:text-9xl ${styles.headerText2}`}
         >
           <i>
-            <strong>50%</strong> OFF
+            <strong>30%</strong> OFF
           </i>
         </h2>
       </div>
@@ -36,9 +37,9 @@ const Home = ({ books }) => {
 export async function getStaticProps() {
   const res = await getBooks();
   const {
-    data: { getLibros },
+    data: { getLibro },
   } = res;
-  const books = getLibros;
+  const books = getLibro;
   return {
     props: {
       books,
@@ -46,4 +47,4 @@ export async function getStaticProps() {
   };
 }
 
-export default Home
+export default Home;
