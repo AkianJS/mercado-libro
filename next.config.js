@@ -4,6 +4,6 @@ module.exports = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ['s3.amazonaws.com', 'm.media-amazon.com']
+    domains: ['s3.amazonaws.com', 'm.media-amazon.com', 'cdn.pixabay.com']
   }
 }
