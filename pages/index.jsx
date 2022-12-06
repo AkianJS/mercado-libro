@@ -14,7 +14,9 @@ const Home = ({ books }) => {
           alt="prueba"
           src={book}
         />
-        <div className={`w-3/4 h-auto xl:whitespace-pre absolute  text-white text-center uppercase top-24 max-xl:top-12 left-2/4 -translate-x-2/4 text-9xl max-sm:text-[18vw] max-lg:text-9xl xl:text-9xl ${styles.headerText}`}>
+        <div
+          className={`w-3/4 h-auto xl:whitespace-pre absolute  text-white text-center uppercase top-24 max-xl:top-12 left-2/4 -translate-x-2/4 text-9xl max-sm:text-[18vw] max-lg:text-9xl xl:text-9xl ${styles.headerText}`}
+        >
           <h1 className={`leading-tight`}>
             <strong>cyber </strong>
             <i>monday</i>
@@ -29,7 +31,7 @@ const Home = ({ books }) => {
         </h2>
       </div>
 
-      <BooksGrid books={books} texth3="Ofertas" />
+      <BooksGrid withPrice={true} books={books} texth3="Ofertas" />
     </Layout>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import Layout from "../components/layout/Layout";
 import ProtectedRoute from "../components/ProtectedRoute";
 import AppContext from "../context/AppContext";
@@ -27,25 +27,24 @@ const AdminPanel = ({ getTemas }) => {
   const { fields, append, remove } = useFieldArray({ control, name: "theme" });
 
   const onSubmit = (data) => {
-    const author =  JSON.stringify([data.author]) ;
-    const themes = data.themes.map(item => item.nombre)
+    const author = JSON.stringify([data.author]);
+    const themes = data.themes.map((item) => item.nombre);
 
-    console.log(data)
     setBook({
       author: author,
       description: data.description,
       discount: parseFloat(data.discount) || null,
       editionDate: data.editionDate,
       editorial: data.editorial,
-      entryDate: data.entryDate,
+      entryDate: data.entryDate || null,
       image: data.image,
       isbn: data.isbn,
       language: data.language,
-      price: parseFloat (data.price),
+      price: parseFloat(data.price),
       stock: parseFloat(data.stock),
       themes: JSON.stringify(themes),
       title: data.title,
-    }).then(data => console.log(data))
+    }).then((data) => console.log(data));
   };
 
   const handleAddTheme = () => {
@@ -92,7 +91,7 @@ const AdminPanel = ({ getTemas }) => {
                   required="required"
                   {...register("price")}
                   className={`bg-gray-200 border-2 border-black rounded-sm w-full p-2 outline-none`}
-                  type='number'
+                  type="number"
                 />
               </div>
               <div>
@@ -217,7 +216,6 @@ export async function getStaticProps() {
   const {
     data: { getTemas },
   } = res;
-  console.log(getTemas);
 
   return {
     props: {

@@ -11,10 +11,10 @@ const Book = ({ book }) => {
     state: { login },
     setFavourite,
     removeFavourite,
-    addToCart
+    addToCart,
   } = useContext(AppContext);
 
-  const buyQuantityRef = useRef()
+  const buyQuantityRef = useRef();
 
   const handleSetFavourite = () => {
     login.success
@@ -29,12 +29,13 @@ const Book = ({ book }) => {
   };
 
   const handleAddToCart = () => {
-    const quantity = book.stock > 0 ? buyQuantityRef.current.value || 1 : null
-    quantity && login.success ? addToCart(book) : alert('No hay stock, intente más tarde')
+    const quantity = book.stock > 0 ? buyQuantityRef.current.value || 1 : null;
+    quantity && login.success
+      ? addToCart(book)
+      : alert("No hay stock, intente más tarde");
+  };
 
-  }
-
-  const author = book?.autor?.map((item) => item.nombre)
+  const author = book?.autor?.map((item) => item.nombre);
   const discount = book?.descuento
     ? (book.descuento / 100) * book.precio
     : null;
@@ -44,7 +45,6 @@ const Book = ({ book }) => {
 
   const category = book?.tema?.map((item) => item.nombre);
 
-  // console.log(book)
   return (
     <Layout title={book.titulo}>
       <section className="mt-8 pl-4 pr-4 flex flex-wrap justify-center gap-6 max-w-screen-xl m-auto">
@@ -105,7 +105,9 @@ const Book = ({ book }) => {
             Editorial: {book?.editorial?.nombre}
           </p>
           <p className="mt-4 text-gray-600">Idioma: {book.idioma?.nombre}</p>
-          <p className="mt-4 text-gray-600">Categoría: {category?.join(", ")}</p>
+          <p className="mt-4 text-gray-600">
+            Categoría: {category?.join(", ")}
+          </p>
           <div>
             <p className="mt-6 text-gray-600 text-sm uppercase">
               {book.stock > 0 ? (

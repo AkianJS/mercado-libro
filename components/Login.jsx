@@ -37,6 +37,10 @@ const Login = () => {
     const decoded = jwt_decode(credentialResponse.credential);
     let email = decoded.email;
     let password = decoded.sub;
+    getUserState({email: email, password: password}).then(data => {
+      if (data.errors || !data) console.log(data.errors)
+      else setState(data.data)
+    })
   };
 
   return (

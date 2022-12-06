@@ -1,6 +1,8 @@
 import { useForm } from "react-hook-form";
 import Button from "./ui/Button";
 import styles from "../styles/FormSpan.module.css";
+import Google from "./Google";
+import jwt_decode from "jwt-decode";
 import { setUser } from "../utils/setUser";
 import { useState } from "react";
 
@@ -17,12 +19,22 @@ const RegisterForm = () => {
     let name = data.name;
     let email = data.email;
     let password = data.password;
-    console.log(name, email, password);
     setUser({ name: name, email: email, password: password }).then((data) => {
       data.errors
         ? setMessage("Error al registrar usuario, sistema caído")
         : setMessage(data.data.singUp.message);
     });
+  };
+
+  const handleGoogleSuccess = (credentialResponse) => {
+    const decoded = jwt_decode(credentialResponse.credential);
+    let name = decoded.name
+    let email = decoded.email;
+    let password = decoded.sub;
+    setUser({name: name, email: email, password: password}).then(data => {
+      if (data.errors || !data) setMessage('Error al registrar, su cuenta no ha sido creada')
+      else setMessage(data.data?.signUp?.message)
+    })
   };
 
   return (
@@ -82,6 +94,7 @@ const RegisterForm = () => {
         <div className="w-3/4">
           <Button text="Registrar" type="submit" />
         </div>
+        <Google handleGoogleSuccess={handleGoogleSuccess} />
       </div>
     </form>
   );

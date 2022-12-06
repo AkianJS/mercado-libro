@@ -21,11 +21,7 @@ const useUserState = () => {
   }, []);
 
   const setFavourite = (payload) => {
-    console.log(state.login.accessToken)
-    console.log(payload.isbn)
-    
     setFav({isbn: payload.isbn, tokenUser: state.login.accessToken}).then((data) => {
-      console.log(data.data)
       if (data.data.insertFav.success)
         setState({
           ...state,
