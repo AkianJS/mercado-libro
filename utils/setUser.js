@@ -1,15 +1,15 @@
 import { ENDPOINT } from "../config";
 
-const setUser = () => {
-    query = `query
+export const setUser = ({name = '', email = '', password = ''} = {}) => {
+  
+    const SET_USER = `mutation
     {
-      login(correo: "errandoneagonzalo18@gmail.com",  contrasenia: "1234")
+      singUp(nombre: "${name}", correo: "${email}", contrasenia: "${password}")
       {
         message
         success
         accessToken
         usuario {
-          id
           nombre
           correo
           contrasenia
@@ -23,7 +23,7 @@ const setUser = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ query: QUERY }),
+        body: JSON.stringify({ query: SET_USER }),
       }).then((res) => res.json());
 
 }

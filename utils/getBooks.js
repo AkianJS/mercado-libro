@@ -24,6 +24,26 @@ export const getBooks = ({category = '', title = '', isbn = ''} = { }) => {
         editorial {
           nombre
         }
+        tema {
+          nombre
+        }
+        autor {
+          nombre
+        }
+        autor {
+          nombre
+        }
+        opinion {
+          comentario
+          usuario {
+            nombre
+          }
+        }
+        puntuacion {
+          usuario {
+            nombre
+          }
+        }
       }
     }
   }	`;

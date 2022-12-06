@@ -34,16 +34,17 @@ const Book = ({ book }) => {
 
   }
 
-  const author = ['Nigga']
+  const author = book?.autor?.map((item) => item.nombre)
   const discount = book?.descuento
     ? (book.descuento / 100) * book.precio
     : null;
   const isFavourite = login?.usuario?.favorito?.find(
     (item) => item.isbn === book.isbn
   );
+
   const category = book?.tema?.map((item) => item.nombre);
 
-  console.log(isFavourite)
+  console.log(login)
   return (
     <Layout title={book.titulo}>
       <section className="mt-8 pl-4 pr-4 flex flex-wrap justify-center gap-6 max-w-screen-xl m-auto">

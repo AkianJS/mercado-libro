@@ -1,8 +1,12 @@
 import { useForm } from "react-hook-form";
 import Button from "./ui/Button";
 import styles from "../styles/FormSpan.module.css";
+import { setUser } from "../utils/setUser";
+import { useState } from "react";
 
 const RegisterForm = () => {
+  const [message, setMessage] = useState(null);
+
   const {
     register,
     handleSubmit,
@@ -10,12 +14,34 @@ const RegisterForm = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
+    let name = data.name;
+    let email = data.email;
+    let password = data.password;
+    console.log(name, email, password);
+    setUser({ name: name, email: email, password: password }).then((data) => {
+      data.errors
+        ? setMessage("Error al registrar usuario, sistema caído")
+        : setMessage(data.data.singUp.message);
+    });
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex items-center h-screen w-full flex-col gap-8 pt-[30vh]">
+        <div className="w-3/4 flex justify-center relative items-center">
+          <input
+            required="required"
+            {...register("name")}
+            className={`bg-gray-200 border-2 border-black rounded-sm w-full p-2 outline-none ${styles.placeholder}`}
+            type="text"
+          />
+          <span
+            className={`absolute left-0 pl-2 pr-2 opacity-60 duration-300 pointer-events-none font-bold`}
+          >
+            Nombre Completo
+          </span>
+        </div>
+
         <div className="w-3/4 flex justify-center relative items-center">
           <input
             required="required"
@@ -34,7 +60,9 @@ const RegisterForm = () => {
             Email
           </span>
         </div>
-        {errors.email && <p className="text-red-700">{errors.email?.message}</p>}
+        {errors.email && (
+          <p className="text-red-700">{errors.email?.message}</p>
+        )}
 
         <div className="w-3/4 flex justify-center relative items-center">
           <input
@@ -49,6 +77,8 @@ const RegisterForm = () => {
             Contraseña
           </span>
         </div>
+        { message && <p>{message}</p> }
+
         <div className="w-3/4">
           <Button text="Registrar" type="submit" />
         </div>

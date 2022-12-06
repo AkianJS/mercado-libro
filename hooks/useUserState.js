@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import { getUserState } from "../utils/getUserState";
 
 const useUserState = () => {
-  const [state, setState] = useState({login: {success: false, isLoading: true}});
+  const [state, setState] = useState({
+    login: { success: false, isLoading: true },
+  });
 
   useEffect(() => {
     if (window.localStorage.getItem("userToken")) {
@@ -11,9 +13,9 @@ const useUserState = () => {
         data.errors
           ? setState({ login: false, errors: data.errors })
           : setState(data.data);
-      })
+      });
     } else {
-      setState({login: {success: false, isLoading: false}})
+      setState({ login: { success: false, isLoading: false } });
     }
   }, []);
 
@@ -24,24 +26,29 @@ const useUserState = () => {
         ...state.login,
         usuario: {
           ...state.login.usuario,
-          favorito: [...state.login.usuario.favorito, payload],
+          favorito: state.login.usuario.favorito
+            ? [...state.login.usuario.favorito, payload]
+            : [payload],
         },
       },
     });
   };
 
   const removeFavourite = (payload) => {
-    setState({
-      ...state,
-      login: {
-        ...state.login,
-        usuario: {
-          ...state.login.usuario,
-          favorito: state.login.usuario.favorito.filter(
-            (item) => item.isbn !== payload.isbn
-          ),
-        },
-      },
+    setFavourite(payload.isbn, state.login.accessToken).then((data) => {
+      if (data.insertFav.success)
+        setState({
+          ...state,
+          login: {
+            ...state.login,
+            usuario: {
+              ...state.login.usuario,
+              favorito: state.login.usuario.favorito.filter(
+                (item) => item.isbn !== payload.isbn
+              ),
+            },
+          },
+        });
     });
   };
 
@@ -52,11 +59,13 @@ const useUserState = () => {
         ...state.login,
         usuario: {
           ...state.login.usuario,
-          carrito: [...state.login.usuario.carrito, payload]
-        }
-      }
-    })
-  }
+          carrito: state.login.usuario.carrito
+            ? [...state.login.usuario.carrito, payload]
+            : payload,
+        },
+      },
+    });
+  };
 
   return {
     setState,
