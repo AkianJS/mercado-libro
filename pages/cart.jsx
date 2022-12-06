@@ -8,7 +8,6 @@ const Cart = () => {
   const {
     state: { login },
   } = useContext(AppContext);
-
   return (
     <Layout title='MercadoLibro Carrito de Compras'>
       <ProtectedRoute path='/login' myBoolean={login.success} isLoading={login.isLoading}>

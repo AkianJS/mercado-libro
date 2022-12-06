@@ -11,7 +11,7 @@ const Profile = () => {
 
   return (
     <Layout title="MercadoLibro Perfil">
-      <ProtectedRoute myBoolean={login?.success} path='/login'>
+      <ProtectedRoute isLoading={login.isLoading} myBoolean={login?.success} path='/login'>
         <div>Profile</div>
       </ProtectedRoute>
     </Layout>
