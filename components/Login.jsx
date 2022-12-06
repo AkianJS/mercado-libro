@@ -1,6 +1,6 @@
 import styles from "../styles/FormSpan.module.css";
 import { set, useForm } from "react-hook-form";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import Button from "./ui/Button";
 import Google from "./Google";
 import AppContext from "../context/AppContext";
@@ -9,7 +9,6 @@ import { getUserState } from "../utils/getUserState";
 
 const Login = () => {
   const { setState, state } = useContext(AppContext);
-  const [isLoading, setIsLoading] = useState(false);
 
   const {
     register,

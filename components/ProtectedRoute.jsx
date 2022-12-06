@@ -9,7 +9,7 @@ const ProtectedRoute = ({ children, myBoolean, path, isLoading = false }) => {
     if (!isLoading) {
       if (!myBoolean) router.push(path);
     }
-  },[isLoading]);
+  },[myBoolean]);
 
   if (!myBoolean)
     return (
