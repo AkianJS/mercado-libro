@@ -1,10 +1,16 @@
 import Image from "next/image";
+import { useRouter } from "next/router";
 import React from "react";
 import styles from "../styles/CategoryCard.module.css"
 
 const CategoryCard = ({ theme }) => {
+  const router = useRouter()
+
+  const handleGoToBooks = () => {
+    router.push(`/categories/books/?query=${theme.nombre}`)
+  }
   return (
-    <div className="bg-slate-600 h-56 relative rounded-md shadow-lg flex items-center justify-center overflow-hidden">
+    <div onClick={handleGoToBooks} className="bg-slate-600 h-56 relative rounded-md shadow-lg flex items-center justify-center overflow-hidden">
       <Image
         className="absolute"
         fill

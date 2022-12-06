@@ -5,7 +5,6 @@ import { getThemes } from "../../utils/getThemes";
 
 const ThemeGrid = ({ getTemas }) => {
   const { temas } = getTemas;
-  console.log(temas);
 
   return (
     <Layout title="Books Categories">
