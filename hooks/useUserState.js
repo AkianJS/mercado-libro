@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getUserState } from "../utils/getUserState";
+import { setFav } from "../utils/setFavourite";
 
 const useUserState = () => {
   const [state, setState] = useState({
@@ -20,35 +21,39 @@ const useUserState = () => {
   }, []);
 
   const setFavourite = (payload) => {
-    setState({
-      ...state,
-      login: {
-        ...state.login,
-        usuario: {
-          ...state.login.usuario,
-          favorito: state.login.usuario.favorito
-            ? [...state.login.usuario.favorito, payload]
-            : [payload],
-        },
-      },
-    });
-  };
-
-  const removeFavourite = (payload) => {
-    setFavourite(payload.isbn, state.login.accessToken).then((data) => {
-      if (data.insertFav.success)
+    console.log(state.login.accessToken)
+    console.log(payload.isbn)
+    
+    setFav({isbn: payload.isbn, tokenUser: state.login.accessToken}).then((data) => {
+      console.log(data.data)
+      if (data.data.insertFav.success)
         setState({
           ...state,
           login: {
             ...state.login,
             usuario: {
               ...state.login.usuario,
-              favorito: state.login.usuario.favorito.filter(
-                (item) => item.isbn !== payload.isbn
-              ),
+              favorito: state.login.usuario.favorito
+                ? [...state.login.usuario.favorito, payload]
+                : [payload],
             },
           },
         });
+    });
+  };
+
+  const removeFavourite = (payload) => {
+    setState({
+      ...state,
+      login: {
+        ...state.login,
+        usuario: {
+          ...state.login.usuario,
+          favorito: state.login.usuario.favorito.filter(
+            (item) => item.isbn !== payload.isbn
+          ),
+        },
+      },
     });
   };
 

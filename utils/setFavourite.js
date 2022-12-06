@@ -1,8 +1,8 @@
 import { ENDPOINT } from "../config";
 
-export const setUser = ({isbn, tokenUser}) => {
+export const setFav = ({isbn, tokenUser}) => {
 
-    SET_FAVOURITE = `mutation
+    const SET_FAVOURITE = `mutation
     {
       insertFav(isbn: "${isbn}", tokenUser: "${tokenUser}") {
         message
