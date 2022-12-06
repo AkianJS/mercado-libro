@@ -1,11 +1,19 @@
-import React from 'react'
+import Image from "next/image";
+import React from "react";
+import styles from "../styles/CategoryCard.module.css"
 
-const CategoryCard = () => {
+const CategoryCard = ({ theme }) => {
   return (
-    <div className='mt-12 bg-slate-600 w-52 h-52 relative flex items-center justify-center'>
-        <h3 className='uppercase text-2xl'>Terror</h3>
+    <div className="bg-slate-600 h-56 relative rounded-md shadow-lg flex items-center justify-center overflow-hidden">
+      <Image
+        className="absolute"
+        fill
+        alt={theme.nombre}
+        src={theme.url_imagen}
+      />
+      <h3 className={`uppercase text-5xl text-center text-white z-10 ${styles.themeTitle}`}>{theme.nombre}</h3>
     </div>
-  )
-}
+  );
+};
 
-export default CategoryCard
+export default CategoryCard;

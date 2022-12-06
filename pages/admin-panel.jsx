@@ -6,6 +6,7 @@ import Button from "../components/ui/Button";
 import { useForm, useFieldArray } from "react-hook-form";
 import { FaMinus, FaPlus } from "react-icons/fa";
 import { getThemes } from "../utils/getThemes";
+import { setBook } from "../utils/setBook";
 
 const AdminPanel = ({ getTemas }) => {
   const {
@@ -26,7 +27,25 @@ const AdminPanel = ({ getTemas }) => {
   const { fields, append, remove } = useFieldArray({ control, name: "theme" });
 
   const onSubmit = (data) => {
-    console.log(data);
+    const author =  JSON.stringify([data.author]) ;
+    const themes = data.themes.map(item => item.nombre)
+
+    console.log(data)
+    setBook({
+      author: author,
+      description: data.description,
+      discount: parseFloat(data.discount) || null,
+      editionDate: data.editionDate,
+      editorial: data.editorial,
+      entryDate: data.entryDate,
+      image: data.image,
+      isbn: data.isbn,
+      language: data.language,
+      price: parseFloat (data.price),
+      stock: parseFloat(data.stock),
+      themes: JSON.stringify(themes),
+      title: data.title,
+    }).then(data => console.log(data))
   };
 
   const handleAddTheme = () => {
@@ -53,7 +72,7 @@ const AdminPanel = ({ getTemas }) => {
             <label className="uppercase text-sm">imagen del libro</label>
             <input
               required="required"
-              {...register("url_image")}
+              {...register("image")}
               className={`bg-gray-200 border-2 border-black rounded-sm w-full p-2 outline-none`}
               type="text"
             />
@@ -73,14 +92,14 @@ const AdminPanel = ({ getTemas }) => {
                   required="required"
                   {...register("price")}
                   className={`bg-gray-200 border-2 border-black rounded-sm w-full p-2 outline-none`}
-                  type="text"
+                  type='number'
                 />
               </div>
               <div>
                 <label className="uppercase text-sm">fecha de edición</label>
                 <input
                   required="required"
-                  {...register("edition_date")}
+                  {...register("editionDate")}
                   className={`bg-gray-200 border-2 border-black rounded-sm w-full p-2 outline-none`}
                   type="text"
                 />
@@ -92,7 +111,7 @@ const AdminPanel = ({ getTemas }) => {
                   required="required"
                   {...register("stock")}
                   className={`bg-gray-200 border-2 border-black rounded-sm w-full p-2 outline-none`}
-                  type="text"
+                  type="number"
                 />
               </div>
             </div>
@@ -102,7 +121,7 @@ const AdminPanel = ({ getTemas }) => {
               rows="10"
               cols="50"
               required="required"
-              {...register("descripcion")}
+              {...register("description")}
               className={`bg-gray-200 border-2 border-black rounded-sm w-full p-2 outline-none`}
               type="text"
             ></textarea>
@@ -111,8 +130,7 @@ const AdminPanel = ({ getTemas }) => {
               <div>
                 <label className="uppercase text-sm">fecha de ingreso</label>
                 <input
-                  required="required"
-                  {...register("entry_date")}
+                  {...register("entryDate")}
                   className={`bg-gray-200 border-2 border-black rounded-sm w-full p-2 outline-none`}
                   type="text"
                 />
@@ -122,7 +140,7 @@ const AdminPanel = ({ getTemas }) => {
                 <input
                   {...register("discount")}
                   className={`bg-gray-200 border-2 border-black rounded-sm w-full p-2 outline-none`}
-                  type="text"
+                  type="number"
                 />
               </div>
             </div>
@@ -159,7 +177,7 @@ const AdminPanel = ({ getTemas }) => {
                     <select
                       name="themes"
                       required="required"
-                      {...register(`theme.${index}.nombre`)}
+                      {...register(`themes.${index}.nombre`)}
                       className={`bg-gray-200 border-2 border-black rounded-sm w-full p-2 outline-none`}
                       type="text"
                     >
