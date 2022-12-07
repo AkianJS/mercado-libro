@@ -38,8 +38,11 @@ const Login = () => {
     let email = decoded.email;
     let password = decoded.sub;
     getUserState({email: email, password: password}).then(data => {
-      if (data.errors || !data) console.log(data.errors)
-      else setState(data.data)
+      if (data.errors || !data) return
+      setState(data.data)
+      if (data?.data?.login?.success) window.localStorage.setItem(
+        "userToken",
+        JSON.stringify(data.data.login.accessToken))
     })
   };
 
