@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useMemo, useRef } from "react";
 import Layout from "../../components/layout/Layout";
 import Image from "next/image";
 import AppContext from "../../context/AppContext";
@@ -16,6 +16,19 @@ const Book = ({ book }) => {
 
   const buyQuantityRef = useRef();
 
+  // Funciones
+
+  const stockAmount = useMemo(() => {
+    if (book.stock > 0) {
+      let stockArray = [];
+      for (let i = 1; i <= book.stock; i++) {
+        stockArray = [...stockArray, i];
+      }
+      return stockArray;
+    }
+    return null
+  }, [book.stock]);
+
   const handleSetFavourite = () => {
     login.success
       ? setFavourite(book)
@@ -29,9 +42,9 @@ const Book = ({ book }) => {
   };
 
   const handleAddToCart = () => {
-    const quantity = book.stock > 0 ? buyQuantityRef.current.value || 1 : null;
+    const quantity = buyQuantityRef.current.value || null;
     quantity && login.success
-      ? addToCart(book)
+      ? addToCart({quantity: quantity, isbn: book.isbn})
       : alert("No hay stock, intente más tarde");
   };
 
@@ -44,7 +57,7 @@ const Book = ({ book }) => {
   );
 
   const category = book?.tema?.map((item) => item.nombre);
-  
+
   return (
     <Layout title={book.titulo}>
       <section className="mt-8 pl-4 pr-4 flex flex-wrap justify-center gap-6 max-w-screen-xl m-auto">
@@ -121,14 +134,13 @@ const Book = ({ book }) => {
                 <Button text="Agregar al carrito" type="submit" />
                 <FaCartPlus className="absolute right-2 top-1.5 text-white text-3xl cursor-pointer" />
               </div>
-              <input
+              <select
                 ref={buyQuantityRef}
                 className={`bg-black w-12 text-white rounded-[0.25rem] pl-2 pr-1`}
-                type="number"
-                placeholder={1}
-                min={book.stock > 0 ? 1 : 0}
-                max={book.stock}
-              />
+              >
+                {stockAmount && stockAmount.map(item =>
+                  <option key={item} value={item}>{item}</option> )}
+              </select>
             </div>
           </div>
 
