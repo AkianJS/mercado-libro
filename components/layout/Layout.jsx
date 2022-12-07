@@ -7,6 +7,7 @@ const Layout = ({ children, title }) => {
   return (
     <>
       <Head>
+        <link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
         <title>{title || "MercadoLibro"}</title>
         <meta
           name="description"
