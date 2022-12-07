@@ -21,6 +21,9 @@ export const getBooks = ({category = '', title = '', isbn = ''} = { }) => {
         descripcion
         fecha_ingreso
         descuento
+        idioma {
+          nombre
+        }
         editorial {
           nombre
         }

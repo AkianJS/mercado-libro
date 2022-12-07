@@ -24,7 +24,7 @@ const AdminPanel = ({ getTemas }) => {
     },
   });
 
-  const { fields, append, remove } = useFieldArray({ control, name: "theme" });
+  const { fields, append, remove } = useFieldArray({ control, name: "themes" });
 
   const onSubmit = (data) => {
     const author = JSON.stringify([data.author]);
@@ -47,9 +47,6 @@ const AdminPanel = ({ getTemas }) => {
     }).then((data) => console.log(data));
   };
 
-  const handleAddTheme = () => {
-    append();
-  };
 
   return (
     <Layout title="Panel del Administrador">
@@ -198,7 +195,7 @@ const AdminPanel = ({ getTemas }) => {
             </div>
             <div className="w-full flex gap-4 mt-4 mb-4 transition-all">
               <FaPlus
-                onClick={handleAddTheme}
+                onClick={() => append()}
                 className="ml-auto text-2xl cursor-pointer hover:scale-110 ease-in"
               />
             </div>

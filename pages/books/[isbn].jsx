@@ -44,7 +44,7 @@ const Book = ({ book }) => {
   );
 
   const category = book?.tema?.map((item) => item.nombre);
-
+  
   return (
     <Layout title={book.titulo}>
       <section className="mt-8 pl-4 pr-4 flex flex-wrap justify-center gap-6 max-w-screen-xl m-auto">
