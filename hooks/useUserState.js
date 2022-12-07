@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getUserState } from "../utils/getUserState";
+import { removeFav } from "../utils/removeFavourite";
 import { setFav } from "../utils/setFavourite";
 
 const useUserState = () => {
@@ -21,36 +22,45 @@ const useUserState = () => {
   }, []);
 
   const setFavourite = (payload) => {
-    setFav({isbn: payload.isbn, tokenUser: state.login.accessToken}).then((data) => {
-      if (data.data.insertFav.success)
+    setFav({ isbn: payload.isbn, tokenUser: state.login.accessToken }).then(
+      (data) => {
+        if (data.data.insertFav.success)
+          setState({
+            ...state,
+            login: {
+              ...state.login,
+              usuario: {
+                ...state.login.usuario,
+                favorito: state.login.usuario.favorito
+                  ? [...state.login.usuario.favorito, payload]
+                  : [payload],
+              },
+            },
+          });
+      }
+    );
+  };
+
+  const removeFavourite = (payload) => {
+    console.log(payload)
+    removeFav({ isbn: payload.isbn, tokenUser: state.login.accessToken }).then(
+      (data) => {
+        console.log(data)
+        if (data.errors || !data) return;
         setState({
           ...state,
           login: {
             ...state.login,
             usuario: {
               ...state.login.usuario,
-              favorito: state.login.usuario.favorito
-                ? [...state.login.usuario.favorito, payload]
-                : [payload],
+              favorito: state.login.usuario.favorito.filter(
+                (item) => item.isbn !== payload.isbn
+              ),
             },
           },
         });
-    });
-  };
-
-  const removeFavourite = (payload) => {
-    setState({
-      ...state,
-      login: {
-        ...state.login,
-        usuario: {
-          ...state.login.usuario,
-          favorito: state.login.usuario.favorito.filter(
-            (item) => item.isbn !== payload.isbn
-          ),
-        },
-      },
-    });
+      }
+    );
   };
 
   const addToCart = (payload) => {
