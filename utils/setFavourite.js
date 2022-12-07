@@ -1,10 +1,10 @@
 import { ENDPOINT } from "../config";
 
-export const setFav = ({isbn, tokenUser}) => {
+export const setFav = ({isbn, token}) => {
 
     const SET_FAVOURITE = `mutation
     {
-      insertFav(isbn: "${isbn}", tokenUser: "${tokenUser}") {
+      insertFav(isbn: "${isbn}", tokenUser: "${token}") {
         message
         success
         accessToken

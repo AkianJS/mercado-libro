@@ -1,10 +1,10 @@
 import { ENDPOINT } from "../config";
 
-export const removeFav = ({isbn, tokenUser}) => {
+export const removeFav = ({isbn, token}) => {
 
     const REMOVE_FAV = `mutation
     {
-      removeFav(isbn: "${isbn}", tokenUser: "${tokenUser}") {
+      removeFav(isbn: "${isbn}", tokenUser: "${token}") {
         message
         success
         accessToken
