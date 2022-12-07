@@ -20,7 +20,7 @@ const AdminPanel = ({ getTemas }) => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      theme: [{ nombre: getTemas.temas[0].nombre }],
+      themes: [{ nombre: getTemas.temas[0].nombre }],
     },
   });
 
