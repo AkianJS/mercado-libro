@@ -10,7 +10,7 @@ const CategoryCard = ({ theme }) => {
     router.push(`/categories/books/?query=${theme.nombre}`)
   }
   return (
-    <div onClick={handleGoToBooks} className="bg-slate-600 h-56 relative rounded-md shadow-lg flex items-center justify-center overflow-hidden">
+    <div onClick={handleGoToBooks} className="bg-slate-600 h-56 relative rounded-md shadow-lg flex items-center justify-center overflow-hidden hover:opacity-90 cursor-pointer">
       <Image
         className="absolute"
         fill
