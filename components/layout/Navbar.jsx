@@ -57,7 +57,7 @@ const Navbar = () => {
             styles.dropdownMenu
           } ${dropdownMenu ? styles.dropdownMenuIn : styles.dropdownMenuOut}`}
         >
-          <NavLinks />
+          <NavLinks login={login} />
         </div>
         <li className="font-light ml-2 max-md:m-auto text-2xl tracking-widest">
           <Link href="/">
@@ -81,11 +81,16 @@ const Navbar = () => {
         {/* Icono de usuario  y carrito con sus funcionalidades*/}
         <div className="flex gap-5 mr-4">
           <div className="flex">
-            <NavUser login={login} setState={setState}/>
+            <NavUser login={login} setState={setState} />
           </div>
-          <li>
+          <li className="relative">
             <Link href="/cart">
               <FaShoppingCart className="text-2xl" />
+              {login?.usuario?.carrito?.length > 0 && (
+                <div className="flex justify-center items-center w-4 h-4 rounded-full bg-emerald-600 absolute -right-1 top-3 opacity-90">
+                 <p className="text-white text-sm">{login.usuario.carrito.length}</p>
+                </div>
+              )}
             </Link>
           </li>
         </div>
