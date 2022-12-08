@@ -57,7 +57,7 @@ const NavUser = ({ login, setState }) => {
       <div className="relative">
         <div
           ref={dropdownUserRef}
-          className={`absolute -right-3 top-12 w-16 h-28 overflow-hidden ${
+          className={`absolute -right-[20px] top-12 w-16 h-28 overflow-hidden ${
             dropdownUser ? "pointer-events-auto" : "pointer-events-none"
           }`}
         >
