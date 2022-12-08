@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { getUserState } from "../utils/getUserState";
 import { removeFav } from "../utils/removeFavourite";
-import { setBookTocart } from "../utils/setBookToCart";
 import { setFav } from "../utils/setFavourite";
 
 const useUserState = () => {
@@ -14,11 +13,12 @@ const useUserState = () => {
       const userToken = JSON.parse(window.localStorage.getItem("userToken"));
       getUserState({ token: userToken }).then((res) => {
         const { errors, data } = res;
+        console.log(data);
         if (errors || !data)
           setState({ login: { success: false, isLoading: true } });
-        else setState(data);
+        else if (data) setState(data);
       });
-    }
+    } else setState({ login: { success: false, isLoading: false } });
   }, []);
 
   const updateUserInfo = () => {
@@ -67,7 +67,6 @@ const useUserState = () => {
       }
     );
   };
-
 
   return {
     setState,
