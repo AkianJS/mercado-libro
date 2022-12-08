@@ -5,13 +5,14 @@ import AppContext from "../../context/AppContext";
 import Button from "../../components/ui/Button";
 import { FaCartPlus, FaHeart } from "react-icons/fa";
 import { getBooks } from "../../utils/getBooks";
+import { setBookTocart } from "../../utils/setBookToCart";
 
 const Book = ({ book }) => {
   const {
     state: { login },
     setFavourite,
     removeFavourite,
-    addToCart,
+    updateUserInfo,
   } = useContext(AppContext);
 
   const buyQuantityRef = useRef();
@@ -26,7 +27,7 @@ const Book = ({ book }) => {
       }
       return stockArray;
     }
-    return null
+    return null;
   }, [book.stock]);
 
   const handleSetFavourite = () => {
@@ -41,11 +42,12 @@ const Book = ({ book }) => {
     removeFavourite(book);
   };
 
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
     const quantity = buyQuantityRef.current.value || null;
-    quantity && login.success
-      ? addToCart({quantity: quantity, isbn: book.isbn})
-      : alert("No hay stock, intente más tarde");
+    if (quantity && login.success) {
+      const res = await setBookTocart({quantity: quantity, isbn: book.isbn, token: login.accessToken });
+      updateUserInfo()
+    } else alert('No hay libros en el stock')
   };
 
   const author = book?.autor?.map((item) => item.nombre);
@@ -138,8 +140,12 @@ const Book = ({ book }) => {
                 ref={buyQuantityRef}
                 className={`bg-black w-12 text-white rounded-[0.25rem] pl-2 pr-1`}
               >
-                {stockAmount && stockAmount.map(item =>
-                  <option key={item} value={item}>{item}</option> )}
+                {stockAmount &&
+                  stockAmount.map((item) => (
+                    <option key={item} value={item}>
+                      {item}
+                    </option>
+                  ))}
               </select>
             </div>
           </div>
