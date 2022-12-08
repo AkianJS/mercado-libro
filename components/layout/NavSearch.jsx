@@ -29,7 +29,7 @@ const NavSearch = ({ isSearching }) => {
             ref={searchRef}
             className="w-full max-w-screen-xl h-full outline-none pl-8 bg-white rounded-b-md"
             type="text"
-            placeholder="Titulo, isbn, categoría..."
+            placeholder="Titulo del libro..."
           />
           <button
             className="max-w-screen-xl border-none outline-none bg-transparent absolute left-0 pl-2"

@@ -2,11 +2,12 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 import { FaUser, FaUserCircle } from "react-icons/fa";
-import  { IoMdLogOut } from "react-icons/io"
+import { IoMdLogOut } from "react-icons/io";
+import styles from "../../styles/Navbar.module.css"
 
 const NavUser = ({ login, setState }) => {
   const [dropdownUser, setDropdownUser] = useState(false);
-  const [delayedstyles, setDelayedStyles] = useState({scale: '0', transform: 'translateY(-200px)'})
+
   const dropdownUserRef = useRef();
   const userIconRef = useRef();
   const router = useRouter();
@@ -19,13 +20,6 @@ const NavUser = ({ login, setState }) => {
       setDropdownUser(false);
     }
   };
-
-  useEffect(() => {
-    dropdownUser ? setTimeout(() => {
-      setDelayedStyles({scale: '1'})
-    }, 200) : setDelayedStyles({scale: '0', transform: 'translateY(0)'})
-  }, [dropdownUser])
-  
 
   useEffect(() => {
     if (dropdownUser) {
@@ -63,21 +57,28 @@ const NavUser = ({ login, setState }) => {
       <div className="relative">
         <div
           ref={dropdownUserRef}
-          className={`absolute -right-3 top-10 w-12 h-28 overflow-hidden ${
+          className={`absolute -right-3 top-12 w-16 h-28 overflow-hidden ${
             dropdownUser ? "pointer-events-auto" : "pointer-events-none"
           }`}
         >
           <div
-            className={`text-[1.2rem] flex flex-col items-center justify-center h-full transition-all`}
+            className={`text-[1.2rem] flex flex-col items-center justify-center h-full`}
           >
-            <Link href={login?.usuario?.admin ? '/admin-panel' : '/profile'}>
-              <li className={`scale-0 ${dropdownUser ? "translate-y-0 scale-100" : "-translate-y-full" }`}> <FaUserCircle className="text-4xl" /> </li>
+            <Link href={login?.usuario?.admin ? "/admin-panel" : "/profile"}>
+              <li
+                className={`scale-0 bg-white rounded-full p-1 border-2 ${
+                  dropdownUser ? "translate-y-0 scale-100" : "-translate-y-full"
+                }`}
+              >
+                {" "}
+                <FaUserCircle className="text-4xl" />{" "}
+              </li>
             </Link>
             <li
               onClick={handleCloseSesion}
-              style={ delayedstyles }
-              className={`mt-2 hover:scale-110`}
-            >
+              className={` mt-2 bg-white rounded-full p-1 border-2 scale-0  hover:scale-110 ${
+                dropdownUser ? `${styles.closeSesion} translate-y-0` : "-translate-y-full"}`}
+            > {" "}
               <IoMdLogOut className="text-4xl" />
             </li>
           </div>

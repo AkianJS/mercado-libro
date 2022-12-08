@@ -24,3 +24,15 @@
 .dropdownMenuOut {
   transform: translateX(-100%);
 }
+
+.closeSesion {
+  animation: in .3s cubic-bezier(0.075, 0.82, 0.165, 1) forwards;
+  animation-delay: .2s;
+}
+
+@keyframes in {
+  to {
+    scale: 1;
+    transform: translateY(0);
+  }  
+}
