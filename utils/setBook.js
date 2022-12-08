@@ -1,6 +1,6 @@
-import { ENDPOINT } from "../config";
+import fetchSetter from "./fetchSetter";
 
-export const setBook = ({isbn, image, title, editionDate, 
+export const setBook = async({isbn, image, title, editionDate, 
 price, stock, description, entryDate, discount, language, editorial,
 author, themes}) => {
     console.table(isbn, image, title, editionDate, price, stock, description, entryDate, discount, language, editorial
@@ -29,12 +29,6 @@ author, themes}) => {
       }
     }`
     
-    return fetch(ENDPOINT, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json;charset=utf-8",
-          
-        },
-        body: JSON.stringify({ query: SET_BOOK }),
-      }).then((res) => res.json());
+    const data = await fetchSetter(SET_BOOK);
+    return data;
 }

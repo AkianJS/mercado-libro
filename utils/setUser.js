@@ -1,6 +1,6 @@
-import { ENDPOINT } from "../config";
+import fetchSetter from "./fetchSetter";
 
-export const setUser = ({name = '', email = '', password = ''} = {}) => {
+export const setUser = async({name = '', email = '', password = ''} = {}) => {
   
     const SET_USER = `mutation
     {
@@ -18,12 +18,6 @@ export const setUser = ({name = '', email = '', password = ''} = {}) => {
       }
     }`
     
-    return fetch(ENDPOINT, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ query: SET_USER }),
-      }).then((res) => res.json());
-
+    const data = await fetchSetter(SET_USER);
+    return data;
 }

@@ -1,9 +1,9 @@
 import fetchSetter from "./fetchSetter";
 
-export const setBookTocart = async ({ quantity, isbn, token }) => {
-  const SET_BOOK_TO_CART = `mutation
+export const removeOneFromCart = async ({ quantity, isbn, token }) => {
+  const REMOVE_ONE_FROM_CART = `mutation
     {
-      agregarProducto(cantidad: ${quantity}, isbn: "${isbn}", tokenUser: "${token}") {
+      quitarProducto(cantidad: ${quantity}, isbn: "${isbn}", tokenUser: "${token}") {
         message
         success
         accessToken
@@ -19,6 +19,6 @@ export const setBookTocart = async ({ quantity, isbn, token }) => {
       }
     }`;
 
-  const data = await fetchSetter(SET_BOOK_TO_CART);
+  const data = await fetchSetter(REMOVE_ONE_FROM_CART);
   return data;
 };

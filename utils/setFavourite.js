@@ -1,6 +1,6 @@
-import { ENDPOINT } from "../config";
+import fetchSetter from "./fetchSetter";
 
-export const setFav = ({isbn, token}) => {
+export const setFav = async({isbn, token}) => {
 
     const SET_FAVOURITE = `mutation
     {
@@ -16,11 +16,6 @@ export const setFav = ({isbn, token}) => {
       }
     }`
     
-    return fetch(ENDPOINT, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ query: SET_FAVOURITE }),
-      }).then((res) => res.json());
+    const data = await fetchSetter(SET_FAVOURITE);
+    return data;
 }

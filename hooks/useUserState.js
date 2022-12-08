@@ -28,32 +28,29 @@ const useUserState = () => {
         setState({ login: { success: false, isLoading: true } });
       else setState(data);
     });
-  }
+  };
 
   const setFavourite = (payload) => {
+    setState({
+      ...state,
+      login: {
+        ...state.login,
+        usuario: {
+          ...state.login.usuario,
+          favorito: state.login.usuario.favorito
+            ? [...state.login.usuario.favorito, payload]
+            : [payload],
+        },
+      },
+    });
     setFav({ isbn: payload.isbn, token: state.login.accessToken }).then(
-      (data) => {
-        if (data.data.insertFav.success)
-          setState({
-            ...state,
-            login: {
-              ...state.login,
-              usuario: {
-                ...state.login.usuario,
-                favorito: state.login.usuario.favorito
-                  ? [...state.login.usuario.favorito, payload]
-                  : [payload],
-              },
-            },
-          });
-      }
+      (data) => data
     );
   };
 
   const removeFavourite = (payload) => {
     removeFav({ isbn: payload.isbn, token: state.login.accessToken }).then(
       (data) => {
-        console.log(data);
         if (data.errors || !data) return;
         setState({
           ...state,
@@ -71,23 +68,12 @@ const useUserState = () => {
     );
   };
 
-  const addToCart = async (payload) => {
-    const res = await setBookTocart({
-      quantity: payload.quantity,
-      isbn: payload.isbn,
-      token: state.login.accessToken,
-    });
-    const { errors, data } = res;
-    if (errors || !data) return
-    updateUserInfo()
-      
-  };
 
   return {
     setState,
     setFavourite,
     removeFavourite,
-    addToCart,
+    updateUserInfo,
     state,
   };
 };

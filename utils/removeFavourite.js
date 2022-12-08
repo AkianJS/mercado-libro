@@ -1,8 +1,7 @@
-import { ENDPOINT } from "../config";
+import fetchSetter from "./fetchSetter";
 
-export const removeFav = ({isbn, token}) => {
-
-    const REMOVE_FAV = `mutation
+export const removeFav = async ({ isbn, token }) => {
+  const REMOVE_FAV = `mutation
     {
       removeFav(isbn: "${isbn}", tokenUser: "${token}") {
         message
@@ -14,13 +13,8 @@ export const removeFav = ({isbn, token}) => {
           }
         }
       }
-    }`
-    
-    return fetch(ENDPOINT, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ query: REMOVE_FAV }),
-      }).then((res) => res.json());
-}
+    }`;
+
+  const data = await fetchSetter(REMOVE_FAV);
+  return data;
+};

@@ -1,6 +1,6 @@
-import { ENDPOINT } from "../config";
+import fetchSetter from "./fetchSetter";
 
-export const getBooks = ({category = '', title = '', isbn = ''} = { }) => {
+export const getBooks = async ({category = '', title = '', isbn = ''} = { }) => {
   const GET_BOOKS = `query
   {
     getLibro(categoria: "${category}", titulo: "${title}", isbn: "${isbn}")
@@ -51,11 +51,6 @@ export const getBooks = ({category = '', title = '', isbn = ''} = { }) => {
     }
   }	`;
 
-  return fetch(ENDPOINT, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ query: GET_BOOKS }),
-  }).then((res) => res.json());
+  const data = await fetchSetter(GET_BOOKS);
+  return data;
 };

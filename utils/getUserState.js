@@ -1,11 +1,10 @@
-import { ENDPOINT } from "../config"
+import fetchSetter from "./fetchSetter";
 
-export const getUserState = ({
+export const getUserState = async ({
   email = "",
   password = "",
   token = "",
 } = {}) => {
-
   const QUERY = `query
   {
       login(correo: "${email}", contrasenia: "${password}" , tokenUser: "${token}") {
@@ -135,11 +134,6 @@ export const getUserState = ({
       }
     } `;
 
-  return fetch(ENDPOINT, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ query: QUERY }),
-  }).then((res) => res.json());
+  const data = await fetchSetter(QUERY);
+  return data;
 };

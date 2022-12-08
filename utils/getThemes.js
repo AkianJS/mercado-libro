@@ -1,8 +1,7 @@
-import { ENDPOINT } from "../config";
+import fetchSetter from "./fetchSetter";
 
-export const getThemes = () => {
-
-    const GET_THEMES = `query
+export const getThemes = async () => {
+  const GET_THEMES = `query
     {
       getTemas {
         message
@@ -13,13 +12,8 @@ export const getThemes = () => {
           url_imagen
         }
       }
-    }`
-    
-    return fetch(ENDPOINT, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ query: GET_THEMES }),
-      }).then((res) => res.json());
-}
+    }`;
+
+  const data = await fetchSetter(GET_THEMES);
+  return data;
+};
