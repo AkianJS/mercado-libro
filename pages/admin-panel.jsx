@@ -47,7 +47,6 @@ const AdminPanel = ({ getTemas }) => {
     }).then((data) => console.log(data));
   };
 
-
   return (
     <Layout title="Panel del Administrador">
       <ProtectedRoute
@@ -57,6 +56,14 @@ const AdminPanel = ({ getTemas }) => {
       >
         <div className="max-w-2xl m-auto p-8">
           <form onSubmit={handleSubmit(onSubmit)}>
+            <label className="uppercase text-sm">autor/es</label>
+            <input
+              required="required"
+              {...register("author")}
+              className={`bg-gray-200 border-2 border-black rounded-sm w-full p-2 outline-none`}
+              type="text"
+            />
+
             <label className="uppercase text-sm">isbn</label>
             <input
               required="required"
@@ -153,14 +160,6 @@ const AdminPanel = ({ getTemas }) => {
             <input
               required="required"
               {...register("editorial")}
-              className={`bg-gray-200 border-2 border-black rounded-sm w-full p-2 outline-none`}
-              type="text"
-            />
-
-            <label className="uppercase text-sm">autor/es</label>
-            <input
-              required="required"
-              {...register("author")}
               className={`bg-gray-200 border-2 border-black rounded-sm w-full p-2 outline-none`}
               type="text"
             />
