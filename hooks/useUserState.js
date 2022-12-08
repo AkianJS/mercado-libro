@@ -13,7 +13,6 @@ const useUserState = () => {
       const userToken = JSON.parse(window.localStorage.getItem("userToken"));
       getUserState({ token: userToken }).then((res) => {
         const { errors, data } = res;
-        console.log(data);
         if (errors || !data)
           setState({ login: { success: false, isLoading: true } });
         else if (data) setState(data);

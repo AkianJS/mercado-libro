@@ -17,20 +17,14 @@ const Cart = () => {
   }, [login?.usuario?.carrito]);
 
   const total = useMemo(() => {
-    if (login?.usuario?.carrito.length > 1) {
+    if (login?.usuario?.carrito?.length > 1) {
       return login?.usuario?.carrito.reduce(
-        (prev, current) =>
-          prev.libro.precio * prev.cantidad +
-          current.libro.precio * current.cantidad
+        (prev, current) => prev + current.libro?.precio * current.cantidad,
+        0
       );
-    } else {
-      return (
-        login?.usuario?.carrito[0]?.libro?.precio *
-        login?.usuario?.carrito[0]?.cantidad
-      );
-    }
+    } else return login.usuario?.carrito[0]?.cantidad * login.usuario?.carrito[0]?.libro?.precio
   }, [login?.usuario?.carrito]);
-
+  console.log(login)
   return (
     <Layout title="MercadoLibro Carrito de Compras">
       <ProtectedRoute
@@ -70,7 +64,9 @@ const Cart = () => {
                   placeholder="Cupón de descuento"
                   type="text"
                 />
-                <button className="bg-black text-white ml-4 p-1 pl-2 pr-2 rounded-sm">Agregar</button>
+                <button className="bg-black text-white ml-4 p-1 pl-2 pr-2 rounded-sm">
+                  Agregar
+                </button>
               </div>
             </div>
           )}

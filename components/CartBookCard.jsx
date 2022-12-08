@@ -40,7 +40,7 @@ const CartBookCard = ({ cartBook, token, updateUserInfo }) => {
       </div>
       <div className="w-72">
         <h3 className="font-bold text-base text-center">
-          {cartBook.libro.titulo}
+          {cartBook.libro?.titulo}
         </h3>
         <p className="text-sm text-gray-600">{author}</p>
         
