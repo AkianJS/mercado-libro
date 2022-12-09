@@ -1,10 +1,10 @@
 import React, { useContext, useMemo } from "react";
 import Layout from "../components/layout/Layout";
+import { FaCaretRight } from "react-icons/fa";
 import AppContext from "../context/AppContext";
 import ProtectedRoute from "../components/ProtectedRoute";
 import CartBookCard from "../components/CartBookCard";
 import styles from "../styles/BooksCartGrid.module.css";
-import { FaCaretRight } from "react-icons/fa";
 
 const Cart = () => {
   const {
