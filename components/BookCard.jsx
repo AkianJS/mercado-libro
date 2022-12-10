@@ -3,7 +3,7 @@ import Link from "next/link";
 import React from "react";
 import noImage from "../public/NoImage.png";
 
-const BookCard = ({ book, withPrice }) => {
+const BookCard = ({ book, withPrice, quantity }) => {
   const autor = book?.autor?.map((item) => item.nombre) || ["Sin nombre"];
 
   return (
@@ -19,7 +19,10 @@ const BookCard = ({ book, withPrice }) => {
         <div className="p-4">
           <p className="text-center">{book?.titulo}</p>
           <p className="text-sm text-gray-600">{autor.join(", ")}</p>
-          {withPrice && <p className="mt-4 text-center text-emerald-600">{book.precio} $</p>}
+          {withPrice && (
+            <p className="mt-4 text-center text-emerald-600">{book.precio} $</p>
+          )}
+          {quantity && <p className="mt-4 text-center text-emerald-600">Cantidad {quantity}</p> }
         </div>
       </Link>
     </li>
