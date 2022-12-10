@@ -8,7 +8,7 @@ const ProtectedRoute = ({ children, myBoolean, path, isLoading = false }) => {
   useEffect(() => {
     if (!isLoading && !myBoolean) router.push(path);
   }, [myBoolean, isLoading]);
-  console.log("myBoolean", myBoolean, "isLoading: ", isLoading);
+  
   if (!myBoolean)
     return (
       <div className="flex justify-center items-center h-[50vh]">
