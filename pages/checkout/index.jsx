@@ -52,9 +52,10 @@ const Checkout = () => {
       phone: phone,
     });
     const {errors, data} = res
-    updateUserInfo();
+    console.log(data)
+    await updateUserInfo();
     if (errors || !data) return alert('Servicio caído')
-    router.push('/checkout/payment')
+    if (data?.agregarDireccion?.success) router.push('/checkout/payment')
   };
 
   return (

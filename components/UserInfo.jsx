@@ -45,7 +45,7 @@ const UserInfo = () => {
         </div>
         <div className="flex justify-center gap-2">
           <p className="font-bold">Info Adicional:</p>
-          <span>{usuario?.direccion.infoAdicional}</span>
+          <span>{usuario?.direccion?.infoAdicional}</span>
         </div>
       </div>
     </section>
