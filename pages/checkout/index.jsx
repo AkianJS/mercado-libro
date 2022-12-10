@@ -1,25 +1,69 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import Layout from "../../components/layout/Layout";
 import { useForm } from "react-hook-form";
 import styles from "../../styles/FormSpan.module.css";
 import Button from "../../components/ui/Button";
-import Link from "next/link";
+import AppContext from "../../context/AppContext";
+import { setAddress } from "../../utils/setAddress";
+import { useRouter } from "next/router";
 
 const Checkout = () => {
+  const {
+    state: { login },
+    updateUserInfo,
+  } = useContext(AppContext);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const router = useRouter()
+
+  useEffect(() => {
+    const defaultValues = {
+      name: login?.usuario?.nombre,
+      additionalInfo: login?.usuario?.direccion?.infoAdicional,
+      address: login?.usuario?.direccion?.direccion,
+      cp: login?.usuario?.direccion?.ciudad?.cp,
+      dni: login?.usuario?.direccion?.dni,
+      phone: login?.usuario?.direccion?.telefono
+    }
+    reset(defaultValues)
+  },[reset])
+
+  const onSubmit = async ({
+    additionalInfo,
+    address,
+    cp,
+    dni,
+    name,
+    phone,
+  }) => {
+    const res = await setAddress({
+      token: login.accessToken,
+      additionalInfo: additionalInfo,
+      address: address,
+      cp: parseInt(cp),
+      dni: parseInt(dni),
+      name: name,
+      phone: phone,
+    });
+    const {errors, data} = res
+    updateUserInfo();
+    if (errors || !data) return alert('Servicio caído')
+    router.push('/checkout/payment')
   };
 
   return (
     <Layout>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex items-center h-screen m-auto w-full max-w-xl flex-col gap-6 pt-20">
+          <h4 className="font-bold text-lg">
+            Agregue o modifique sus datos de envío:
+          </h4>
           <div className="w-3/4 flex justify-center relative items-center">
             <input
               required="required"
@@ -50,10 +94,11 @@ const Checkout = () => {
 
           <div className="w-3/4 flex justify-center relative items-center">
             <input
+              name="cp"
               required="required"
-              {...register("state")}
+              {...register("cp")}
               className={`border-2 border-black rounded-md w-full p-2 outline-none ${styles.placeholder}`}
-              type="text"
+              type="number"
             />
             <span
               className={`absolute left-0 pl-2 pr-2 opacity-60 duration-300 pointer-events-none`}
@@ -65,14 +110,14 @@ const Checkout = () => {
           <div className="w-3/4 flex justify-center relative items-center">
             <input
               required="required"
-              {...register("city")}
+              {...register("dni")}
               className={`border-2 border-black rounded-md w-full p-2 outline-none ${styles.placeholder}`}
-              type="text"
+              type="number"
             />
             <span
               className={`absolute left-0 pl-2 pr-2 opacity-60 duration-300 pointer-events-none`}
             >
-              Ciudad
+              DNI
             </span>
           </div>
 
@@ -81,7 +126,7 @@ const Checkout = () => {
               required="required"
               {...register("phone")}
               className={`border-2 border-black rounded-md w-full p-2 outline-none ${styles.placeholder}`}
-              type="number"
+              type="text"
             />
             <span
               className={`absolute left-0 pl-2 pr-2 opacity-60 duration-300 pointer-events-none`}
@@ -93,7 +138,7 @@ const Checkout = () => {
           <div className="w-3/4 flex justify-center relative items-center">
             <input
               required="required"
-              {...register("address")}
+              {...register("additionalInfo")}
               className={`border-2 border-black rounded-md w-full p-2 outline-none ${styles.placeholder}`}
               type="text"
             />
@@ -103,11 +148,9 @@ const Checkout = () => {
               Información Adicional
             </span>
           </div>
-          
+
           <div className="w-3/4">
-            <Link href='/checkout/payment'>
-              <Button type="submit" text="pagar" />
-            </Link>
+            <Button type="submit" text="Continuar" />
           </div>
         </div>
       </form>

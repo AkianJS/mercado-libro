@@ -3,8 +3,6 @@ import fetchSetter from "./fetchSetter";
 export const setBook = async({isbn, image, title, editionDate, 
 price, stock, description, entryDate, discount, language, editorial,
 author, themes}) => {
-    console.table(isbn, image, title, editionDate, price, stock, description, entryDate, discount, language, editorial
-        , author, themes)
 
     const SET_BOOK = `mutation
     {

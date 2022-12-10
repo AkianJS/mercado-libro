@@ -16,9 +16,26 @@ export const getUserState = async ({
           correo
           contrasenia
           admin
+          direccion {
+            direccion
+            id
+            nombre
+            infoAdicional
+            dni
+            telefono
+            ciudad {
+              cp
+              nombre
+            }
+          }
           carrito {
             nro_linea
             cantidad
+            cupon {
+              codigo_cupon
+              porc_descuento
+              utilizado
+            }
             libro {
               isbn
               url_imagen
