@@ -16,34 +16,44 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (loginData) => {
+  const [message, setMessage] = useState(null)
+
+  const onSubmit = async(loginData) => {
     let email = loginData.email;
     let password = loginData.password;
-    getUserState({ email: email, password: password })
-      .then((data) => {
-        data.errors
-          ? setState({ login: false, errors: data.errors })
-          : setState(data.data);
-        if (data.data?.login?.success)
+    try {
+    const res = await getUserState({ email: email, password: password })
+    const {errors, data} = res        
+    if (errors || !data) return setMessage(errors) 
+    setState(data)
+    setMessage(data.login?.message)
+        if (data?.login?.success)
           window.localStorage.setItem(
             "userToken",
             JSON.stringify(data.data.login.accessToken)
           );
-      })
-      .catch((errors) => console.error(`error: ${errors}`));
+      }
+    catch (err) {
+      setMessage(err)  
+    }
   };
 
-  const handleGoogleSuccess = (credentialResponse) => {
+  const handleGoogleSuccess = async(credentialResponse) => {
     const decoded = jwt_decode(credentialResponse.credential);
     let email = decoded.email;
     let password = decoded.sub;
-    getUserState({email: email, password: password}).then(data => {
-      if (data.errors || !data) return
-      setState(data.data)
-      if (data?.data?.login?.success) window.localStorage.setItem(
+    try {
+    const res = await getUserState({email: email, password: password})
+    const {errors, data} = res  
+    if (errors || !data) return setState(data.data)
+    setMessage(data.login?.message)
+      if (data?.login?.success) window.localStorage.setItem(
         "userToken",
-        JSON.stringify(data.data.login.accessToken))
-    })
+        JSON.stringify(data.data.login.accessToken))  
+    } catch (err) {
+    setMessage(err)  
+    }
+    
   };
 
   return (
@@ -75,7 +85,7 @@ const Login = () => {
           >
             Contraseña
           </span>
-          {state?.errors?.message && <p>{state.errors.message}</p>}
+          {message && <p>{message}</p>}
         </div>
         <div className="w-3/4">
           <Button text="Ingresar" type="submit" />
