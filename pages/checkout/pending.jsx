@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import Layout from "../../components/layout/Layout";
 
 const Pending = () => {
   return (
-    <div>Pending</div>
-  )
-}
+    <Layout>
+      <div>Pending</div>
+    </Layout>
+  );
+};
 
-export default Pending
+export default Pending;

@@ -1,9 +1,16 @@
 import React, { useState } from "react";
 import { MdNotifications } from "react-icons/md";
 import { FaTrash } from "react-icons/fa";
+import { removeNotification } from "../../utils/removeNotification";
 
-const NavNotifications = ({ notifications }) => {
+const NavNotifications = ({ notifications, updateUserInfo }) => {
   const [show, setShow] = useState(false);
+
+  const handleRemoveNotification = async(id) => {
+    await removeNotification({id: id})
+    await updateUserInfo()
+  }
+
   return (
     <div className="relative">
       <li className="text-3xl relative">
@@ -27,9 +34,9 @@ const NavNotifications = ({ notifications }) => {
               <p className="p-2 text-sm" key={item.id}>
                 {item?.mensaje}
               </p>
-              <p className="text-right text-sm mr-2 p-2">
+              <button onClick={() => handleRemoveNotification(item.id)} className="text-right text-sm mr-2 p-2">
                 <FaTrash className="cursor-pointer text-lg hover:scale-105 duration-100" />
-              </p>
+              </button>
             </div>
           ))}
         </div>

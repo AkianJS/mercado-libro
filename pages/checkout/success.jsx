@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import Layout from "../../components/layout/Layout";
 
 const Success = () => {
   return (
-    <div>Success</div>
-  )
-}
+    <Layout>
+      <div>Success</div>
+    </Layout>
+  );
+};
 
-export default Success
+export default Success;

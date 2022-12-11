@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import Layout from "../../components/layout/Layout";
 
 const Failure = () => {
   return (
-    <div>Failure</div>
-  )
-}
+    <Layout>
+      <div>Failure</div>
+    </Layout>
+  );
+};
 
-export default Failure
+export default Failure;

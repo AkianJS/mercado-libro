@@ -14,7 +14,7 @@ import NavUser from "./NavUser";
 import NavNotifications from "./NavNotifications";
 
 const Navbar = () => {
-  const { state, setState } = useContext(AppContext);
+  const { state, setState, updateUserInfo } = useContext(AppContext);
   const { login } = state;
 
   const [dropdownMenu, setDropdownMenu] = useState(false);
@@ -80,7 +80,7 @@ const Navbar = () => {
         <NavSearch isSearching={isSearching} />
 
         {/* Icono de notificación con su funcionalidad */}
-        <NavNotifications notifications={login.usuario?.notificacion} />
+        <NavNotifications notifications={login.usuario?.notificacion} updateUserInfo={updateUserInfo}/>
 
         {/* Icono de usuario  y carrito con sus funcionalidades*/}
         <div className="flex gap-5 mr-4">
