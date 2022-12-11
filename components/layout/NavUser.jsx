@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 import { FaUser, FaUserCircle } from "react-icons/fa";
 import { IoMdLogOut } from "react-icons/io";
-import styles from "../../styles/Navbar.module.css"
+import styles from "../../styles/Navbar.module.css";
 
 const NavUser = ({ login, setState }) => {
   const [dropdownUser, setDropdownUser] = useState(false);
@@ -42,7 +42,7 @@ const NavUser = ({ login, setState }) => {
   };
 
   return (
-    <>
+    <div className="relative">
       {!login?.success ? (
         <Link href={login?.success ? "" : "/login"}>
           <li>
@@ -54,37 +54,40 @@ const NavUser = ({ login, setState }) => {
           <FaUser className="text-2xl" />
         </li>
       )}
-      <div className="relative">
+
+      <div
+        ref={dropdownUserRef}
+        className={`absolute left-[50%] -translate-x-[50%] top-12 w-16 h-28 overflow-hidden ${
+          dropdownUser ? "pointer-events-auto" : "pointer-events-none"
+        }`}
+      >
         <div
-          ref={dropdownUserRef}
-          className={`absolute -right-[22px] top-12 w-16 h-28 overflow-hidden ${
-            dropdownUser ? "pointer-events-auto" : "pointer-events-none"
-          }`}
+          className={`text-[1.2rem] flex flex-col items-center justify-center h-full`}
         >
-          <div
-            className={`text-[1.2rem] flex flex-col items-center justify-center h-full`}
-          >
-            <Link href={login?.usuario?.admin ? "/admin-panel" : "/profile"}>
-              <li
-                className={`scale-0 bg-white rounded-full p-1 border-2 ${
-                  dropdownUser ? "translate-y-0 scale-100" : "-translate-y-full"
-                }`}
-              >
-                {" "}
-                <FaUserCircle className="text-4xl" />{" "}
-              </li>
-            </Link>
+          <Link href={login?.usuario?.admin ? "/admin-panel" : "/profile"}>
             <li
-              onClick={handleCloseSesion}
-              className={` mt-2 bg-white rounded-full p-1 border-2 scale-0  hover:scale-110 ${
-                dropdownUser ? `${styles.closeSesion} translate-y-0` : "-translate-y-full"}`}
-            > {" "}
-              <IoMdLogOut className="text-4xl" />
+              className={`scale-0 bg-white rounded-full p-1 border-2 ${
+                dropdownUser ? "translate-y-0 scale-100" : "-translate-y-full"
+              }`}
+            >
+              {" "}
+              <FaUserCircle className="text-4xl" />{" "}
             </li>
+          </Link>
+          <div
+            onClick={handleCloseSesion}
+            className={`mt-2 bg-white rounded-full p-1 border-2 hover:scale-110 duration-300 cursor-pointer ${
+              dropdownUser
+                ? `${styles.closeSesion} translate-y-0`
+                : "-translate-y-full scale-0 delay-200"
+            }`}
+          >
+            {" "}
+            <IoMdLogOut className="text-4xl" />
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

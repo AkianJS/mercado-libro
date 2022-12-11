@@ -26,11 +26,15 @@
 }
 
 .closeSesion {
-  animation: in .3s cubic-bezier(0.075, 0.82, 0.165, 1) forwards;
+  animation: in .2s ;
   animation-delay: .2s;
 }
 
 @keyframes in {
+  from {
+    scale: 0;
+    transform: translateY(-100%);
+  }
   to {
     scale: 1;
     transform: translateY(0);

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { MdNotifications } from "react-icons/md";
-import {FaTrash} from "react-icons/fa"
+import { FaTrash } from "react-icons/fa";
 
 const NavNotifications = ({ notifications }) => {
   const [show, setShow] = useState(false);
   return (
-    <>
+    <div className="relative">
       <li className="text-3xl relative">
         <MdNotifications onClick={() => setShow(!show)} />
         {notifications?.length && (
@@ -15,13 +15,11 @@ const NavNotifications = ({ notifications }) => {
         )}
       </li>
       <div
-        className={`absolute top-16 right-0 overflow-hidden ${
-          !show && "pointer-events-none"
-        }`}
+        className={`absolute top-10 left-[50%] -translate-x-[50%] w-60 duration-200 overflow-hidden`}
       >
         <div
-          className={`relative w-60 duration-200 bg-white ${
-            show ? "translate-y-0" : "-translate-y-full pointer-events-none"
+          className={`duration-150 bg-white ${
+            show ? "translate-y-0" : "-translate-y-full"
           }`}
         >
           {notifications?.map((item) => (
@@ -36,7 +34,7 @@ const NavNotifications = ({ notifications }) => {
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
