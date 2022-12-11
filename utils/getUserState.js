@@ -88,8 +88,9 @@ export const getUserState = async ({
               }
             }
           }
-        } `;
-
+        } 
+      }
+    }`;
   const data = await fetchSetter(QUERY);
   return data;
 };
