@@ -11,6 +11,7 @@ import NavLinks from "./NavLinks";
 import NavSearch from "./NavSearch";
 import { useEffect, useState, useRef, useContext } from "react";
 import NavUser from "./NavUser";
+import NavNotifications from "./NavNotifications";
 
 const Navbar = () => {
   const { state, setState } = useContext(AppContext);
@@ -78,6 +79,9 @@ const Navbar = () => {
         </li>
         <NavSearch isSearching={isSearching} setIsSearching={setIsSearching} />
 
+        {/* Icono de notificación con su funcionalidad */}
+        <NavNotifications notifications={login.usuario?.notificacion} />
+
         {/* Icono de usuario  y carrito con sus funcionalidades*/}
         <div className="flex gap-5 mr-4">
           <div className="flex">
@@ -87,8 +91,10 @@ const Navbar = () => {
             <Link href="/cart">
               <FaShoppingCart className="text-2xl" />
               {login?.usuario?.carrito?.length > 0 && (
-                <div className="flex justify-center items-center w-4 h-4 rounded-full bg-emerald-600 absolute -right-1 top-3 opacity-90">
-                 <p className="text-white text-sm">{login.usuario.carrito.length}</p>
+                <div className="flex justify-center items-center w-4 h-4 rounded-full bg-emerald-600 absolute -right-1 top-3 opacity-90 pointer-events-none">
+                  <p className="text-white text-sm">
+                    {login.usuario?.carrito?.length}
+                  </p>
                 </div>
               )}
             </Link>
