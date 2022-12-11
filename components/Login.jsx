@@ -24,8 +24,7 @@ const Login = () => {
     try {
       const res = await getUserState({ email: email, password: password });
       const { errors, data } = res;
-      console.log(data)
-      if (errors || !data) return setMessage(errors);
+      if (errors || !data) return setMessage("Error en el servidor");
       setState(data);
       setMessage(data.login?.message);
       if (data?.login?.success)
@@ -45,7 +44,7 @@ const Login = () => {
     try {
       const res = await getUserState({ email: email, password: password });
       const { errors, data } = res;
-      if (errors || !data) return setState(errors);
+      if (errors || !data) return setState("Error en el servidor");
       setState(data)
       setMessage(data.login?.message);
       if (data?.login?.success)
