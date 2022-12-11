@@ -18,14 +18,12 @@ export const getUserState = async ({
           admin
           direccion {
             direccion
-            id
             nombre
             infoAdicional
             dni
             telefono
             ciudad {
               cp
-              nombre
             }
           }
           notificacion {
@@ -48,7 +46,6 @@ export const getUserState = async ({
               precio
               stock
               descripcion
-              fecha_ingreso
               descuento
               editorial {
                 nombre
@@ -62,38 +59,10 @@ export const getUserState = async ({
               autor {
                 nombre
               }
-              opinion {
-                comentario
-                usuario {
-                  nombre
-                }
-              }
-              puntuacion {
-                usuario {
-                  nombre
-                }
-              }
             }
           }
           favorito {
             isbn
-            url_imagen
-            titulo
-            fecha_edicion
-            precio
-            stock
-            descripcion
-            fecha_ingreso
-            descuento
-            editorial {
-              nombre
-            }
-            tema {
-              nombre
-            }
-            autor {
-              nombre
-            }
           }
           orden {
             id
@@ -104,56 +73,22 @@ export const getUserState = async ({
               porc_descuento
               utilizado
             }
-            direccion_entrega {
-              id
-              direccion
-              infoAdicional
-              telefono
-              ciudad {
-                cp
-                nombre
-                provincia {
-                  id
-                  nombre
-                  pais {
-                    id
-                    nombre
-                  }
-                }
-              }
-            }
             orden_detalle {
               id
               cantidad
               precio
               libro {
-                isbn
                 url_imagen
                 titulo
-                fecha_edicion
                 precio
                 stock
-                descripcion
-                fecha_ingreso
-                descuento
-                editorial {
-                  nombre
-                }
-                tema {
-                  nombre
-                }
-                autor {
-                  nombre
-                }
                 autor {
                   nombre
                 }
               }
             }
           }
-        }
-      }
-    } `;
+        } `;
 
   const data = await fetchSetter(QUERY);
   return data;
