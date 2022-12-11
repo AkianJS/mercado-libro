@@ -8,7 +8,7 @@ export const setBookTocart = async ({ quantity, isbn, token }) => {
         status
         success
       }
-    }}`;
+    }`;
 
   const data = await fetchSetter(SET_BOOK_TO_CART);
   return data;
