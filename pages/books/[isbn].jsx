@@ -54,6 +54,7 @@ const Book = ({ book }) => {
   const discount = book?.descuento
     ? (book.descuento / 100) * book.precio
     : null;
+
   const isFavourite = login?.usuario?.favorito?.find(
     (item) => item.isbn === book.isbn
   );
@@ -87,7 +88,7 @@ const Book = ({ book }) => {
           <p className="text-gray-500 text-lg">{author.join(", ")}</p>
           {discount && (
             <p className="mt-14 text-right text-2xl font-bold text-emerald-600">
-              {book.precio - discount} $
+              {(book.precio - discount).toFixed(2)} $
             </p>
           )}
           <div

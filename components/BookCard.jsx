@@ -5,7 +5,8 @@ import noImage from "../public/NoImage.png";
 
 const BookCard = ({ book, withPrice, quantity }) => {
   const autor = book?.autor?.map((item) => item.nombre) || ["Sin nombre"];
-
+  const discount =
+    book?.descuento !== 0 ? (book?.descuento / 100) * book?.precio : null;
   return (
     <li className="rounded-md shadow-lg bg-white flex flex-col items-center relative">
       <Link className="flex flex-col items-center" href={`/books/${book.isbn}`}>
@@ -19,10 +20,19 @@ const BookCard = ({ book, withPrice, quantity }) => {
         <div className="p-4">
           <p className="text-center">{book?.titulo}</p>
           <p className="text-sm text-gray-600">{autor.join(", ")}</p>
-          {withPrice && (
-            <p className="mt-4 text-center text-emerald-600">{book.precio} $</p>
+          {withPrice && discount ? (
+            <>
+              <p className="line-through mt-4 text-center text-gray-500 text-sm">{book?.precio} $</p>
+              <p className="text-center text-emerald-600">{(book.precio - discount).toFixed(2)} $</p>
+            </>
+          ) : (
+            <p className="mt-4 text-center text-emerald-600">{book?.precio} $</p>
           )}
-          {quantity && <p className="mt-4 text-center text-emerald-600">Cantidad {quantity}</p> }
+          {quantity && (
+            <p className="mt-4 text-center text-emerald-600">
+              Cantidad {quantity}
+            </p>
+          )}
         </div>
       </Link>
     </li>
