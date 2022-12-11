@@ -12,17 +12,17 @@ const NavSearch = ({ isSearching }) => {
     router.push(`/books/?query=${search}`);
     searchRef.current.value = "";
   };
-
+console.log(isSearching)
   return (
-    <form className="absolute" onSubmit={handleSearch}>
+    <form className="absolute top-16" onSubmit={handleSearch}>
       <div
-        className={`w-full h-10 fixed top-16 left-0 z-30 m-auto overflow-hidden ${
+        className={`w-full h-10 fixed z-50 m-auto overflow-hidden ${
           isSearching ? "" : "pointer-events-none"
         }`}
       >
         <div
-          className={`w-full max-w-screen-xl h-full relative flex justify-center  -translate-y-12 items-center m-auto transition-transform ${
-            isSearching ? "translate-y-0" : "pointer-events-none"
+          className={`w-full max-w-screen-xl h-full relative flex justify-center items-center m-auto transition-transform ${
+            isSearching ? "translate-y-0" : "pointer-events-none -translate-y-12"
           }`}
         >
           <input

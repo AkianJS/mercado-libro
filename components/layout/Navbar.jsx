@@ -77,7 +77,7 @@ const Navbar = () => {
         >
           <FaSearch />
         </li>
-        <NavSearch isSearching={isSearching} setIsSearching={setIsSearching} />
+        <NavSearch isSearching={isSearching} />
 
         {/* Icono de notificación con su funcionalidad */}
         <NavNotifications notifications={login.usuario?.notificacion} />
