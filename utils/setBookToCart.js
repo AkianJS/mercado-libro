@@ -5,19 +5,10 @@ export const setBookTocart = async ({ quantity, isbn, token }) => {
     {
       agregarProducto(cantidad: ${quantity}, isbn: "${isbn}", tokenUser: "${token}") {
         message
+        status
         success
-        accessToken
-        usuario {
-          carrito {
-            cantidad
-            libro {
-              isbn
-              titulo
-            }
-          }
-        }
       }
-    }`;
+    }}`;
 
   const data = await fetchSetter(SET_BOOK_TO_CART);
   return data;

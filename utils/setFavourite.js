@@ -4,15 +4,10 @@ export const setFav = async({isbn, token}) => {
 
     const SET_FAVOURITE = `mutation
     {
-      insertFav(isbn: "${isbn}", tokenUser: "${token}") {
+      insertFav(isbn: "${isbn}", tokenUser: "${token}")  {
         message
+        status
         success
-        accessToken
-        usuario {
-          favorito {
-            isbn
-          }
-        }
       }
     }`
     

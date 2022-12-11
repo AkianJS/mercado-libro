@@ -78,6 +78,7 @@ export const getUserState = async ({
               cantidad
               precio
               libro {
+                isbn
                 url_imagen
                 titulo
                 precio

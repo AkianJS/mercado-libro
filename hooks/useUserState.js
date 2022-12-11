@@ -20,53 +20,22 @@ const useUserState = () => {
     } else setState({ login: { success: false, isLoading: false } });
   }, []);
 
-  const updateUserInfo = () => {
-    getUserState({ token: state.login.accessToken }).then((res) => {
+  const updateUserInfo = async () => {
+    const res = await getUserState({ token: state.login.accessToken })
       const { errors, data } = res;
       if (errors || !data)
         setState({ login: { success: false, isLoading: true } });
       else setState(data);
-    });
+    };
+
+  const setFavourite = async (payload) => {
+    const res = await setFav({ isbn: payload.isbn, token: state.login.accessToken })
+    await updateUserInfo()
   };
 
-  const setFavourite = (payload) => {
-    setState({
-      ...state,
-      login: {
-        ...state.login,
-        usuario: {
-          ...state.login.usuario,
-          favorito: state.login.usuario.favorito
-            ? [...state.login.usuario.favorito, payload]
-            : [payload],
-        },
-      },
-    });
-    setFav({ isbn: payload.isbn, token: state.login.accessToken }).then(
-      (data) => data
-    );
-    updateUserInfo()
-  };
-
-  const removeFavourite = (payload) => {
-    removeFav({ isbn: payload.isbn, token: state.login.accessToken }).then(
-      (data) => {
-        if (data.errors || !data) return;
-        setState({
-          ...state,
-          login: {
-            ...state.login,
-            usuario: {
-              ...state.login.usuario,
-              favorito: state.login.usuario.favorito.filter(
-                (item) => item.isbn !== payload.isbn
-              ),
-            },
-          },
-        });
-      }
-    );
-    updateUserInfo()
+  const removeFavourite = async (payload) => {
+    const res = await removeFav({ isbn: payload.isbn, token: state.login.accessToken })
+    await updateUserInfo()
   };
 
   return {

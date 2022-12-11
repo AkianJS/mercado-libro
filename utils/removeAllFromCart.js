@@ -5,17 +5,8 @@ export const removeAllFromCart = async ({ isbn, token }) => {
     {
       eliminarProducto(isbn: "${isbn}", tokenUser: "${token}") {
         message
+        status
         success
-        accessToken
-        usuario {
-          carrito {
-            cantidad
-            libro {
-              isbn
-              titulo
-            }
-          }
-        }
       }
     }`;
 

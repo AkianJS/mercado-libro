@@ -5,13 +5,8 @@ export const removeFav = async ({ isbn, token }) => {
     {
       removeFav(isbn: "${isbn}", tokenUser: "${token}") {
         message
+        status
         success
-        accessToken
-        usuario {
-          favorito {
-            isbn
-          }
-        }
       }
     }`;
 
