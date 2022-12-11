@@ -8,7 +8,7 @@ const NavNotifications = ({ notifications }) => {
     <div className="relative">
       <li className="text-3xl relative">
         <MdNotifications onClick={() => setShow(!show)} />
-        {notifications?.length && (
+        {notifications?.length > 0 && (
           <div className="flex justify-center items-center w-4 h-4 rounded-full bg-emerald-600 absolute right-0 top-3 opacity-90 pointer-events-none">
             <p className="text-white text-sm">{notifications?.length}</p>
           </div>
