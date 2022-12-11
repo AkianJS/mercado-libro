@@ -50,7 +50,7 @@ const CartBookCard = ({ cartBook, token, updateUserInfo }) => {
               <p className="line-through text-sm">{libro.precio} $</p>
               <div className="flex gap-4">
                 <p className="font-bold text-emerald-600">
-                  {libro.precio - discount} $
+                  {(libro.precio - discount).toFixed(2)} $
                 </p>
                 <p className="font-bold text-white bg-red-500 pr-2 pl-2">- {libro.descuento} %</p>
               </div>
