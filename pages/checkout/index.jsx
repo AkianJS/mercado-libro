@@ -53,7 +53,6 @@ const Checkout = () => {
       phone: phone,
     });
     const { errors, data } = res;
-    console.log(data);
     await updateUserInfo();
     if (errors || !data) return alert("Servicio caído");
     if (data?.agregarDireccion?.success) router.push("/checkout/payment");

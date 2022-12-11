@@ -24,6 +24,7 @@ const Login = () => {
     try {
       const res = await getUserState({ email: email, password: password });
       const { errors, data } = res;
+      console.log(data)
       if (errors || !data) return setMessage(errors);
       setState(data);
       setMessage(data.login?.message);
@@ -44,7 +45,8 @@ const Login = () => {
     try {
       const res = await getUserState({ email: email, password: password });
       const { errors, data } = res;
-      if (errors || !data) return setState(data.data);
+      if (errors || !data) return setState(errors);
+      setState(data)
       setMessage(data.login?.message);
       if (data?.login?.success)
         window.localStorage.setItem(

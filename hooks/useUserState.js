@@ -9,7 +9,6 @@ const useUserState = () => {
   });
 
   useEffect(() => {
-    console.log('entro')
     if (window.localStorage.getItem("userToken")) {
       const userToken = JSON.parse(window.localStorage.getItem("userToken"));
       getUserState({ token: userToken }).then((res) => {
@@ -19,7 +18,6 @@ const useUserState = () => {
         else if (data) setState(data);
       });
     } else setState({ login: { success: false, isLoading: false } });
-    console.log('salgo')
   }, []);
 
   const updateUserInfo = () => {
