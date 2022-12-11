@@ -8,7 +8,7 @@ const CategoryBooks = ({books, query}) => {
     <Layout>
 
     <section>
-        <BooksGrid books={books} texth3={query}/>
+        <BooksGrid books={books} texth3={query} withPrice={true} />
     </section>
     </Layout>
   )

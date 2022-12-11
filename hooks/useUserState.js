@@ -45,6 +45,7 @@ const useUserState = () => {
     setFav({ isbn: payload.isbn, token: state.login.accessToken }).then(
       (data) => data
     );
+    updateUserInfo()
   };
 
   const removeFavourite = (payload) => {
@@ -65,6 +66,7 @@ const useUserState = () => {
         });
       }
     );
+    updateUserInfo()
   };
 
   return {

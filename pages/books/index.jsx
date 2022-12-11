@@ -6,7 +6,7 @@ import { getBooks } from "../../utils/getBooks";
 const Books = ({ books }) => {
   return (
     <Layout title="Libros">
-      <BooksGrid books={books} texth3="Libros" />
+      <BooksGrid books={books} texth3="Libros" withPrice={true} />
     </Layout>
   );
 };

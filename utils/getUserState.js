@@ -28,6 +28,10 @@ export const getUserState = async ({
               nombre
             }
           }
+          notificacion {
+            id
+            mensaje
+          }
           carrito {
             nro_linea
             cantidad

@@ -14,7 +14,7 @@ const NavSearch = ({ isSearching }) => {
   };
 
   return (
-    <form onSubmit={handleSearch}>
+    <form className="absolute" onSubmit={handleSearch}>
       <div
         className={`w-full h-10 fixed top-16 left-0 z-30 m-auto overflow-hidden ${
           isSearching ? "" : "pointer-events-none"

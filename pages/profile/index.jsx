@@ -2,7 +2,6 @@ import React from "react";
 import Layout from "../../components/layout/Layout";
 import AppContext from "../../context/AppContext";
 import ProtectedRoute from "../../components/ProtectedRoute";
-import styles from "../../styles/Profile.module.css";
 import { useContext } from "react";
 
 const Profile = () => {
@@ -18,13 +17,12 @@ const Profile = () => {
         path="/login"
       >
         <section className="p-8">
-          <div className={`relative w-full h-64 ${styles.banner}`}>
-            <h2 className="mt-4 text-4xl font-bold text-right absolute right-4 -bottom-4">
-              Mi Perfil
-            </h2>
+          <div className={``}>
+            
           </div>
 
           <p>Nombre Completo: {login.usuario?.nombre}</p>
+          <p>Correo: {login.usuario?.correo}</p>
           
         </section>
       </ProtectedRoute>

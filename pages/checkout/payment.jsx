@@ -24,7 +24,7 @@ const Payment = () => {
     const res = await startPayment({ token: login?.accessToken });
     const {errors, data} = res
     if (errors || !data) return alert('Fallo en la operación, intente más tarde')
-    data.realizarCompra.success ? router.push(data.realizarCompra.init_point) : alert('Error al enviar a mercado pago')
+    data.realizarCompra?.success ? router.push(data.realizarCompra?.init_point) : alert('Error al enviar a mercado pago')
   };
 
   return (

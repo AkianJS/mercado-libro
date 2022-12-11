@@ -64,7 +64,7 @@ const RegisterForm = () => {
               },
             })}
             className={`bg-gray-200 border-2 border-black rounded-sm w-full p-2 outline-none ${styles.placeholder}`}
-            type="text"
+            type="email"
           />
           <span
             className={`absolute left-0 pl-2 pr-2 opacity-60 duration-300 pointer-events-none font-bold`}
@@ -89,7 +89,7 @@ const RegisterForm = () => {
             Contraseña
           </span>
         </div>
-        { message && <p>{message}</p> }
+        { message && <p className="text-sm">{message}</p> }
 
         <div className="w-3/4">
           <Button text="Registrar" type="submit" />
