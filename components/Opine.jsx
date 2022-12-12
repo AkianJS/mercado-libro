@@ -1,10 +1,16 @@
-import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import React, { useEffect, useRef, useState } from "react";
+import { FaAngleDoubleDown } from "react-icons/fa";
 import { getIsOpined } from "../utils/getIsOpined";
+import { setOpinion } from "../utils/setOpinion";
+import OpinedCard from "./OpinedCard";
+import Loader from "./ui/Loader";
 
-const Opine = ({ book, login }) => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [isOpined, setIsOpined] = useState(true);
-  console.log(login);
+const Opine = ({ book, login, Toast, isLoading }) => {
+  const [isOpined, setIsOpined] = useState(false);
+  const textAreaRef = useRef();
+  const router = useRouter();
+
   useEffect(() => {
     if (login.success) {
       const getOpinion = async () => {
@@ -13,22 +19,77 @@ const Opine = ({ book, login }) => {
           token: login.accessToken,
         });
         const { errors, data } = res;
-        if (errors || !data) return setIsOpined(true);
-        else if (data.opino?.success) setIsOpined(data.opino?.opino);
+        console.log(res);
+        if (errors || !data) setIsOpined(true);
+        setIsOpined(data.opino?.opino);
       };
       getOpinion();
     }
-  }, [book?.opinion]);
-  console.log(isOpined);
+  }, [book, isLoading]);
+
+  const handleOnSubmit = async (e) => {
+    e.preventDefault();
+
+    let value = textAreaRef.current.value;
+
+    const res = await setOpinion({
+      comment: value,
+      isbn: book.isbn,
+      token: login.accessToken,
+    });
+    console.log(res);
+    const { errors, data } = res;
+    if (errors || !data)
+      return Toast.fire({
+        icon: "error",
+        title: `Tu comentario no se pudo agregar`,
+      });
+    else if (data.opinar?.success) {
+      router.replace(router.asPath);
+      return Toast.fire({
+        icon: "success",
+        title: `Comentario agregado!`,
+      });
+    }
+  };
+
+  if (isLoading)
+    return (
+      <div className="flex justify-center">
+        <Loader />
+      </div>
+    );
 
   return (
     <section className="max-w-screen-xl m-auto">
       {!isOpined && (
         <>
-          <h4>Dejanos tu opinión debajo!</h4>
-          <p></p>
+          <h4 className="text-lg text-center font-bold">
+            Dejanos tu opinión debajo!
+          </h4>
+
+          <form onSubmit={handleOnSubmit}>
+            <div className="mr-8 ml-8 mt-4 flex flex-col items-center">
+              <textarea
+                ref={textAreaRef}
+                rows="4"
+                cols="50"
+                className={`bg-gray-200 border-2 w-full max-w-lg border-black rounded-sm p-2 outline-none`}
+                type="text"
+              ></textarea>
+              <button
+                type="submit"
+                className="bg-teal-600 text-white mt-4 ml-4 p-1 pl-2 pr-2 rounded-sm flex items-center gap-2 hover:scale-105 ease-linear duration-100"
+              >
+                Opinar <FaAngleDoubleDown />
+              </button>
+            </div>
+          </form>
         </>
       )}
+      {book?.opinion?.map((item) => (
+        <OpinedCard key={item?.usuario?.nombre} book={item} />
+      ))}
     </section>
   );
 };

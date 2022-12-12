@@ -20,6 +20,17 @@ const Book = ({ book }) => {
   const buyQuantityRef = useRef();
 
   // Funciones
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
 
   const stockAmount = useMemo(() => {
     if (book.stock > 0) {
@@ -32,31 +43,19 @@ const Book = ({ book }) => {
     return null;
   }, [book.stock]);
 
-  const Toast = Swal.mixin({
-    toast: true,
-    position: 'top-end',
-    showConfirmButton: false,
-    timer: 3000,
-    timerProgressBar: true,
-    didOpen: (toast) => {
-      toast.addEventListener('mouseenter', Swal.stopTimer)
-      toast.addEventListener('mouseleave', Swal.resumeTimer)
-    }
-  })
-  
-  
+
   const handleSetFavourite = () => {
     if (login.success) {
       Toast.fire({
-        icon: 'success',
-        title: `${book.titulo} agregado a favoritos!`
-      })
+        icon: "success",
+        title: `${book.titulo} agregado a favoritos!`,
+      });
       setFavourite(book);
     } else
-    Toast.fire({
-      icon: 'error',
-      title: `Regístrese para agregar libros a favoritos!`
-    })
+      Toast.fire({
+        icon: "error",
+        title: `Regístrese para agregar libros a favoritos!`,
+      });
   };
 
   const handleRemoveFavourite = () => {
@@ -72,15 +71,15 @@ const Book = ({ book }) => {
         token: login.accessToken,
       });
       Toast.fire({
-        icon: 'success',
-        title: `${book.titulo} agregado al carrito!`
-      })
+        icon: "success",
+        title: `${book.titulo} agregado al carrito!`,
+      });
       updateUserInfo();
     } else
-    Toast.fire({
-      icon: 'error',
-      title: `No se pudo agregar al carrito, intente más tarde`
-    })
+      Toast.fire({
+        icon: "error",
+        title: `No se pudo agregar al carrito, intente más tarde`,
+      });
   };
 
   // Info del libro parseada
@@ -184,11 +183,13 @@ const Book = ({ book }) => {
               </select>
             </div>
           </div>
-
         </div>
       </section>
-          <hr className="max-w-screen-xl m-auto " />
-        <Opine book={book} login={login} />
+      <br />
+      <br />
+      <hr className="max-w-screen-xl m-auto " />
+      <br />
+      <Opine book={book} login={login} Toast={Toast} isLoading={login.isLoading}/>
     </Layout>
   );
 };
