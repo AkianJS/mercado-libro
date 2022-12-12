@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import { FaCartPlus, FaHeart } from "react-icons/fa";
 import { getBooks } from "../../utils/getBooks";
 import { setBookTocart } from "../../utils/setBookToCart";
+import Opine from "../../components/Opine";
 
 const Book = ({ book }) => {
   const {
@@ -82,6 +83,7 @@ const Book = ({ book }) => {
     })
   };
 
+  // Info del libro parseada
   const author = book?.autor?.map((item) => item.nombre);
   const discount = book?.descuento
     ? (book.descuento / 100) * book.precio
@@ -183,9 +185,10 @@ const Book = ({ book }) => {
             </div>
           </div>
 
-          <hr className="mt-8" />
         </div>
       </section>
+          <hr className="max-w-screen-xl m-auto " />
+        <Opine book={book} login={login} />
     </Layout>
   );
 };

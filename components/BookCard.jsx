@@ -22,12 +22,20 @@ const BookCard = ({ book, withPrice, quantity }) => {
           <p className="text-sm text-gray-600">{autor.join(", ")}</p>
           {withPrice && discount ? (
             <>
-              <p className="line-through mt-4 text-center text-gray-500 text-sm">{book?.precio} $</p>
-              <p className="text-center text-emerald-600">{(book.precio - discount).toFixed(2)} $</p>
+              <p className="line-through mt-4 text-center text-gray-500 text-sm">
+                {book?.precio} $
+              </p>
+              <p className="text-center text-emerald-600">
+                {(book.precio - discount).toFixed(2)} $
+              </p>
             </>
           ) : (
-            <p className="mt-4 text-center text-emerald-600">{book?.precio} $</p>
-          )}
+            withPrice && (
+              <p className="mt-4 text-center text-emerald-600">
+                {book.precio} $
+              </p>
+            )
+          )}{" "}
           {quantity && (
             <p className="mt-4 text-center text-emerald-600">
               Cantidad {quantity}
