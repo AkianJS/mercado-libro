@@ -39,6 +39,7 @@ export const getBooks = async ({category = '', title = '', isbn = ''} = { }) => 
         opinion {
           comentario
           usuario {
+            id
             nombre
           }
         }

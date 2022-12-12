@@ -30,7 +30,7 @@ const Opine = ({ book, login, Toast, isLoading }) => {
   const handleOnSubmit = async (e) => {
     e.preventDefault();
 
-    let value = textAreaRef.current.value;
+    let value = JSON.stringify(textAreaRef.current.value);
 
     const res = await setOpinion({
       comment: value,
@@ -88,7 +88,7 @@ const Opine = ({ book, login, Toast, isLoading }) => {
         </>
       )}
       {book?.opinion?.map((item) => (
-        <OpinedCard key={item?.usuario?.nombre} book={item} />
+        <OpinedCard key={item?.usuario?.id} book={item} />
       ))}
     </section>
   );
