@@ -64,7 +64,7 @@ const NavUser = ({ login, setState }) => {
         <div
           className={`text-[1.2rem] flex flex-col items-center justify-center h-full`}
         >
-          <Link href={login?.usuario?.admin ? "/admin-panel" : "/profile"}>
+          <Link href={"/profile"}>
             <li
               className={`scale-0 bg-white rounded-full p-1 border-2 ${
                 dropdownUser ? "translate-y-0 scale-100" : "-translate-y-full"

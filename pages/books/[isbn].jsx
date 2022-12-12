@@ -3,6 +3,7 @@ import Layout from "../../components/layout/Layout";
 import Image from "next/image";
 import AppContext from "../../context/AppContext";
 import Button from "../../components/ui/Button";
+import Swal from "sweetalert2";
 import { FaCartPlus, FaHeart } from "react-icons/fa";
 import { getBooks } from "../../utils/getBooks";
 import { setBookTocart } from "../../utils/setBookToCart";
@@ -30,12 +31,31 @@ const Book = ({ book }) => {
     return null;
   }, [book.stock]);
 
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+  })
+  
+  
   const handleSetFavourite = () => {
-    login.success
-      ? setFavourite(book)
-      : alert(
-          "Regístrese en el ícono de usuario para guardar sus libros favoritos"
-        );
+    if (login.success) {
+      Toast.fire({
+        icon: 'success',
+        title: `${book.titulo} agregado a favoritos!`
+      })
+      setFavourite(book);
+    } else
+    Toast.fire({
+      icon: 'error',
+      title: `Regístrese para agregar libros a favoritos!`
+    })
   };
 
   const handleRemoveFavourite = () => {
@@ -45,9 +65,21 @@ const Book = ({ book }) => {
   const handleAddToCart = async () => {
     const quantity = buyQuantityRef.current.value || null;
     if (quantity && login.success) {
-      const res = await setBookTocart({quantity: quantity, isbn: book.isbn, token: login.accessToken });
-      updateUserInfo()
-    } else alert('No hay libros en el stock')
+      const res = await setBookTocart({
+        quantity: quantity,
+        isbn: book.isbn,
+        token: login.accessToken,
+      });
+      Toast.fire({
+        icon: 'success',
+        title: `${book.titulo} agregado al carrito!`
+      })
+      updateUserInfo();
+    } else
+    Toast.fire({
+      icon: 'error',
+      title: `No se pudo agregar al carrito, intente más tarde`
+    })
   };
 
   const author = book?.autor?.map((item) => item.nombre);

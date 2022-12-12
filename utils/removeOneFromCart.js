@@ -8,7 +8,7 @@ export const removeOneFromCart = async ({ quantity, isbn, token }) => {
         status
         success
       }
-    }}`;
+    }`;
 
   const data = await fetchSetter(REMOVE_ONE_FROM_CART);
   return data;
