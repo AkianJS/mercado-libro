@@ -8,8 +8,9 @@ import { FaPlus } from "react-icons/fa";
 import AdminAddCoupon from "../components/AdminAddCoupon";
 import AdminAddTheme from "../components/AdminAddTheme";
 import AdminVentas from "../components/AdminVentas";
+import { getSells } from "../utils/getSells";
 
-const AdminPanel = ({ getTemas }) => {
+const AdminPanel = ({ getTemas, getVentas }) => {
   const {
     state: { login },
   } = useContext(AppContext);
@@ -66,8 +67,8 @@ const AdminPanel = ({ getTemas }) => {
             <br />
             <AdminAddCoupon />
           </div>
-            <br />
-            
+          <br />
+
           <button
             onClick={() => setShowAddCategory(!showAddCategory)}
             className="flex gap-2 items-center ml-6 hover:scale-110 duration-300"
@@ -89,11 +90,10 @@ const AdminPanel = ({ getTemas }) => {
             <AdminAddTheme />
             <br />
           </div>
-          
-          <div>
-            <AdminVentas />
-          </div>
 
+          <div>
+            <AdminVentas getVentas={getVentas} />
+          </div>
         </section>
       </ProtectedRoute>
     </Layout>
@@ -106,9 +106,15 @@ export async function getStaticProps() {
     data: { getTemas },
   } = res;
 
+  const res2 = await getSells();
+  const {
+    data: { getVentas },
+  } = res2;
+
   return {
     props: {
       getTemas,
+      getVentas,
     },
   };
 }

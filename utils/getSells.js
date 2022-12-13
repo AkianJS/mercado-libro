@@ -8,12 +8,15 @@ export const getSells = async () => {
         status
         success
         orden {
+          fecha
           id
           total
           orden_detalle {
+            id
             cantidad
             precio
             libro {
+              isbn
               url_imagen
               titulo
               stock
