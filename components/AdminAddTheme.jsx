@@ -19,6 +19,7 @@ const AdminAddTheme = () => {
       imageUrl: imageUrl,
     });
     const { errors, data } = res;
+    console.log(res)
     if (errors || !data) return setMessage("No se pudo cargar la categoría");
     else if (data.insertTema?.success)
       return setMessage("Categoría cargada correctamente!");

@@ -1,9 +1,9 @@
 import fetchSetter from "./fetchSetter";
 
-export const setTheme = async ({ theme, imageUrl }) => {
+export const setTheme = async ({ theme, imageUrl, originalTheme = '' }) => {
   const SET_THEME = `mutation
     {
-      insertTema(tema: "${theme}", url_imagen: "${imageUrl}") {
+      insertTema(tema: "${theme}",tema_original: "${originalTheme}", url_imagen: "${imageUrl}") {
         message
         status
         success

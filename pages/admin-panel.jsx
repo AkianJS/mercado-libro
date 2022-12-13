@@ -116,6 +116,7 @@ export async function getStaticProps() {
       getTemas,
       getVentas,
     },
+    revalidate: 10,
   };
 }
 
