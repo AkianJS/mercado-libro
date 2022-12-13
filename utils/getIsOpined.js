@@ -8,6 +8,7 @@ export const getIsOpined = async({isbn, token}) => {
         status
         success
         opino
+        compro
       }
     }
     `
