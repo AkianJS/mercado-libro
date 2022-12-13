@@ -11,6 +11,7 @@ import { startPayment } from "../../utils/startPayment";
 const Payment = () => {
   const {
     state: { login },
+    updateUserInfo,
   } = useContext(AppContext);
   const { usuario } = login;
   const cartHasSomething = useMemo(() => {
@@ -57,6 +58,7 @@ const Payment = () => {
         </div>
         <UserInfo />
         <TotalAmountCart
+          updateUserInfo={updateUserInfo}
           login={login}
           finalButtonText="Pagar"
           cartHasSomething={cartHasSomething}

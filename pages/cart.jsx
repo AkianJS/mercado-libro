@@ -49,6 +49,7 @@ const Cart = () => {
           )}
         </section>
         <TotalAmountCart
+        updateUserInfo={updateUserInfo}
           cartHasSomething={cartHasSomething}
           handleOnClick={handleOnClick}
           finalButtonText="Continuar Compra"

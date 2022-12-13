@@ -48,7 +48,7 @@ const Book = ({ book }) => {
     if (login.success) {
       Toast.fire({
         icon: "success",
-        title: `${book.titulo} agregado a favoritos!`,
+        title: `"${book.titulo}" agregado a favoritos!`,
       });
       setFavourite(book);
     } else
@@ -72,7 +72,7 @@ const Book = ({ book }) => {
       });
       Toast.fire({
         icon: "success",
-        title: `${book.titulo} agregado al carrito!`,
+        title: `"${book.titulo}" agregado al carrito!`,
       });
       updateUserInfo();
     } else

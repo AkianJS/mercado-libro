@@ -13,13 +13,14 @@ const AdminAddTheme = () => {
 
   const [message, setMessage] = useState(null);
 
-  const onSubmit = async ({ theme, imageUrl }) => {
+  const onSubmit = async ({ theme, originalTheme, imageUrl }) => {
     const res = await setTheme({
       theme: theme,
+      originalTheme: originalTheme,
       imageUrl: imageUrl,
     });
     const { errors, data } = res;
-    console.log(res)
+    console.log(res);
     if (errors || !data) return setMessage("No se pudo cargar la categoría");
     else if (data.insertTema?.success)
       return setMessage("Categoría cargada correctamente!");
@@ -30,6 +31,18 @@ const AdminAddTheme = () => {
         {/* Contenedor */}
         <div className="grid grid-cols-2 gap-4">
           <div>
+            <label className="uppercase text-sm">Categoría a modificar</label>
+            <input
+              placeholder="Misterio, Terror, Comedia..."
+              required="required"
+              {...register("originalTheme")}
+              className={`bg-gray-200 border-2 border-black rounded-sm w-full p-2 outline-none`}
+              type="text"
+            />
+          </div>
+          <div></div>
+
+          <div>
             <label className="uppercase text-sm">Nombre de la categoría</label>
             <input
               placeholder="Misterio"
@@ -39,6 +52,7 @@ const AdminAddTheme = () => {
               type="text"
             />
           </div>
+
           <div>
             <label className="uppercase text-sm">Url de la imagen</label>
             <input
