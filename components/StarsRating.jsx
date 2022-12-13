@@ -45,7 +45,7 @@ const StarsRating = ({ Toast, book, login }) => {
         icon: "success",
         title: `${book.titulo} puntuado!`,
       });
-      router.push(router.asPath);
+      router.replace(router.asPath);
     }
   };
 
