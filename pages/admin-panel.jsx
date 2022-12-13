@@ -7,6 +7,7 @@ import AdminAddBook from "../components/AdminAddBook";
 import { FaPlus } from "react-icons/fa";
 import AdminAddCoupon from "../components/AdminAddCoupon";
 import AdminAddTheme from "../components/AdminAddTheme";
+import AdminVentas from "../components/AdminVentas";
 
 const AdminPanel = ({ getTemas }) => {
   const {
@@ -66,6 +67,7 @@ const AdminPanel = ({ getTemas }) => {
             <AdminAddCoupon />
           </div>
             <br />
+            
           <button
             onClick={() => setShowAddCategory(!showAddCategory)}
             className="flex gap-2 items-center ml-6 hover:scale-110 duration-300"
@@ -87,6 +89,11 @@ const AdminPanel = ({ getTemas }) => {
             <AdminAddTheme />
             <br />
           </div>
+          
+          <div>
+            <AdminVentas />
+          </div>
+
         </section>
       </ProtectedRoute>
     </Layout>

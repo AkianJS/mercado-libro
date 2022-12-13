@@ -18,8 +18,8 @@ const BookCard = ({ book, withPrice, quantity }) => {
           alt={book?.titulo}
         />
         <div className="p-4">
-          <div className="w-full h-12 overflow-hidden">
-            <p className="text-center ">{book?.titulo}</p>
+          <div className="w-full max-h-12 overflow-hidden">
+            <p className="text-center">{book?.titulo}</p>
           </div>
           <p className="text-sm text-gray-600">{autor.join(", ")}</p>
           {withPrice && discount ? (
