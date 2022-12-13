@@ -12,7 +12,7 @@ author, themes}) => {
                     fecha_edicion: "${editionDate}",
                     precio: ${price},
                     stock: ${stock},
-                    descripcion: "${description}",
+                    descripcion: ${description},
                     fecha_ingreso: "${entryDate}",
                     descuento: ${discount},
                     idioma: "${language}",

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { setTheme } from "../utils/setTheme";
+import { updateTheme } from "../utils/updateTheme";
 import Button from "./ui/Button";
 
-const AdminAddTheme = () => {
+const AdminUpdateTheme = () => {
   const {
     control,
     register,
@@ -14,7 +14,7 @@ const AdminAddTheme = () => {
   const [message, setMessage] = useState(null);
 
   const onSubmit = async ({ theme, originalTheme, imageUrl }) => {
-    const res = await setTheme({
+    const res = await updateTheme({
       theme: theme,
       originalTheme: originalTheme,
       imageUrl: imageUrl,
@@ -22,14 +22,26 @@ const AdminAddTheme = () => {
     const { errors, data } = res;
     console.log(res);
     if (errors || !data) return setMessage("No se pudo cargar la categoría");
-    else if (data.insertTema?.success)
+    else if (data.updateTema?.success)
       return setMessage("Categoría cargada correctamente!");
   };
+
   return (
     <div className="max-w-2xl m-auto">
       <form onSubmit={handleSubmit(onSubmit)}>
         {/* Contenedor */}
         <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className="uppercase text-sm">Categoría a modificar</label>
+            <input
+              placeholder="Misterio, Thriller..."
+              required="required"
+              {...register("originalTheme")}
+              className={`bg-gray-200 border-2 border-black rounded-sm w-full p-2 outline-none`}
+              type="text"
+            />
+          </div>
+          <div></div>
           <div>
             <label className="uppercase text-sm">Nombre de la categoría</label>
             <input
@@ -61,4 +73,4 @@ const AdminAddTheme = () => {
   );
 };
 
-export default AdminAddTheme;
+export default AdminUpdateTheme;

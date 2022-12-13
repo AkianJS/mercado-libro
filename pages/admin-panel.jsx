@@ -9,6 +9,7 @@ import AdminAddCoupon from "../components/AdminAddCoupon";
 import AdminAddTheme from "../components/AdminAddTheme";
 import AdminVentas from "../components/AdminVentas";
 import { getSells } from "../utils/getSells";
+import AdminUpdateTheme from "../components/AdminUpdateTheme";
 
 const AdminPanel = ({ getTemas, getVentas }) => {
   const {
@@ -18,6 +19,7 @@ const AdminPanel = ({ getTemas, getVentas }) => {
   const [showAddBook, setShowAddBook] = useState(false);
   const [showAddCoupon, setShowAddCoupon] = useState(false);
   const [showAddCategory, setShowAddCategory] = useState(false);
+  const [showUpdateCategory, setShowUpdateCategory] = useState(false)
 
   return (
     <Layout title="Panel del Administrador">
@@ -88,6 +90,28 @@ const AdminPanel = ({ getTemas, getVentas }) => {
           >
             <br />
             <AdminAddTheme />
+            <br />
+          </div>
+          <br />
+          <button
+            onClick={() => setShowUpdateCategory(!showUpdateCategory)}
+            className="flex gap-2 items-center ml-6 hover:scale-110 duration-300"
+          >
+            Modificar categoría
+            <FaPlus
+              className={`duration-200 ${showUpdateCategory ? "rotate-45" : ""}`}
+            />
+          </button>
+          {/* Agregar categoría */}
+          <div
+            className={`duration-300 ease-in scroll-smooth ${
+              showUpdateCategory
+                ? "max-h-152 overflow-scroll"
+                : "overflow-hidden max-h-0"
+            }`}
+          >
+            <br />
+            <AdminUpdateTheme />
             <br />
           </div>
 
