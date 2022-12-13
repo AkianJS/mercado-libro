@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import BooksGrid from "../../components/BooksGrid";
 import Layout from "../../components/layout/Layout";
+import ProtectedRoute from "../../components/ProtectedRoute";
 import AppContext from "../../context/AppContext";
 import { getFavourites } from "../../utils/getFavourites";
 
@@ -11,20 +12,16 @@ const Favourites = () => {
   const [favouritesBooks, setFavouritesBooks] = useState(null);
 
   useEffect(() => {
-    let isCleaning = false;
-    if (!isCleaning) {
-      getFavourites({ token: login.accessToken }).then((res) =>
-        setFavouritesBooks(res.data?.getFavoritos)
-      );
-    }
-    return () => {
-      isCleaning = true;
-    };
+    getFavourites({ token: login.accessToken }).then((res) =>
+      setFavouritesBooks(res.data?.getFavoritos)
+    );
   }, [login]);
 
   return (
     <Layout>
-      <BooksGrid texth3="Favoritos" books={favouritesBooks} />
+      <ProtectedRoute myBoolean={login.success} isLoading={login.isLoading} path='/' >
+        <BooksGrid texth3="Favoritos" books={favouritesBooks} />
+      </ProtectedRoute>
     </Layout>
   );
 };
