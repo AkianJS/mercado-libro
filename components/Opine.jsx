@@ -7,7 +7,7 @@ import OpinedCard from "./OpinedCard";
 import Loader from "./ui/Loader";
 
 const Opine = ({ book, login, Toast, isLoading }) => {
-  const [isOpined, setIsOpined] = useState(false);
+  const [opinedState, setopinedState] = useState({opino: false, compro: false});
   const textAreaRef = useRef();
   const router = useRouter();
 
@@ -19,8 +19,8 @@ const Opine = ({ book, login, Toast, isLoading }) => {
           token: login.accessToken,
         });
         const { errors, data } = res;
-        if (errors || !data) setIsOpined(true);
-        setIsOpined(data.opino?.opino);
+        if (errors || !data) setopinedState({opino: false, compro: false});
+        setopinedState(data.opino);
       };
       getOpinion();
     }
@@ -60,7 +60,7 @@ const Opine = ({ book, login, Toast, isLoading }) => {
 
   return (
     <section className="max-w-screen-xl m-auto">
-      {!isOpined && (
+      {!opinedState.opino && opinedState.compro && (
         <>
           <h4 className="text-lg text-center font-bold">
             Dejanos tu opinión debajo!
