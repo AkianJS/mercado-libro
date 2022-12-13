@@ -21,6 +21,7 @@ export const getBooks = async ({category = '', title = '', isbn = ''} = { }) => 
         descripcion
         fecha_ingreso
         descuento
+        puntuacion_media
         idioma {
           nombre
         }

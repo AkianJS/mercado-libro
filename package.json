@@ -17,7 +17,7 @@
     "react-hook-form": "^7.39.3",
     "react-icons": "^4.6.0",
     "react-simple-star-rating": "^5.1.7",
-    "sweetalert2": "^11.6.15"
+    "sweetalert2": "^11.4.8"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.13",
