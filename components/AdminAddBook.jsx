@@ -1,6 +1,7 @@
 import React from 'react'
 import { useFieldArray, useForm } from 'react-hook-form';
 import { FaMinus, FaPlus } from 'react-icons/fa'
+import { setBook } from '../utils/setBook';
 import Button from './ui/Button'
 
 const AdminAddBook = ({login, getTemas}) => {
