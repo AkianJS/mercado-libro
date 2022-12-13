@@ -9,7 +9,6 @@ const Favourites = () => {
     state: { login },
   } = useContext(AppContext);
   const [favouritesBooks, setFavouritesBooks] = useState(null);
-  console.log(favouritesBooks);
 
   useEffect(() => {
     let isCleaning = false;

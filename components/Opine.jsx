@@ -19,7 +19,6 @@ const Opine = ({ book, login, Toast, isLoading }) => {
           token: login.accessToken,
         });
         const { errors, data } = res;
-        console.log(res);
         if (errors || !data) setIsOpined(true);
         setIsOpined(data.opino?.opino);
       };
@@ -37,7 +36,6 @@ const Opine = ({ book, login, Toast, isLoading }) => {
       isbn: book.isbn,
       token: login.accessToken,
     });
-    console.log(res);
     const { errors, data } = res;
     if (errors || !data)
       return Toast.fire({
@@ -87,6 +85,7 @@ const Opine = ({ book, login, Toast, isLoading }) => {
           </form>
         </>
       )}
+      {book?.opinion.length > 0 ? <h3 className="max-w-2xl m-auto font-bold text-xl">Opiniones</h3> : undefined}
       {book?.opinion?.map((item) => (
         <OpinedCard key={item?.usuario?.id} book={item} />
       ))}

@@ -8,6 +8,7 @@ import { FaCartPlus, FaHeart } from "react-icons/fa";
 import { getBooks } from "../../utils/getBooks";
 import { setBookTocart } from "../../utils/setBookToCart";
 import Opine from "../../components/Opine";
+import StarsRating from "../../components/StarsRating";
 
 const Book = ({ book }) => {
   const {
@@ -42,7 +43,6 @@ const Book = ({ book }) => {
     }
     return null;
   }, [book.stock]);
-
 
   const handleSetFavourite = () => {
     if (login.success) {
@@ -119,6 +119,7 @@ const Book = ({ book }) => {
             />
           </div>
           <p className="text-gray-500 text-lg">{author.join(", ")}</p>
+          <StarsRating Toast={Toast} book={book} login={login} />
           {discount && (
             <p className="mt-14 text-right text-2xl font-bold text-emerald-600">
               {(book.precio - discount).toFixed(2)} $
@@ -189,7 +190,12 @@ const Book = ({ book }) => {
       <br />
       <hr className="max-w-screen-xl m-auto " />
       <br />
-      <Opine book={book} login={login} Toast={Toast} isLoading={login.isLoading}/>
+      <Opine
+        book={book}
+        login={login}
+        Toast={Toast}
+        isLoading={login.isLoading}
+      />
     </Layout>
   );
 };

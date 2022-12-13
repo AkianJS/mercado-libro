@@ -28,3 +28,7 @@ li {
 .body-layout {
   min-height: calc(100vh - 4rem);
 }
+
+svg.star-svg {
+  display: inline;
+}
