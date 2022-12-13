@@ -13,6 +13,7 @@ const AdminAddBook = ({login, getTemas}) => {
       } = useForm({
         defaultValues: {
           themes: [{ nombre: getTemas.temas[0].nombre }],
+          entryDate: ''
         },
       });
     
