@@ -80,17 +80,21 @@ const TotalAmountCart = ({
           </div>
 
           {/* Lógica del descuento por cupón */}
-          <div className="flex justify-center items-center w-full">
-            <h4 className="text-lg font-bold">
-              Cupón: {discountCoupon?.codigo_cupon}
-            </h4>
-            <p className="ml-auto font-bold text-emerald-600">
-              {(total - (discountCoupon?.porc_descuento / 100) * total).toFixed(
-                2
-              )}{" "}
-              $
-            </p>
-          </div>
+          {discountCoupon && (
+            <div className="flex justify-center items-center w-full">
+              <h4 className="text-lg font-bold">
+                Cupón: {discountCoupon?.codigo_cupon}
+              </h4>
+              <p className="ml-auto font-bold text-emerald-600">
+                {(
+                  total -
+                  (discountCoupon?.porc_descuento / 100) * total
+                ).toFixed(2)}{" "}
+                $
+              </p>
+            </div>
+          )}
+
           <div className="mt-4 flex flex-wrap justify-center items-center w-full bg-gray-400 p-2 pl-1 pr-1">
             <FaCaretRight />
             <input

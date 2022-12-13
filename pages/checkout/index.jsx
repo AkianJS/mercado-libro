@@ -7,8 +7,9 @@ import AppContext from "../../context/AppContext";
 import { setAddress } from "../../utils/setAddress";
 import { useRouter } from "next/router";
 import ProtectedRoute from "../../components/ProtectedRoute";
+import { getCities } from "../../utils/getCities";
 
-const Checkout = () => {
+const Checkout = ({data}) => {
   const {
     state: { login },
     updateUserInfo,
@@ -95,17 +96,21 @@ const Checkout = () => {
             </div>
 
             <div className="w-3/4 flex justify-center relative items-center">
-              <input
+              <select
                 name="cp"
                 required="required"
                 {...register("cp")}
                 className={`border-2 border-black rounded-md w-full p-2 outline-none ${styles.placeholder}`}
                 type="number"
-              />
+              >
+                {data?.getCiudades?.ciudad?.map(item => 
+                  <option key={item.cp} value={item.cp}>{item.nombre}</option>
+                  )}
+                </select>
               <span
                 className={`absolute left-0 pl-2 pr-2 opacity-60 duration-300 pointer-events-none`}
               >
-                Código Postal
+                Ciudad
               </span>
             </div>
 
@@ -159,5 +164,16 @@ const Checkout = () => {
     </Layout>
   );
 };
+
+export async function getStaticProps () {
+  const res = await getCities()
+  const {errors, data} = res
+
+  return {
+    props: {
+      data
+    }
+  }
+}
 
 export default Checkout;
