@@ -6,12 +6,13 @@ const AdminDeleteBook = () => {
   const isbnRef = useRef();
   const [message, setMessage] = useState(null);
 
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = async(e) => {
     e.preventDefault();
     let value = isbnRef.current.value;
-    const res = removeBook({ isbn: value });
+    const res = await removeBook({ isbn: value });
+    console.log(res)
     const { errors, data } = res;
-    if ((errors, data)) setMessage("Error del servidor");
+    if ((errors || !data)) setMessage("Error del servidor");
     else if (data.eliminarLibro?.success) setMessage("Libro eliminado");
     else setMessage("No se pudo encontrar el libro");
   };
@@ -28,11 +29,11 @@ const AdminDeleteBook = () => {
           />
         </div>
         <div></div>
-        {message && <p>{message}</p>}
         <div className="mt-auto">
           <Button text="Eliminar" type="submit" />
         </div>
       </div>
+        {message && <p className="text-center">{message}</p>}
     </form>
   );
 };

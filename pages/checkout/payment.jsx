@@ -45,6 +45,19 @@ const Payment = () => {
       >
         <div className="max-w-7xl m-auto mt-4 flex justify-center">
           <div className="">
+            <h1>
+              Para ver una guía de como pagar en mercado pago sandbox, dirígete
+              a:{" "}
+            </h1>
+            <Link
+              legacyBehavior={true}
+              href="https://github.com/AkianJS/mercado-libro/blob/main/README.md"
+            >
+              <p className="text-blue-500 cursor-pointer">
+                https://github.com/AkianJS/mercado-libro/blob/main/README.md
+              </p>
+            </Link>
+            <br />
             <h2 className="text-lg">
               Si tu dirección es correcta has click en <i>pagar</i>!
             </h2>
