@@ -9,6 +9,9 @@ const BookCard = ({ book, withPrice, quantity }) => {
     book?.descuento !== 0 ? (book?.descuento / 100) * book?.precio : null;
   return (
     <li className="rounded-md shadow-lg bg-white flex flex-col items-center relative">
+      {discount > 0 && <p className="absolute left-0 top-0 bg-red-600 text-white p-2 pl-4 pr-4 font-bold rounded-sm shadow-md">
+        {book.descuento} %
+      </p>}
       <Link className="flex flex-col items-center" href={`/books/${book.isbn}`}>
         <Image
           className="w-[150px] h-[220px]"
