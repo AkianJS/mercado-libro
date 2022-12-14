@@ -1,8 +1,10 @@
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { FaMinus, FaPlus } from "react-icons/fa";
 import { getBooks } from "../utils/getBooks";
 import { setBook } from "../utils/setBook";
+import AdminFindISBN from "./AdminFindISBN";
 import Button from "./ui/Button";
 
 const AdminAddBook = ({ login, getTemas }) => {
@@ -22,25 +24,39 @@ const AdminAddBook = ({ login, getTemas }) => {
   const { fields, append, remove } = useFieldArray({ control, name: "themes" });
 
   const [message, setMessage] = useState(null);
-  const [isModifying, setIsModifying] = useState("");
+  const router = useRouter();
+  const {query} = router.query;
 
   useEffect(() => {
-    if (isModifying !== "") {
-      getBooks({ isbn: isModifying }).then((res) => {
+    if (query) {
+      getBooks({ isbn: query }).then((res) => {
         const { errors, data } = res;
-        if ((errors, !data)) setMessage("Error en el servidor");
-        else if (data.getLibros?.success) {
-          const { getLibros } = data;
+        console.log(res)
+        if (errors || !data) setMessage("Error en el servidor");
+        else if (data.getLibro?.success) {
+          const { getLibro } = data;
           setMessage("ISBN encontrado");
+          let author = getLibro?.libro[0]?.autor.map(item => item.nombre)
           const defaultValues = {
-            isbn: getLibros[0].isbn,
-            author: getLibros[0].autor?.nombre,
+            isbn: getLibro.libro[0].isbn,
+            author: author.join(', '),
+            description: getLibro.libro[0].descripcion,
+            title: getLibro.libro[0].titulo,
+            price: getLibro.libro[0].precio,
+            editionDate: getLibro.libro[0].fecha_edicion,
+            stock: getLibro.libro[0].stock,
+            entryDate: getLibro.libro[0].fecha_ingreso,
+            discount: getLibro.libro[0].descuento,
+            language: getLibro.libro[0].idioma.nombre,
+            editorial: getLibro.libro[0].editorial.nombre,
+            image: getLibro.libro[0].url_imagen,
           };
+          console.log(defaultValues)
           reset(defaultValues);
         }
       });
     }
-  }, [isModifying, reset]);
+  }, [query, reset]);
 
   const onSubmit = (data) => {
     const author = JSON.stringify([data.author]);
@@ -66,17 +82,11 @@ const AdminAddBook = ({ login, getTemas }) => {
 
   return (
     <div className="max-w-2xl m-auto">
+      <AdminFindISBN />
       <form onSubmit={handleSubmit(onSubmit)}>
-        <label className="uppercase text-sm">ISBN a modificar</label>
-        <input
-          value={isModifying}
-          onChange={(e) => setIsModifying(e.value)}
-          className={`bg-gray-200 border-2 border-black rounded-sm w-full p-2 outline-none`}
-          type="text"
-        />
-
         <label className="uppercase text-sm">autor/es</label>
         <input
+          placeholder="George R.R Martin"
           required="required"
           {...register("author")}
           className={`bg-gray-200 border-2 border-black rounded-sm w-full p-2 outline-none`}
@@ -85,6 +95,7 @@ const AdminAddBook = ({ login, getTemas }) => {
 
         <label className="uppercase text-sm">isbn</label>
         <input
+          placeholder="345248753"
           required="required"
           {...register("isbn")}
           className={`bg-gray-200 border-2 border-black rounded-sm w-full p-2 outline-none`}
@@ -93,6 +104,7 @@ const AdminAddBook = ({ login, getTemas }) => {
 
         <label className="uppercase text-sm">imagen del libro</label>
         <input
+          placeholder="https://m.media-amazon.com/images/I/81YuAlejXCL.jpg"
           required="required"
           {...register("image")}
           className={`bg-gray-200 border-2 border-black rounded-sm w-full p-2 outline-none`}
@@ -101,6 +113,7 @@ const AdminAddBook = ({ login, getTemas }) => {
 
         <label className="uppercase text-sm">titulo</label>
         <input
+          placeholder="Harry Potter y La Piedra Filosofal"
           required="required"
           {...register("title")}
           className={`bg-gray-200 border-2 border-black rounded-sm w-full p-2 outline-none`}
@@ -111,6 +124,7 @@ const AdminAddBook = ({ login, getTemas }) => {
           <div className="">
             <label className="uppercase text-sm">precio</label>
             <input
+              placeholder="2300"
               required="required"
               {...register("price")}
               className={`bg-gray-200 border-2 border-black rounded-sm w-full p-2 outline-none`}
@@ -120,6 +134,7 @@ const AdminAddBook = ({ login, getTemas }) => {
           <div>
             <label className="uppercase text-sm">fecha de edición</label>
             <input
+              placeholder="dd/mm/aaaa"
               required="required"
               {...register("editionDate")}
               className={`bg-gray-200 border-2 border-black rounded-sm w-full p-2 outline-none`}
@@ -130,6 +145,7 @@ const AdminAddBook = ({ login, getTemas }) => {
           <div>
             <label className="uppercase text-sm">stock</label>
             <input
+              placeholder="7"
               required="required"
               {...register("stock")}
               className={`bg-gray-200 border-2 border-black rounded-sm w-full p-2 outline-none`}
@@ -138,7 +154,7 @@ const AdminAddBook = ({ login, getTemas }) => {
           </div>
         </div>
 
-        <label className="uppercase text-sm">descripcion</label>
+        <label className="uppercase text-sm">descripción</label>
         <textarea
           rows="10"
           cols="50"
@@ -152,6 +168,7 @@ const AdminAddBook = ({ login, getTemas }) => {
           <div>
             <label className="uppercase text-sm">fecha de ingreso</label>
             <input
+              placeholder="dd/mm/aaaa"
               {...register("entryDate")}
               className={`bg-gray-200 border-2 border-black rounded-sm w-full p-2 outline-none`}
               type="text"
@@ -160,6 +177,7 @@ const AdminAddBook = ({ login, getTemas }) => {
           <div>
             <label className="uppercase text-sm">descuento</label>
             <input
+              placeholder="15"
               {...register("discount")}
               className={`bg-gray-200 border-2 border-black rounded-sm w-full p-2 outline-none`}
               type="number"
@@ -169,6 +187,7 @@ const AdminAddBook = ({ login, getTemas }) => {
 
         <label className="uppercase text-sm">idioma</label>
         <input
+          placeholder="Español"
           required="required"
           {...register("language")}
           className={`bg-gray-200 border-2 border-black rounded-sm w-full p-2 outline-none`}
@@ -177,6 +196,7 @@ const AdminAddBook = ({ login, getTemas }) => {
 
         <label className="uppercase text-sm">editorial</label>
         <input
+          placeholder="OnlineCapture"
           required="required"
           {...register("editorial")}
           className={`bg-gray-200 border-2 border-black rounded-sm w-full p-2 outline-none`}

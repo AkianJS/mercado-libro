@@ -10,6 +10,7 @@ import AdminAddTheme from "../components/AdminAddTheme";
 import AdminVentas from "../components/AdminVentas";
 import { getSells } from "../utils/getSells";
 import AdminUpdateTheme from "../components/AdminUpdateTheme";
+import AdminRemoveTheme from "../components/AdminRemoveTheme";
 
 const AdminPanel = ({ getTemas, getVentas }) => {
   const {
@@ -19,7 +20,8 @@ const AdminPanel = ({ getTemas, getVentas }) => {
   const [showAddBook, setShowAddBook] = useState(false);
   const [showAddCoupon, setShowAddCoupon] = useState(false);
   const [showAddCategory, setShowAddCategory] = useState(false);
-  const [showUpdateCategory, setShowUpdateCategory] = useState(false)
+  const [showUpdateCategory, setShowUpdateCategory] = useState(false);
+  const [showRemoveTheme, setShowRemoveTheme] = useState(false);
 
   return (
     <Layout title="Panel del Administrador">
@@ -99,10 +101,11 @@ const AdminPanel = ({ getTemas, getVentas }) => {
           >
             Modificar categoría
             <FaPlus
-              className={`duration-200 ${showUpdateCategory ? "rotate-45" : ""}`}
+              className={`duration-200 ${
+                showUpdateCategory ? "rotate-45" : ""
+              }`}
             />
           </button>
-          {/* Agregar categoría */}
           <div
             className={`duration-300 ease-in scroll-smooth ${
               showUpdateCategory
@@ -114,7 +117,35 @@ const AdminPanel = ({ getTemas, getVentas }) => {
             <AdminUpdateTheme />
             <br />
           </div>
+              <br />
+          {/* Eliminar categoría */}
+          <button
+            onClick={() => setShowRemoveTheme(!showRemoveTheme)}
+            className="flex gap-2 items-center ml-6 hover:scale-110 duration-300"
+          >
+            Eliminar categoría
+            <FaPlus
+              className={`duration-200 ${
+                showRemoveTheme ? "rotate-45" : ""
+              }`}
+            />
+          </button>
 
+
+
+          <div
+            className={`duration-300 ease-in scroll-smooth ${
+              showRemoveTheme
+                ? "max-h-152 overflow-scroll"
+                : "overflow-hidden max-h-0"
+            }`}
+          >
+            <br />
+            <AdminRemoveTheme themes={getTemas} />
+            <br />
+          </div>
+
+          {/* Ventas */}
           <div>
             <AdminVentas getVentas={getVentas} />
           </div>

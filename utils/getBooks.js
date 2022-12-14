@@ -1,9 +1,9 @@
 import fetchSetter from "./fetchSetter";
 
-export const getBooks = async ({category = '', title = '', isbn = ''} = { }) => {
+export const getBooks = async ({category = '', title = '', isbn = '', discount = false} = { }) => {
   const GET_BOOKS = `query
   {
-    getLibro(categoria: "${category}", titulo: "${title}", isbn: "${isbn}")
+    getLibro(categoria: "${category}", titulo: "${title}", isbn: "${isbn}", descuento: ${discount})
     {
       message
       success
