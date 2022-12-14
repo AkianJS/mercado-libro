@@ -20,7 +20,7 @@ const AdminRemoveTheme = ({ themes }) => {
     const { errors, data } = res;
     console.log(res);
     if (errors || !data) return setMessage("No se pudo borrar la categoría");
-    else if (data.insertTema?.success)
+    else if (data.eliminarTema?.success)
       return setMessage("Categoría borrada correctamente!")
     else return setMessage("Error, el tema no existe")
   };
