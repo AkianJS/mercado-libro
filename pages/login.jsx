@@ -24,7 +24,7 @@ const LoginPage = () => {
             isInLogin ? "" : "-translate-x-full"
           }`}
         >
-          <p className="text-white relative z-20 p-4 mt-[50%] transition-all ml-auto mr-auto">
+          <p className="text-white relative z-20 p-4 mt-[40vh] transition-all ml-auto mr-auto">
             {isInLogin
               ? "Si aun no tienes una cuenta regístrate, es gratis!"
               : "Si ya tienes una cuenta inicia sesión"}
