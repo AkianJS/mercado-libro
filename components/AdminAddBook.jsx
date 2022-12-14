@@ -61,8 +61,8 @@ const AdminAddBook = ({ login, getTemas }) => {
   const onSubmit = (data) => {
     const author = JSON.stringify([data.author]);
     const themes = data.themes.map((item) => item.nombre);
-    const description = JSON.stringify(data.desciption);
-
+    const description = JSON.stringify(data.description);
+    console.log(description)
     setBook({
       author: author,
       description: description,
