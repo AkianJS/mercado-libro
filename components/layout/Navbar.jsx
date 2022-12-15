@@ -80,25 +80,32 @@ const Navbar = () => {
         <NavSearch isSearching={isSearching} />
 
         {/* Icono de notificación con su funcionalidad */}
-        <NavNotifications notifications={login.usuario?.notificacion} updateUserInfo={updateUserInfo}/>
+        {!login.usuario?.admin && (
+          <NavNotifications
+            notifications={login.usuario?.notificacion}
+            updateUserInfo={updateUserInfo}
+          />
+        )}
 
         {/* Icono de usuario  y carrito con sus funcionalidades*/}
         <div className="flex gap-5 mr-4">
           <div className="flex">
             <NavUser login={login} setState={setState} />
           </div>
-          <li className="relative">
-            <Link href="/cart">
-              <FaShoppingCart className="text-2xl" />
-              {login?.usuario?.carrito?.length > 0 && (
-                <div className="flex justify-center items-center w-4 h-4 rounded-full bg-emerald-600 absolute -right-1 top-3 opacity-90 pointer-events-none">
-                  <p className="text-white text-sm">
-                    {login.usuario?.carrito?.length}
-                  </p>
-                </div>
-              )}
-            </Link>
-          </li>
+          {!login.usuario?.admin && (
+            <li className="relative">
+              <Link href="/cart">
+                <FaShoppingCart className="text-2xl" />
+                {login?.usuario?.carrito?.length > 0 && (
+                  <div className="flex justify-center items-center w-4 h-4 rounded-full bg-emerald-600 absolute -right-1 top-3 opacity-90 pointer-events-none">
+                    <p className="text-white text-sm">
+                      {login.usuario?.carrito?.length}
+                    </p>
+                  </div>
+                )}
+              </Link>
+            </li>
+          )}
         </div>
       </ul>
     </nav>

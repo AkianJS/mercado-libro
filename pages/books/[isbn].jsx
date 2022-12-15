@@ -1,10 +1,10 @@
-import React, { useContext, useMemo, useRef } from "react";
+import React, { useContext, useMemo, useRef, useState } from "react";
 import Layout from "../../components/layout/Layout";
 import Image from "next/image";
 import AppContext from "../../context/AppContext";
 import Button from "../../components/ui/Button";
 import Swal from "sweetalert2";
-import { FaCartPlus, FaHeart } from "react-icons/fa";
+import { FaCartPlus, FaEdit, FaHeart, FaSave } from "react-icons/fa";
 import { getBooks } from "../../utils/getBooks";
 import { setBookTocart } from "../../utils/setBookToCart";
 import Opine from "../../components/Opine";
@@ -18,7 +18,12 @@ const Book = ({ book }) => {
     updateUserInfo,
   } = useContext(AppContext);
 
+  const [isEditing, setIsEditing] = useState(false);
   const buyQuantityRef = useRef();
+  const titleRef = useRef();
+  const authorRef = useRef();
+
+  console.log(titleRef.current?.textContent);
 
   // Funciones
   const Toast = Swal.mixin({
@@ -94,6 +99,14 @@ const Book = ({ book }) => {
 
   const category = book?.tema?.map((item) => item.nombre);
 
+  const onEditingStyle = {
+    borderRadius: "5px",
+    outline: "none",
+    padding: "0.25rem 1rem",
+    backgroundColor: "#a0a0a0",
+    color: "#000000",
+  };
+
   return (
     <Layout title={book.titulo}>
       <section className="mt-8 pl-4 pr-4 flex flex-wrap justify-center gap-6 max-w-screen-xl m-auto">
@@ -107,18 +120,46 @@ const Book = ({ book }) => {
         </div>
         <div className="w-128">
           <div className="flex gap-4">
-            <h2 className="text-2xl">{book.titulo}</h2>
-            <FaHeart
-              onClick={isFavourite ? handleRemoveFavourite : handleSetFavourite}
-              className={`text-3xl text-white cursor-pointer self-end ml-auto self- hover:scale-105
+            <h2
+              contentEditable={isEditing}
+              ref={titleRef}
+              className="text-2xl mb-2"
+              style={isEditing ? onEditingStyle : undefined}
+            >
+              {book.titulo}
+            </h2>
+            {login.usuario?.admin && (
+              <button onClick={() => setIsEditing(!isEditing)}>
+                {isEditing ? (
+                  <FaSave className="text-2xl" />
+                ) : (
+                  <FaEdit className="text-2xl" />
+                )}
+              </button>
+            )}
+            {!login.usuario?.admin && (
+              <FaHeart
+                onClick={
+                  isFavourite ? handleRemoveFavourite : handleSetFavourite
+                }
+                className={`text-3xl text-white cursor-pointer self-end ml-auto self- hover:scale-105
               ${
                 isFavourite
                   ? "text-red-500"
                   : "text-white stroke-black stroke-[20px]"
               }`}
-            />
+              />
+            )}
           </div>
-          <p className="text-gray-500 text-lg">{author.join(", ")}</p>
+          <p
+            ref={authorRef}
+            contentEditable={isEditing}
+            style={isEditing ? onEditingStyle : undefined}
+            className="text-gray-500 text-lg inline-block"
+          >
+            {author.join(", ")}
+          </p>
+          <br />
           <StarsRating Toast={Toast} book={book} login={login} />
           {discount && (
             <p className="mt-14 text-right text-2xl font-bold text-emerald-600">

@@ -35,4 +35,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# ids
+# ignore
+Re-estruturación del proyecto mercado-libro.odt
