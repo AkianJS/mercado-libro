@@ -85,7 +85,7 @@ const Book = ({ book }) => {
 
   return (
     <Layout title={book.titulo}>
-      <section className="mt-8 pl-4 pr-4 flex flex-wrap justify-center gap-6 max-w-screen-xl mlauto mr-auto">
+      <section className="mt-8 pl-4 pr-4 flex flex-wrap justify-center gap-6 max-w-screen-xl ml-auto mr-auto">
         <div className="mb-4">
           <Image
             width={256}
