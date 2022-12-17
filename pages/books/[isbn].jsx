@@ -1,14 +1,25 @@
-import React, { useContext, useMemo, useRef, useState } from "react";
+import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import Layout from "../../components/layout/Layout";
 import Image from "next/image";
 import AppContext from "../../context/AppContext";
 import Button from "../../components/ui/Button";
 import Swal from "sweetalert2";
-import { FaCartPlus, FaEdit, FaHeart, FaSave } from "react-icons/fa";
+import { FaCartPlus } from "react-icons/fa";
 import { getBooks } from "../../utils/getBooks";
 import { setBookTocart } from "../../utils/setBookToCart";
 import Opine from "../../components/Opine";
 import StarsRating from "../../components/StarsRating";
+import BookDetailsTitle from "../../components/book-details/BookDetailsTitle";
+import BookDetailsFav from "../../components/book-details/BookDetailsFav";
+import BookDetailsAuthor from "../../components/book-details/BookDetailsAuthor";
+import BookDetailsDiscount from "../../components/book-details/BookDetailsDiscount";
+import BookDetailsDescription from "../../components/book-details/BookDetailsDescription";
+import BookDetailsIsbn from "../../components/book-details/BookDetailsIsbn";
+import BookDetailsEditorial from "../../components/book-details/BookDetailsEditorial";
+import BookDetailsCategory from "../../components/book-details/BookDetailsCategory";
+import BookDetailsLanguage from "../../components/book-details/BookDetailsLanguage";
+import BookDetailsStock from "../../components/book-details/BookDetailsStock";
+import { useForm } from "react-hook-form";
 
 const Book = ({ book }) => {
   const {
@@ -18,12 +29,22 @@ const Book = ({ book }) => {
     updateUserInfo,
   } = useContext(AppContext);
 
+  const {
+    register,
+    reset,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  useEffect(() => {
+    const defaultValues = {
+      title: book.titulo
+    }
+    reset(defaultValues)
+  },[])
+
   const [isEditing, setIsEditing] = useState(false);
   const buyQuantityRef = useRef();
-  const titleRef = useRef();
-  const authorRef = useRef();
-
-  console.log(titleRef.current?.textContent);
 
   // Funciones
   const Toast = Swal.mixin({
@@ -33,39 +54,9 @@ const Book = ({ book }) => {
     timer: 3000,
     timerProgressBar: true,
     didOpen: (toast) => {
-      toast.addEventListener("mouseenter", Swal.stopTimer);
-      toast.addEventListener("mouseleave", Swal.resumeTimer);
+      toast.addEventListener("click", Swal.close);
     },
   });
-
-  const stockAmount = useMemo(() => {
-    if (book.stock > 0) {
-      let stockArray = [];
-      for (let i = 1; i <= book.stock; i++) {
-        stockArray = [...stockArray, i];
-      }
-      return stockArray;
-    }
-    return null;
-  }, [book.stock]);
-
-  const handleSetFavourite = () => {
-    if (login.success) {
-      Toast.fire({
-        icon: "success",
-        title: `"${book.titulo}" agregado a favoritos!`,
-      });
-      setFavourite(book);
-    } else
-      Toast.fire({
-        icon: "error",
-        title: `Regístrese para agregar libros a favoritos!`,
-      });
-  };
-
-  const handleRemoveFavourite = () => {
-    removeFavourite(book);
-  };
 
   const handleAddToCart = async () => {
     const quantity = buyQuantityRef.current.value || null;
@@ -87,29 +78,14 @@ const Book = ({ book }) => {
       });
   };
 
-  // Info del libro parseada
-  const author = book?.autor?.map((item) => item.nombre);
-  const discount = book?.descuento
-    ? (book.descuento / 100) * book.precio
-    : null;
+  const onSubmit = (data) => {
+    console.log(data)
 
-  const isFavourite = login?.usuario?.favorito?.find(
-    (item) => item.isbn === book.isbn
-  );
-
-  const category = book?.tema?.map((item) => item.nombre);
-
-  const onEditingStyle = {
-    borderRadius: "5px",
-    outline: "none",
-    padding: "0.25rem 1rem",
-    backgroundColor: "#a0a0a0",
-    color: "#000000",
-  };
+  }
 
   return (
     <Layout title={book.titulo}>
-      <section className="mt-8 pl-4 pr-4 flex flex-wrap justify-center gap-6 max-w-screen-xl m-auto">
+      <section className="mt-8 pl-4 pr-4 flex flex-wrap justify-center gap-6 max-w-screen-xl mlauto mr-auto">
         <div className="mb-4">
           <Image
             width={256}
@@ -119,111 +95,79 @@ const Book = ({ book }) => {
           />
         </div>
         <div className="w-128">
-          <div className="flex gap-4">
-            <h2
-              contentEditable={isEditing}
-              ref={titleRef}
-              className="text-2xl mb-2"
-              style={isEditing ? onEditingStyle : undefined}
-            >
-              {book.titulo}
-            </h2>
-            {login.usuario?.admin && (
-              <button onClick={() => setIsEditing(!isEditing)}>
-                {isEditing ? (
-                  <FaSave className="text-2xl" />
-                ) : (
-                  <FaEdit className="text-2xl" />
-                )}
-              </button>
-            )}
-            {!login.usuario?.admin && (
-              <FaHeart
-                onClick={
-                  isFavourite ? handleRemoveFavourite : handleSetFavourite
-                }
-                className={`text-3xl text-white cursor-pointer self-end ml-auto self- hover:scale-105
-              ${
-                isFavourite
-                  ? "text-red-500"
-                  : "text-white stroke-black stroke-[20px]"
-              }`}
-              />
-            )}
-          </div>
-          <p
-            ref={authorRef}
-            contentEditable={isEditing}
-            style={isEditing ? onEditingStyle : undefined}
-            className="text-gray-500 text-lg inline-block"
-          >
-            {author.join(", ")}
-          </p>
-          <br />
-          <StarsRating Toast={Toast} book={book} login={login} />
-          {discount && (
-            <p className="mt-14 text-right text-2xl font-bold text-emerald-600">
-              {(book.precio - discount).toFixed(2)} $
-            </p>
-          )}
-          <div
-            className={`flex justify-end items-start gap-2 ${
-              discount ? "mt-2" : "mt-14"
-            }`}
-          >
-            <p
-              className={`${
-                discount ? " text-gray-500 text-xl line-through" : "text-xl"
-              } mb-16 font-bold text-right`}
-            >
-              {book.precio} $
-            </p>
-            {discount ? (
-              <span className="h-8 bg-red-600 text-white font-bold p-1">
-                - {book.descuento} %
-              </span>
-            ) : (
-              ""
-            )}
-          </div>
-          <hr />
-          <h4 className="mt-4 mb-4 text-2xl">
-            <strong>Descripción</strong>
-          </h4>
-          <p className="text-gray-600">{book.descripcion}</p>
-          <p className="text-gray-600 uppercase mt-4">Isbn: {book.isbn}</p>
-          <p className="mt-4 text-gray-600">
-            Editorial: {book?.editorial?.nombre}
-          </p>
-          <p className="mt-4 text-gray-600">Idioma: {book.idioma?.nombre}</p>
-          <p className="mt-4 text-gray-600">
-            Categoría: {category?.join(", ")}
-          </p>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <BookDetailsFav
+              book={book}
+              isEditing={isEditing}
+              login={login}
+              setIsEditing={setIsEditing}
+              setFavourite={setFavourite}
+              removeFavourite={removeFavourite}
+              Toast={Toast}
+            />
+            <BookDetailsTitle book={book} login={login} isEditing={isEditing} register={register} />
+            <BookDetailsAuthor
+              book={book}
+              isEditing={isEditing}
+              login={login}
+            />
+            <StarsRating Toast={Toast} book={book} login={login} />
+            <BookDetailsDiscount
+              book={book}
+              isEditing={isEditing}
+              login={login}
+            />
+
+            <hr className="mt-8" />
+            <h4 className="mt-4 mb-4 text-2xl">
+              <strong>Descripción</strong>
+            </h4>
+
+            <BookDetailsDescription
+              book={book}
+              isEditing={isEditing}
+              login={login}
+            />
+            <BookDetailsIsbn book={book} isEditing={isEditing} login={login} />
+            <BookDetailsEditorial
+              book={book}
+              isEditing={isEditing}
+              login={login}
+            />
+            <BookDetailsCategory
+              book={book}
+              isEditing={isEditing}
+              login={login}
+            />
+            <BookDetailsLanguage
+              book={book}
+              isEditing={isEditing}
+              login={login}
+            />
+            <BookDetailsStock book={book} isEditing={isEditing} login={login} />
+            <br />
+            <Button type="submit">Modificar</Button>
+          </form>
           <div>
-            <p className="mt-6 text-gray-600 text-sm uppercase">
-              {book.stock > 0 ? (
-                `${book.stock} ejemplares disponibles`
-              ) : (
-                <span className="text-red-500">Ningun ejemplar disponible</span>
-              )}
-            </p>
-            <div className="min-w-72 max-w-screen-md mt-2 flex flex-wrap gap-4">
-              <div onClick={handleAddToCart} className="relative w-72">
-                <Button text="Agregar al carrito" type="submit" />
-                <FaCartPlus className="absolute right-2 top-1.5 text-white text-3xl cursor-pointer" />
+            {!login.usuario?.admin && (
+              <div className="min-w-72 max-w-screen-md mt-2 flex flex-wrap gap-4">
+                <div onClick={handleAddToCart} className="relative w-72">
+                  <Button type="button" >Agregar al carrito</Button>
+                  <FaCartPlus className="absolute right-2 top-1.5 text-white text-3xl cursor-pointer" />
+                </div>
+                <select
+                  ref={buyQuantityRef}
+                  className={`bg-black w-12 text-white rounded-[0.25rem] pl-2 pr-1`}
+                >
+                  {book.stock > 0 &&
+                    [...Array(book.stock).keys()].map((item) => (
+                      <option key={item} value={item + 1}>
+                        {item + 1}
+                      </option>
+                    ))}
+                </select>
               </div>
-              <select
-                ref={buyQuantityRef}
-                className={`bg-black w-12 text-white rounded-[0.25rem] pl-2 pr-1`}
-              >
-                {stockAmount &&
-                  stockAmount.map((item) => (
-                    <option key={item} value={item}>
-                      {item}
-                    </option>
-                  ))}
-              </select>
-            </div>
+            )}
           </div>
         </div>
       </section>

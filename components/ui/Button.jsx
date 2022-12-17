@@ -1,11 +1,12 @@
 import styles from "./Button.module.css"
 
-const Button = ({text, type}) => {
+const Button = ({text, type, children, handleClick}) => {
   return (
     <button 
+    onClick={handleClick}
     type={type || "button"}
     className={`${styles.btnGrad}`}>
-        { text }
+        {children}
     </button>
   )
 }

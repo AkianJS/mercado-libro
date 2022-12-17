@@ -156,7 +156,7 @@ const Checkout = ({data}) => {
             </div>
 
             <div className="w-3/4">
-              <Button type="submit" text="Continuar" />
+              <Button type="submit">Continuar</Button>
             </div>
           </div>
         </form>

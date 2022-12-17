@@ -92,7 +92,7 @@ const RegisterForm = () => {
         { message && <p className="text-sm">{message}</p> }
 
         <div className="w-3/4">
-          <Button text="Registrar" type="submit" />
+          <Button type="submit">Registrarse</Button>
         </div>
         <Google handleGoogleSuccess={handleGoogleSuccess} />
       </div>

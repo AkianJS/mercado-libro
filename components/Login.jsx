@@ -89,7 +89,7 @@ const Login = () => {
         </div>
         {message && <p className="text-sm">{message}</p>}
         <div className="w-3/4">
-          <Button text="Ingresar" type="submit" />
+          <Button type="submit" >Ingresar</Button>
         </div>
         <Google handleGoogleSuccess={handleGoogleSuccess} />
       </div>
