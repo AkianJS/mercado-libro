@@ -89,7 +89,7 @@ const Navbar = () => {
 
         {/* Icono de usuario  y carrito con sus funcionalidades*/}
         <div className="flex gap-5 mr-4">
-          <div className="flex">
+          <div>
             <NavUser login={login} setState={setState} />
           </div>
           {!login.usuario?.admin && (

@@ -28,6 +28,10 @@
 .closeSesion {
   animation: in .2s ;
   animation-delay: .2s;
+  -webkit-animation: in .2s;
+  -webkit-animation-delay: .2s;
+  -moz-animation: in .2s;
+  -moz-animation-delay: .2s;
 }
 
 @keyframes in {
