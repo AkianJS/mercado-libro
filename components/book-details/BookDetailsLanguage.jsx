@@ -1,12 +1,13 @@
 import React from 'react'
 
-const BookDetailsLanguage = ({book, login, isEditing}) => {
+const BookDetailsLanguage = ({book, login, isEditing, register}) => {
     return (
         <div className='mt-4 flex gap-2'>
           {login.usuario?.admin && isEditing ? (
             <>
             <p>Idioma: </p>
               <input
+              {...register("language")}
                 defaultValue={book.idioma?.nombre}
                 className="bg-gray-200 rounded-sm"
                 type="text"

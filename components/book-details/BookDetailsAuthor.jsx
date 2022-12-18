@@ -1,20 +1,15 @@
 import React from "react";
 
-const BookDetailsAuthor = ({ book, login, isEditing }) => {
+const BookDetailsAuthor = ({ book, login, isEditing, register }) => {
   const author = book?.autor?.map((item) => item.nombre);
 
   return (
     <div className="mt-4">
       {login.usuario?.admin && isEditing ? (
         <>
-          {/* <label className="text-base uppercase" htmlFor="title">
-            Autor
-          </label> */}
-
           <input
+            {...register("author")}
             className="bg-gray-200 rounded-sm outline-none"
-            name="title"
-            defaultValue={author?.join(", ")}
             type="text"
           />
         </>

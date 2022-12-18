@@ -62,8 +62,7 @@ const AdminAddBook = ({ login, getTemas }) => {
     const author = JSON.stringify([data.author]);
     const themes = data.themes.map((item) => item.nombre);
     const description = JSON.stringify(data.description);
-    console.log(description)
-    setBook({
+    const values = {
       author: author,
       description: description,
       discount: parseFloat(data.discount) || null,
@@ -77,7 +76,9 @@ const AdminAddBook = ({ login, getTemas }) => {
       stock: parseFloat(data.stock),
       themes: JSON.stringify(themes),
       title: data.title,
-    }).then((data) => console.log(data));
+    }
+    console.log(values)
+    setBook(values).then((data) => console.log(data));
   };
 
   return (

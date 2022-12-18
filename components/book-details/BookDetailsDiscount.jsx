@@ -1,6 +1,6 @@
 import React from "react";
 
-const BookDetailsDiscount = ({ book, login, isEditing }) => {
+const BookDetailsDiscount = ({ book, login, isEditing, register }) => {
   const discount = book?.descuento
     ? (book.descuento / 100) * book.precio
     : null;
@@ -11,13 +11,15 @@ const BookDetailsDiscount = ({ book, login, isEditing }) => {
         <div className="inline-flex flex-col items-start">
           <label>Precio</label>
           <input
+            {...register("price")}
             defaultValue={book.precio}
             className="bg-gray-200 rounded-sm outline-none"
             type="number"
           />
           <label>Descuento</label>
           <input
-            defaultChecked={book.descuento}
+            {...register("discount")}
+            defaultValue={book.descuento}
             className="bg-gray-200 rounded-sm outline-none"
             type="number"
           />

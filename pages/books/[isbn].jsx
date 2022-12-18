@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import Layout from "../../components/layout/Layout";
-import Image from "next/image";
 import AppContext from "../../context/AppContext";
 import Button from "../../components/ui/Button";
 import Swal from "sweetalert2";
@@ -20,6 +19,10 @@ import BookDetailsCategory from "../../components/book-details/BookDetailsCatego
 import BookDetailsLanguage from "../../components/book-details/BookDetailsLanguage";
 import BookDetailsStock from "../../components/book-details/BookDetailsStock";
 import { useForm } from "react-hook-form";
+import BookDetailsImage from "../../components/book-details/BookDetailsImage";
+import Loader from "../../components/ui/Loader";
+import { setBook } from "../../utils/setBook";
+import BookDetailsEditionDate from "../../components/book-details/BookDetailsEditionDate";
 
 const Book = ({ book }) => {
   const {
@@ -33,15 +36,32 @@ const Book = ({ book }) => {
     register,
     reset,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm();
 
+  const [imageChange, setImageChange] = useState();
+
   useEffect(() => {
     const defaultValues = {
-      title: book.titulo
-    }
-    reset(defaultValues)
-  },[])
+      title: book?.titulo,
+      imageUrl: book?.url_imagen,
+      author: book?.autor?.map((item) => item.nombre).join(", "),
+      price: book?.precio,
+      discount: book?.descuento,
+      description: book?.descripcion,
+      language: book?.idioma?.nombre,
+      editorial: book?.editorial?.nombre,
+      themes: book?.tema?.map(item => item.nombre),
+      stock: book?.stock,
+      editionDate: book?.fecha_edicion,
+      entryDate: book.fecha_ingreso,
+      isbn: book?.isbn,
+
+    };
+    reset(defaultValues);
+  }, []);
+
 
   const [isEditing, setIsEditing] = useState(false);
   const buyQuantityRef = useRef();
@@ -78,22 +98,53 @@ const Book = ({ book }) => {
       });
   };
 
-  const onSubmit = (data) => {
-    console.log(data)
+  const onSubmit = async (data) => {
+    let author = JSON.stringify([data.author]);
+    let description = JSON.stringify(data.description);
+    let themes =  JSON.stringify(data.themes)
+    console.log(author)
 
-  }
+    const values = {
+      author: author,
+      title: data.title,
+      description: description,
+      discount: +data.discount || null,
+      isbn: book.isbn,
+      image: data.imageUrl,
+      language: data.language,
+      editorial: data.editorial,
+      price: +data.price,
+      stock: +data.stock,
+      themes: themes,
+      editionDate: data.editionDate,
+      entryDate: "20/11/2021",
+    }
+    console.log(values)
+    const res = await setBook(values);
+    console.log("Res: ", res)
+  };
+
+  if (!book)
+    return (
+      <Layout>
+        <div className="flex justify-center mt-4">
+          <Loader />
+        </div>
+      </Layout>
+    );
 
   return (
     <Layout title={book.titulo}>
       <section className="mt-8 pl-4 pr-4 flex flex-wrap justify-center gap-6 max-w-screen-xl ml-auto mr-auto">
-        <div className="mb-4">
-          <Image
-            width={256}
-            height={459}
-            alt={book.titulo}
-            src={book.url_imagen}
-          />
-        </div>
+        <BookDetailsImage
+          book={book}
+          login={login}
+          isEditing={isEditing}
+          register={register}
+          setValue={setValue}
+          setImageChange={setImageChange}
+        />
+
         <div className="w-128">
           <form onSubmit={handleSubmit(onSubmit)}>
             <BookDetailsFav
@@ -105,17 +156,24 @@ const Book = ({ book }) => {
               removeFavourite={removeFavourite}
               Toast={Toast}
             />
-            <BookDetailsTitle book={book} login={login} isEditing={isEditing} register={register} />
+            <BookDetailsTitle
+              book={book}
+              login={login}
+              isEditing={isEditing}
+              register={register}
+            />
             <BookDetailsAuthor
               book={book}
               isEditing={isEditing}
               login={login}
+              register={register}
             />
             <StarsRating Toast={Toast} book={book} login={login} />
             <BookDetailsDiscount
               book={book}
               isEditing={isEditing}
               login={login}
+              register={register}
             />
 
             <hr className="mt-8" />
@@ -127,24 +185,39 @@ const Book = ({ book }) => {
               book={book}
               isEditing={isEditing}
               login={login}
+              register={register}
             />
             <BookDetailsIsbn book={book} isEditing={isEditing} login={login} />
             <BookDetailsEditorial
               book={book}
               isEditing={isEditing}
               login={login}
+              register={register}
+            />
+            <BookDetailsEditionDate
+              book={book}
+              isEditing={isEditing}
+              login={login}
+              register={register}
             />
             <BookDetailsCategory
               book={book}
               isEditing={isEditing}
               login={login}
+              register={register}
             />
             <BookDetailsLanguage
               book={book}
               isEditing={isEditing}
               login={login}
+              register={register}
             />
-            <BookDetailsStock book={book} isEditing={isEditing} login={login} />
+            <BookDetailsStock
+              book={book}
+              isEditing={isEditing}
+              login={login}
+              register={register}
+            />
             <br />
             <Button type="submit">Modificar</Button>
           </form>
@@ -152,7 +225,7 @@ const Book = ({ book }) => {
             {!login.usuario?.admin && (
               <div className="min-w-72 max-w-screen-md mt-2 flex flex-wrap gap-4">
                 <div onClick={handleAddToCart} className="relative w-72">
-                  <Button type="button" >Agregar al carrito</Button>
+                  <Button type="button">Agregar al carrito</Button>
                   <FaCartPlus className="absolute right-2 top-1.5 text-white text-3xl cursor-pointer" />
                 </div>
                 <select
@@ -190,18 +263,23 @@ export async function getServerSideProps(context) {
     params: { isbn },
   } = context;
 
-  const res = await getBooks({ isbn: isbn });
-  const {
-    data: { getLibro },
-  } = res;
-
-  const book = getLibro?.libro[0];
-
-  return {
-    props: {
-      book,
-    },
-  };
+  try {
+    const res = await getBooks({ isbn: isbn });
+    const {
+      data: { getLibro },
+    } = res;
+    const book = getLibro?.libro[0];
+    return {
+      props: {
+        book,
+      },
+    };
+  } catch (err) {
+    const book = null;
+    return {
+      props: { book },
+    };
+  }
 }
 
 export default Book;

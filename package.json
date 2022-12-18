@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@react-oauth/google": "^0.4.0",
+    "axios": "^1.2.1",
     "jwt-decode": "^3.1.2",
     "next": "13.0.6",
     "react": "18.2.0",
@@ -17,7 +18,7 @@
     "react-hook-form": "^7.39.7",
     "react-icons": "^4.6.0",
     "react-simple-star-rating": "^5.1.7",
-    "sweetalert2": "^11.4.38"
+    "sweetalert2": "^11.4.8"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.13",

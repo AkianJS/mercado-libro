@@ -1,11 +1,12 @@
 import React from "react";
 
-const BookDetailsDescription = ({ book, login, isEditing }) => {
+const BookDetailsDescription = ({ book, login, isEditing, register }) => {
   return (
     <div>
       {login.usuario?.admin && isEditing ? (
         <>
           <textarea
+            {...register("description")}
             defaultValue={book.descripcion}
             className="bg-gray-200 rounded-sm w-full"
             rows="15"
