@@ -9,7 +9,6 @@ const BookDetailsCategory = ({ book, login, isEditing, register }) => {
           <p>Categoría: </p>
           <input
             {...register("themes")}
-            defaultValue={category.join(", ")}
             className="bg-gray-200 rounded-sm w-full"
             type="text"
           />

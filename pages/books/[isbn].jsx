@@ -103,8 +103,8 @@ const Book = ({ book }) => {
   const onSubmit = async (result) => {
     let author = JSON.stringify([result.author]);
     let description = JSON.stringify(result.description);
-    let themes =  JSON.stringify(result.themes)
-    console.log(author)
+    let themes =  JSON.stringify(result.themes.split(/[, ]/gi))
+    console.log(themes)
 
     const values = {
       author: author,
@@ -142,7 +142,7 @@ const Book = ({ book }) => {
   }
 
   };
-
+console.log(book)
   if (!book)
     return (
       <Layout>
