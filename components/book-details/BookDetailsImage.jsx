@@ -39,7 +39,7 @@ const BookDetailsImage = ({
 
   return (
     <div
-      className={`mb-4 relative duration-200 ${isEditing && "hover:scale-105"}`}
+      className={`mb-4 relative w-[270px] h-[430px] duration-200 ${isEditing && "hover:scale-105"}`}
     >
       {login.usuario?.admin && isEditing && (
         <label
@@ -57,9 +57,8 @@ const BookDetailsImage = ({
         </label>
       )}
       <Image
-        className="nextImage"
-        width={256}
-        height={459}
+        className={`nextImage`}
+        fill
         alt={book.titulo}
         src={newImage || book.url_imagen}
       />

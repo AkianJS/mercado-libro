@@ -23,6 +23,7 @@ import BookDetailsImage from "../../components/book-details/BookDetailsImage";
 import Loader from "../../components/ui/Loader";
 import { setBook } from "../../utils/setBook";
 import BookDetailsEditionDate from "../../components/book-details/BookDetailsEditionDate";
+import { useRouter } from "next/router";
 
 const Book = ({ book }) => {
   const {
@@ -41,6 +42,7 @@ const Book = ({ book }) => {
   } = useForm();
 
   const [imageChange, setImageChange] = useState();
+  const router = useRouter()
 
   useEffect(() => {
     const defaultValues = {
@@ -98,30 +100,47 @@ const Book = ({ book }) => {
       });
   };
 
-  const onSubmit = async (data) => {
-    let author = JSON.stringify([data.author]);
-    let description = JSON.stringify(data.description);
-    let themes =  JSON.stringify(data.themes)
+  const onSubmit = async (result) => {
+    let author = JSON.stringify([result.author]);
+    let description = JSON.stringify(result.description);
+    let themes =  JSON.stringify(result.themes)
     console.log(author)
 
     const values = {
       author: author,
-      title: data.title,
+      title: result.title,
       description: description,
-      discount: +data.discount || null,
+      discount: +result.discount || null,
       isbn: book.isbn,
-      image: data.imageUrl,
-      language: data.language,
-      editorial: data.editorial,
-      price: +data.price,
-      stock: +data.stock,
+      image: result.imageUrl,
+      language: result.language,
+      editorial: result.editorial,
+      price: +result.price,
+      stock: +result.stock,
       themes: themes,
-      editionDate: data.editionDate,
+      editionDate: result.editionDate,
       entryDate: "20/11/2021",
     }
-    console.log(values)
     const res = await setBook(values);
-    console.log("Res: ", res)
+    const {errors, data} = res
+    
+    if (errors || !data) Swal.fire({
+      title: "Error!",
+      text: "El servidor está caído, intente más tarde",
+      icon: "error",
+      confirmButtonText: "Continuar",
+    })
+    else if (data.insertLibro?.success){
+    Swal.fire({
+      title: "Éxito!",
+      text: "Se ha modificado el libro correctamente",
+      icon: "success",
+      confirmButtonText: "Continuar",
+    }) 
+    setIsEditing(false)
+    router.replace(router.asPath)
+  }
+
   };
 
   if (!book)
