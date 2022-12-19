@@ -9,7 +9,7 @@ const BookDetailsLanguage = ({book, login, isEditing, register}) => {
               <input
               {...register("language")}
                 defaultValue={book.idioma?.nombre}
-                className="bg-gray-200 rounded-sm"
+                className="p-1 bg-gray-200 rounded-sm"
                 type="text"
               />
             </>

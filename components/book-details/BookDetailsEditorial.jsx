@@ -9,7 +9,7 @@ const BookDetailsEditorial = ({book, login, isEditing, register}) => {
               <input
               {...register("editorial")}
                 defaultValue={book.editorial?.nombre}
-                className="bg-gray-200 rounded-sm"
+                className="p-1 bg-gray-200 rounded-sm"
                 rows="15"
               />
             </>

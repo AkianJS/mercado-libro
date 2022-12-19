@@ -8,7 +8,7 @@ const BookDetailsDescription = ({ book, login, isEditing, register }) => {
           <textarea
             {...register("description")}
             defaultValue={book.descripcion}
-            className="bg-gray-200 rounded-sm w-full"
+            className="p-1 bg-gray-200 rounded-sm w-full"
             rows="15"
           ></textarea>
         </>

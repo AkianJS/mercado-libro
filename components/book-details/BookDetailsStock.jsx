@@ -9,7 +9,7 @@ const BookDetailsStock = ({ book, login, isEditing, register }) => {
           <input
             {...register("stock")}
             defaultValue={book.stock}
-            className="bg-gray-200 rounded-sm"
+            className="p-1 bg-gray-200 rounded-sm"
             type="number"
           />
         </>

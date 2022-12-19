@@ -1,6 +1,7 @@
 import React from "react";
-import { FaHeart, FaSave } from "react-icons/fa";
-import { BiEditAlt, BiSave } from "react-icons/bi";
+import { FaHeart, FaTrash } from "react-icons/fa";
+import { BiEditAlt } from "react-icons/bi";
+import { CgClose } from "react-icons/cg";
 
 const BookDetailsFav = ({
   book,
@@ -39,7 +40,7 @@ const BookDetailsFav = ({
       {login.usuario?.admin && (
         <button type="button" onClick={() => setIsEditing(!isEditing)}>
           {isEditing ? (
-            <BiSave className="text-4xl" />
+            <CgClose className="text-4xl" />
           ) : (
             <BiEditAlt className="text-4xl" />
           )}

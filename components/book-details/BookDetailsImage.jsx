@@ -34,7 +34,6 @@ const BookDetailsImage = ({
     });
     const { data, errors } = res;
     setValue("imageUrl", data.data?.display_url);
-    console.log(data);
   };
 
   return (

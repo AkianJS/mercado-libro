@@ -9,7 +9,7 @@ const BookDetailsEditionDate = ({ book, login, isEditing, register }) => {
           <input
             {...register("editionDate")}
             defaultValue={book.fecha_edicion}
-            className="bg-gray-200 rounded-sm"
+            className="p-1 bg-gray-200 rounded-sm"
             type="text"
           />
         </>

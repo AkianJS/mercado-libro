@@ -8,8 +8,9 @@ const BookDetailsAuthor = ({ book, login, isEditing, register }) => {
       {login.usuario?.admin && isEditing ? (
         <>
           <input
+          placeholder="Autor/es"
             {...register("author")}
-            className="bg-gray-200 rounded-sm outline-none"
+            className="p-1 bg-gray-200 rounded-sm outline-none w-[40vw] max-w-xl"
             type="text"
           />
         </>

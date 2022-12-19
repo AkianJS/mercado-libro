@@ -3,7 +3,7 @@ import Layout from "../../components/layout/Layout";
 import AppContext from "../../context/AppContext";
 import Button from "../../components/ui/Button";
 import Swal from "sweetalert2";
-import { FaCartPlus } from "react-icons/fa";
+import { FaCartPlus, FaWindowClose } from "react-icons/fa";
 import { getBooks } from "../../utils/getBooks";
 import { setBookTocart } from "../../utils/setBookToCart";
 import Opine from "../../components/Opine";
@@ -24,8 +24,11 @@ import Loader from "../../components/ui/Loader";
 import { setBook } from "../../utils/setBook";
 import BookDetailsEditionDate from "../../components/book-details/BookDetailsEditionDate";
 import { useRouter } from "next/router";
+import { getThemes } from "../../utils/getThemes";
+import Modal from "../../components/ui/Modal";
+import { removeBook } from "../../utils/removeBook";
 
-const Book = ({ book }) => {
+const Book = ({ book, getTemas }) => {
   const {
     state: { login },
     setFavourite,
@@ -38,10 +41,12 @@ const Book = ({ book }) => {
     reset,
     handleSubmit,
     setValue,
+    control,
     formState: { errors },
   } = useForm();
 
   const [imageChange, setImageChange] = useState();
+  const [modalShow, setModalShow] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -54,7 +59,7 @@ const Book = ({ book }) => {
       description: book?.descripcion,
       language: book?.idioma?.nombre,
       editorial: book?.editorial?.nombre,
-      themes: book?.tema?.map((item) => item.nombre),
+      themes: book?.tema,
       stock: book?.stock,
       editionDate: book?.fecha_edicion,
       entryDate: book.fecha_ingreso,
@@ -101,8 +106,7 @@ const Book = ({ book }) => {
   const onSubmit = async (result) => {
     let author = JSON.stringify([result.author]);
     let description = JSON.stringify(result.description);
-    let themes = JSON.stringify(result.themes.split(/[, ]/gi));
-    console.log(themes);
+    let themes = result.themes?.map((item) => item.nombre);
 
     const values = {
       author: author,
@@ -115,12 +119,13 @@ const Book = ({ book }) => {
       editorial: result.editorial,
       price: +result.price,
       stock: +result.stock,
-      themes: themes,
+      themes: JSON.stringify(themes),
       editionDate: result.editionDate,
       entryDate: "20/11/2021",
     };
     const res = await setBook(values);
     const { errors, data } = res;
+    console.log(res);
 
     if (errors || !data)
       Swal.fire({
@@ -140,7 +145,36 @@ const Book = ({ book }) => {
       router.replace(router.asPath);
     }
   };
-  console.log(book);
+
+  const handleRemoveBook = async () => {
+    const res = await removeBook({ isbn: book.isbn });
+    const { errors, data } = res;
+    console.log(res)
+    if (errors || !data) {
+      Swal.fire({
+        title: "Error!",
+        text: "El servidor está caído, intente más tarde",
+        icon: "error",
+        confirmButtonText: "Continuar",
+      });
+    } else if (data.eliminarLibro?.success) {
+      Swal.fire({
+        title: "Éxito!",
+        text: "Libro eliminado correctamente",
+        icon: "success",
+        confirmButtonText: "Continuar",
+      });
+      router.push('/books')
+    } else {
+      Swal.fire({
+        title: "Error!",
+        text: "No se ha podido eliminar el libro",
+        icon: "error",
+        confirmButtonText: "Continuar",
+      });
+    }
+  };
+
   if (!book)
     return (
       <Layout>
@@ -222,6 +256,8 @@ const Book = ({ book }) => {
               isEditing={isEditing}
               login={login}
               register={register}
+              control={control}
+              getTemas={getTemas}
             />
             <BookDetailsLanguage
               book={book}
@@ -238,6 +274,27 @@ const Book = ({ book }) => {
             <br />
             {login.usuario?.admin && <Button type="submit">Modificar</Button>}
           </form>
+          <Button
+            handleClick={() => setModalShow(true)}
+            background="rgba(220,38,38, .9)"
+            className="mt-4"
+          >
+            Eliminar Libro
+          </Button>
+          <Modal show={modalShow}>
+            <div className="bg-white p-4 rounded-lg flex flex-col gap-2">
+              <button className="ml-auto mr-0 text-xl">
+                <FaWindowClose />
+              </button>
+              <h4>Está seguro de eliminar {book.titulo}?</h4>
+              <div className="grid grid-cols-2 gap-4">
+                <Button handleClick={handleRemoveBook}>Eliminar</Button>
+                <Button handleClick={() => setModalShow(false)}>
+                  Cancelar
+                </Button>
+              </div>
+            </div>
+          </Modal>
           <div>
             {!login.usuario?.admin && (
               <div className="min-w-72 max-w-screen-md mt-2 flex flex-wrap gap-4">
@@ -280,15 +337,24 @@ export async function getServerSideProps(context) {
     params: { isbn },
   } = context;
 
+  // Traer la info del libro
   try {
     const res = await getBooks({ isbn: isbn });
+    const res2 = await getThemes();
+
+    const {
+      data: { getTemas },
+    } = res2;
+
     const {
       data: { getLibro },
     } = res;
+
     const book = getLibro?.libro[0];
     return {
       props: {
         book,
+        getTemas,
       },
     };
   } catch (err) {

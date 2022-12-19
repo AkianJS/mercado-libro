@@ -9,7 +9,7 @@ const BookDetailsTitle = ({ book, login, isEditing, register }) => {
         <>
           <input
             {...register("title")}
-            className="bg-gray-200 rounded-sm outline-none w-full"
+            className="p-1 bg-gray-200 rounded-sm outline-none w-full"
             type="text"
           />
         </>
