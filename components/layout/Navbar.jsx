@@ -42,7 +42,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="w-full bg-white drop-shadow-md sticky top-0 z-50">
+    <nav className="w-full bg-white drop-shadow-md sticky top-0 z-50 pr-1 pl-1">
       <ul
         className={`flex gap-4 m-auto max-w-screen-xl h-16 items-center ${styles.navItems}`}
       >
@@ -96,10 +96,10 @@ const Navbar = () => {
             <li className="relative">
               <Link href="/cart">
                 <FaShoppingCart className="text-2xl" />
-                {login?.usuario?.carrito?.length > 0 && (
+                {login?.usuario?.carrito?.items?.length > 0 && (
                   <div className="flex justify-center items-center w-4 h-4 rounded-full bg-emerald-600 absolute -right-1 top-3 opacity-90 pointer-events-none">
                     <p className="text-white text-sm">
-                      {login.usuario?.carrito?.length}
+                      {login.usuario?.carrito?.items?.length}
                     </p>
                   </div>
                 )}

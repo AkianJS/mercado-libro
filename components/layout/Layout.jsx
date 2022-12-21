@@ -15,7 +15,7 @@ const Layout = ({ children, title }) => {
         />
       </Head>
       <Navbar />
-      <div className="body-layout">{children}</div>
+      <div className="body-layout overflow-hidden">{children}</div>
       <Footer />
     </>
   );

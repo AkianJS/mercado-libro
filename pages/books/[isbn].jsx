@@ -149,7 +149,7 @@ const Book = ({ book, getTemas }) => {
   const handleRemoveBook = async () => {
     const res = await removeBook({ isbn: book.isbn });
     const { errors, data } = res;
-    console.log(res)
+    console.log(res);
     if (errors || !data) {
       Swal.fire({
         title: "Error!",
@@ -164,7 +164,7 @@ const Book = ({ book, getTemas }) => {
         icon: "success",
         confirmButtonText: "Continuar",
       });
-      router.push('/books')
+      router.push("/books");
     } else {
       Swal.fire({
         title: "Error!",
@@ -274,13 +274,15 @@ const Book = ({ book, getTemas }) => {
             <br />
             {login.usuario?.admin && <Button type="submit">Modificar</Button>}
           </form>
-          <Button
-            handleClick={() => setModalShow(true)}
-            background="rgba(220,38,38, .9)"
-            className="mt-4"
-          >
-            Eliminar Libro
-          </Button>
+          {login.usuario?.admin && (
+            <Button
+              handleClick={() => setModalShow(true)}
+              background="rgba(220,38,38, .9)"
+              className="mt-4"
+            >
+              Eliminar Libro
+            </Button>
+          )}
           <Modal show={modalShow}>
             <div className="bg-white p-4 rounded-lg flex flex-col gap-2">
               <button className="ml-auto mr-0 text-xl">

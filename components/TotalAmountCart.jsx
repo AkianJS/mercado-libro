@@ -13,27 +13,26 @@ const TotalAmountCart = ({
   const couponRef = useRef();
 
   const total = useMemo(() => {
-    if (login?.usuario?.carrito?.length > 1) {
-      return login?.usuario?.carrito?.reduce(
+    if (login?.usuario?.carrito?.items?.length > 1) {
+      return login?.usuario?.carrito?.items?.reduce(
         (prev, current) => prev + current?.libro?.precio * current?.cantidad,
         0
       );
     } else
       return (
-        login?.usuario?.carrito[0]?.cantidad *
-        login?.usuario?.carrito[0]?.libro?.precio
+        login?.usuario?.carrito?.items[0]?.cantidad *
+        login?.usuario?.carrito?.items[0]?.libro?.precio
       );
   }, [login?.usuario?.carrito]);
 
-  const totalOfBooks = login?.usuario?.carrito?.reduce(
+  const totalOfBooks = login?.usuario?.carrito?.items?.reduce(
     (prev, current) => prev + current.cantidad,
     0
   );
 
-  const discountCoupon =
-    login.usuario?.carrito[0]?.cupon?.porc_descuento > 0
-      ? login.usuario?.carrito[0]?.cupon
-      : null;
+  const discountCoupon = login.usuario?.carrito?.cupon
+    ? login.usuario?.carrito?.cupon
+    : null;
 
   // Funciones
   const handleAddCoupon = async () => {
@@ -60,6 +59,7 @@ const TotalAmountCart = ({
     }, 3000);
   };
 
+  console.log(login);
   return (
     <div className="max-w-3xl ml-auto mr-auto p-6">
       <hr className="border-t-2 mr-8 ml-8 " />
@@ -95,24 +95,26 @@ const TotalAmountCart = ({
             </div>
           )}
 
-          <div className="mt-4 flex flex-wrap justify-center items-center w-full bg-gray-400 p-2 pl-1 pr-1">
-            <FaCaretRight />
-            <input
-              ref={couponRef}
-              className="bg-gray-400 border-b-2 border-black placeholder:opacity-70 placeholder:text-black outline-none w-[30vw] max-w-sm"
-              placeholder="Cupón de descuento"
-              type="text"
-            />
+          {!login.usuario?.carrito?.cupon?.utilizado && (
+            <div className="mt-4 flex flex-wrap justify-center items-center w-full bg-gray-400 p-2 pl-1 pr-1">
+              <FaCaretRight />
+              <input
+                ref={couponRef}
+                className="bg-gray-400 border-b-2 border-black placeholder:opacity-70 placeholder:text-black outline-none w-[30vw] max-w-sm"
+                placeholder="Cupón de descuento"
+                type="text"
+              />
 
-            <button
-              onClick={handleAddCoupon}
-              className={`bg-black text-white ml-4 p-1 pl-2 pr-2 rounded-sm ${
-                discountCoupon ? "pointer-events-none" : undefined
-              }`}
-            >
-              Agregar
-            </button>
-          </div>
+              <button
+                onClick={handleAddCoupon}
+                className={`bg-black text-white ml-4 p-1 pl-2 pr-2 rounded-sm ${
+                  discountCoupon ? "pointer-events-none" : undefined
+                }`}
+              >
+                Agregar
+              </button>
+            </div>
+          )}
           {message && <p className="text-center">{message}</p>}
           <button
             onClick={handleOnClick}

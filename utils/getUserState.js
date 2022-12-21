@@ -31,33 +31,35 @@ export const getUserState = async ({
             mensaje
           }
           carrito {
-            nro_linea
-            cantidad
             cupon {
               codigo_cupon
               porc_descuento
               utilizado
             }
-            libro {
-              isbn
-              url_imagen
-              titulo
-              fecha_edicion
-              precio
-              stock
-              descripcion
-              descuento
-              editorial {
-                nombre
-              }
-              tema {
-                nombre
-              }
-              autor {
-                nombre
-              }
-              autor {
-                nombre
+            items{
+              nro_linea
+              cantidad
+              libro {
+                isbn
+                url_imagen
+                titulo
+                fecha_edicion
+                precio
+                stock
+                descripcion
+                descuento
+                editorial {
+                  nombre
+                }
+                tema {
+                  nombre
+                }
+                autor {
+                  nombre
+                }
+                autor {
+                  nombre
+                }
               }
             }
           }

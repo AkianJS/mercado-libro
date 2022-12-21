@@ -1,17 +1,17 @@
 import React, { useContext, useState } from "react";
-import Layout from "../components/layout/Layout";
-import ProtectedRoute from "../components/ProtectedRoute";
-import AppContext from "../context/AppContext";
-import { getThemes } from "../utils/getThemes";
-import AdminAddBook from "../components/AdminAddBook";
+import Layout from "../../components/layout/Layout";
+import ProtectedRoute from "../../components/ProtectedRoute";
+import AppContext from "../../context/AppContext";
+import { getThemes } from "../../utils/getThemes";
+import AdminAddBook from "../../components/AdminAddBook";
 import { FaPlus } from "react-icons/fa";
-import AdminAddCoupon from "../components/AdminAddCoupon";
-import AdminAddTheme from "../components/AdminAddTheme";
-import AdminVentas from "../components/AdminVentas";
-import { getSells } from "../utils/getSells";
-import AdminUpdateTheme from "../components/AdminUpdateTheme";
-import AdminRemoveTheme from "../components/AdminRemoveTheme";
-import AdminDeleteBook from "../components/AdminDeleteBook";
+import AdminAddCoupon from "../../components/AdminAddCoupon";
+import AdminAddTheme from "../../components/AdminAddTheme";
+import AdminVentas from "../../components/AdminVentas";
+import { getSells } from "../../utils/getSells";
+import AdminUpdateTheme from "../../components/AdminUpdateTheme";
+import AdminRemoveTheme from "../../components/AdminRemoveTheme";
+import AdminDeleteBook from "../../components/AdminDeleteBook";
 
 const AdminPanel = ({ getTemas, getVentas }) => {
   const {

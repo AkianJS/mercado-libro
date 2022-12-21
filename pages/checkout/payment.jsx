@@ -14,8 +14,9 @@ const Payment = () => {
     updateUserInfo,
   } = useContext(AppContext);
   const { usuario } = login;
+
   const cartHasSomething = useMemo(() => {
-    return login?.usuario?.carrito?.length > 0 ? true : false;
+    return login?.usuario?.carrito?.items?.length > 0 ? true : false;
   }, [login?.usuario?.carrito]);
 
   const router = useRouter();

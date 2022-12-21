@@ -1,5 +1,4 @@
 import React, { useContext, useMemo } from "react";
-import { FaAngleDoubleRight, FaCaretRight } from "react-icons/fa";
 import { useRouter } from "next/router";
 import Layout from "../components/layout/Layout";
 import AppContext from "../context/AppContext";
@@ -17,7 +16,7 @@ const Cart = () => {
   const router = useRouter();
 
   const cartHasSomething = useMemo(() => {
-    return login?.usuario?.carrito?.length > 0 ? true : false;
+    return login?.usuario?.carrito?.items?.length > 0 ? true : false;
   }, [login?.usuario?.carrito]);
 
   const handleOnClick = () => {
@@ -34,7 +33,7 @@ const Cart = () => {
         <section
           className={`max-w-screen-xl p-6 ml-auto mr-auto flex flex-wrap ${styles.cartGrid}`}
         >
-          {login?.usuario?.carrito?.map((item) => (
+          {login?.usuario?.carrito?.items?.map((item) => (
             <CartBookCard
               key={item.libro.isbn}
               token={login.accessToken}

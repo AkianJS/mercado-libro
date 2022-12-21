@@ -31,14 +31,16 @@ const BookDetailsDiscount = ({ book, login, isEditing, register }) => {
               {(book.precio - discount).toFixed(2)}
             </p>
           )}
-
-          <p
-            className={`font-bold text-xl ${
-              discount ? "line-through text-base" : ""
-            }`}
-          >
-            {book.precio} $
-          </p>
+          <div className="flex gap-2 justify-end items-center">
+            <p
+              className={`font-bold text-xl ${
+                discount ? "line-through text-base" : ""
+              }`}
+            >
+              {book.precio} $
+            </p>
+            {discount && <span className="text-white bg-red-600 p-1 pr-2 pl-2">- {book.descuento} %</span>}
+          </div>
         </div>
       )}
     </div>

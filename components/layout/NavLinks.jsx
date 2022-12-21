@@ -21,7 +21,7 @@ const NavLinks = ({ login }) => {
         </Link>
       )}
       {login.usuario?.admin &&  (
-        <Link href="/admin-panel">
+        <Link href="/admin">
           <li>Admin</li>
         </Link>
       )}
