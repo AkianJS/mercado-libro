@@ -22,7 +22,7 @@ const BookCard = ({ book, withPrice, quantity }) => {
           <Image
             className="w-[150px] h-[220px]"
             width={150}
-            height={"220"}
+            height={0}
             src={book?.url_imagen || noImage}
             alt={book?.titulo}
           />

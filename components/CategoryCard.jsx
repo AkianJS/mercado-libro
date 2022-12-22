@@ -14,6 +14,7 @@ const CategoryCard = ({ theme }) => {
       <Image
         className="absolute"
         fill
+        sizes="15rem"
         alt={theme.nombre}
         src={theme.url_imagen}
       />

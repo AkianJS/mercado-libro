@@ -31,7 +31,7 @@ const Home = ({ books }) => {
         </h2>
       </div>
 
-      <BooksGrid withPrice={true} books={books} texth3="Ofertas" />
+      <BooksGrid withPrice={true} books={books} texth3="Ofertas" order />
     </Layout>
   );
 };
