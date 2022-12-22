@@ -65,6 +65,8 @@ export const getUserState = async ({
           }
           favorito {
             isbn
+            titulo
+            precio
           }
           orden {
             id

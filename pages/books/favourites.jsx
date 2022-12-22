@@ -17,6 +17,7 @@ const Favourites = () => {
     );
   }, [login]);
 
+console.log(login )
   return (
     <Layout>
       <ProtectedRoute myBoolean={login.success} isLoading={login.isLoading} path='/' >
