@@ -50,7 +50,6 @@ const AdminAddBook = ({ getTemas }) => {
       themes: JSON.stringify(themes),
       title: data.title,
     };
-    console.log(values);
     setBook(values).then((data) => console.log(data));
   };
 

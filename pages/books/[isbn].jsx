@@ -125,7 +125,6 @@ const Book = ({ book, getTemas }) => {
     };
     const res = await setBook(values);
     const { errors, data } = res;
-    console.log(res);
 
     if (errors || !data)
       Swal.fire({
@@ -149,7 +148,6 @@ const Book = ({ book, getTemas }) => {
   const handleRemoveBook = async () => {
     const res = await removeBook({ isbn: book.isbn });
     const { errors, data } = res;
-    console.log(res);
     if (errors || !data) {
       Swal.fire({
         title: "Error!",

@@ -59,7 +59,6 @@ const TotalAmountCart = ({
     }, 3000);
   };
 
-  console.log(login);
   return (
     <div className="max-w-3xl ml-auto mr-auto p-6">
       <hr className="border-t-2 mr-8 ml-8 " />
