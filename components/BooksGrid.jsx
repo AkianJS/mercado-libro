@@ -34,7 +34,7 @@ const BooksGrid = ({ texth3, books, withPrice = false, order = false }) => {
   };
 
   return (
-    <section className="mt-20 max-w-screen-xl m-auto pl-2 pr-2">
+    <section className="mt-20 max-w-screen-xl m-auto p-2">
       <h3 className="mb-12 ml-4 uppercase bold text-4xl">{texth3}</h3>
       {order && (
         <div className="mb-8 flex gap-2 flex-wrap items-center">

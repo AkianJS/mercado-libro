@@ -67,6 +67,7 @@ export const getUserState = async ({
             isbn
             titulo
             precio
+            url_imagen
           }
           orden {
             id
