@@ -37,17 +37,24 @@ const Home = ({ books }) => {
 };
 
 export async function getStaticProps() {
-  const res = await getBooks({discount: true});
-  const {
-    data: { getLibro },
-  } = res;
-  const books = getLibro;
-  return {
-    props: {
-      books,
-    },
-    revalidate: 10,
-  };
+  try {
+    const res = await getBooks({ discount: true });
+    const {
+      data: { getLibro },
+    } = res;
+    const books = getLibro;
+    return {
+      props: {
+        books,
+      },
+      revalidate: 10,
+    };
+  } catch (error) {
+    const books = '';
+    return {
+      props: { books },
+    };
+  }
 }
 
 export default Home;

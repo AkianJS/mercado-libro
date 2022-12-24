@@ -38,3 +38,8 @@ contraseña: zmXi5X87yo
 ![Finalizar Pago](https://user-images.githubusercontent.com/60489657/207666310-777cd62c-3856-440b-a8af-d09ba574d2a4.png)
 
 Al finalizar seremos re-dirigidos a la página de mercado-libro para seguir navegando y probando sus funcionalidades.
+
+
+Para acceder a la página ya desplegada podés visitar el siguiente link: 
+
+https://mercado-libro.akianjs.net
