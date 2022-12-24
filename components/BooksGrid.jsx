@@ -1,37 +1,36 @@
 import styles from "../styles/BooksGrid.module.css";
 import BookCard from "./BookCard";
 import BookAddCard from "./BookAddCard";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import AppContext from "../context/AppContext";
-import { useRouter } from "next/router";
 
 const BooksGrid = ({ texth3, books, withPrice = false, order = false }) => {
   const {
     state: { login },
   } = useContext(AppContext);
-  const [libro, setLibro] = useState(books?.libro);
   const [checked, setChecked] = useState(0);
 
   // Lógica del ordenamiento más control para saber cuál botón se oprimió
   const handleOrderAZ = () => {
-    setLibro(libro.sort((prev, curr) => prev.titulo > curr.titulo));
     setChecked(1);
+    books.sort((prev, curr) => prev.titulo > curr.titulo)
   };
 
   const handleOrderZA = () => {
     setChecked(2);
-    setLibro(libro.sort((prev, curr) => prev.titulo < curr.titulo));
+    books.sort((prev, curr) => prev.titulo < curr.titulo);
   };
 
   const handleOrderLowestPrice = () => {
     setChecked(3);
-    setLibro(libro.sort((prev, curr) => prev.precio > curr.precio));
+    books.sort((prev, curr) => prev.precio > curr.precio);
   };
 
   const handleOrderHighgestPrice = () => {
     setChecked(4);
-    setLibro(libro.sort((prev, curr) => prev.precio < curr.precio));
+    books.sort((prev, curr) => prev.precio < curr.precio)
   };
+  console.log(books)
 
   return (
     <section className="mt-20 max-w-screen-xl m-auto p-2">
@@ -78,7 +77,7 @@ const BooksGrid = ({ texth3, books, withPrice = false, order = false }) => {
 
       <ul className={`${styles.grid} w-full`}>
         {login.usuario?.admin && <BookAddCard />}
-        {libro?.map((item) => (
+        {books?.map((item) => (
           <BookCard withPrice={withPrice} book={item} key={item.isbn}>
             {" "}
           </BookCard>

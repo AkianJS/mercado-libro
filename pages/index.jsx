@@ -30,7 +30,6 @@ const Home = ({ books }) => {
           </i>
         </h2>
       </div>
-
       <BooksGrid withPrice={true} books={books} texth3="Ofertas" order />
     </Layout>
   );
@@ -40,9 +39,9 @@ export async function getStaticProps() {
   try {
     const res = await getBooks({ discount: true });
     const {
-      data: { getLibro },
+      data: { getLibro: { libro } },
     } = res;
-    const books = getLibro;
+    const books = libro;
     return {
       props: {
         books,
