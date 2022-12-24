@@ -26,10 +26,8 @@ export async function getServerSideProps(context) {
       props: {
         books,
       },
-      revalidate: 10,
     };
   } catch (error) {
-    console.log(error)
     const books = "";
     return {
       props: { books },
