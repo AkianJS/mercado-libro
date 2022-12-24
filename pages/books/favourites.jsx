@@ -14,7 +14,7 @@ const Favourites = () => {
 
   useEffect(() => {
     getFavourites({ token: login.accessToken }).then((res) =>
-      setFavouritesBooks(res.data?.getFavoritos)
+      setFavouritesBooks(res.data?.getFavoritos?.libro)
     );
   }, [login]);
 
