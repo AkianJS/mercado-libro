@@ -30,7 +30,6 @@ const BooksGrid = ({ texth3, books, withPrice = false, order = false }) => {
     setChecked(4);
     books.sort((prev, curr) => prev.precio < curr.precio)
   };
-  console.log(books)
 
   return (
     <section className="mt-20 max-w-screen-xl m-auto p-2">
