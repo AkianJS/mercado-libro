@@ -23,12 +23,11 @@ const AdminAddBook = ({ getTemas }) => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      themes: getTemas.temas[0].nombre,
+      themes: [getTemas.temas[0].nombre],
       entryDate: "",
     },
   });
   const { fields, append, remove } = useFieldArray({ control, name: "themes" });
-  const [message, setMessage] = useState(null);
 
   const onSubmit = (data) => {
     const author = JSON.stringify([data.author]);
@@ -70,15 +69,15 @@ const AdminAddBook = ({ getTemas }) => {
     const API_KEY = "b16eeaeb4b528b33243caf08fcd0a989";
     const formData = new FormData();
 
-    // formData.append("image", image);
-    // const res = await axios({
-    //   timeout: 6000,
-    //   method: "POST",
-    //   url: `https://api.imgbb.com/1/upload?key=${API_KEY}&name=${book.isbn}`,
-    //   data: formData,
-    // });
-    // const { data, errors } = res;
-    // setValue("imageUrl", data.data?.display_url);
+    formData.append("image", image);
+    const res = await axios({
+      timeout: 6000,
+      method: "POST",
+      url: `https://api.imgbb.com/1/upload?key=${API_KEY}&name=${book.isbn}`,
+      data: formData,
+    });
+    const { data, errors } = res;
+    setValue("imageUrl", data.data?.display_url);
   };
 
   return (

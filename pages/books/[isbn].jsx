@@ -283,9 +283,6 @@ const Book = ({ book, getTemas }) => {
           )}
           <Modal show={modalShow}>
             <div className="bg-white p-4 rounded-lg flex flex-col gap-2">
-              <button className="ml-auto mr-0 text-xl">
-                <FaWindowClose />
-              </button>
               <h4>Está seguro de eliminar {book.titulo}?</h4>
               <div className="grid grid-cols-2 gap-4">
                 <Button handleClick={handleRemoveBook}>Eliminar</Button>

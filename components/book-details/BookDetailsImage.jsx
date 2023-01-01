@@ -8,7 +8,6 @@ const BookDetailsImage = ({
   isEditing,
   register,
   setValue,
-  setImageChange,
 }) => {
   const [newImage, setNewImage] = useState(null);
   const newImageRef = useRef();
@@ -24,7 +23,7 @@ const BookDetailsImage = ({
     });
     const API_KEY = "b16eeaeb4b528b33243caf08fcd0a989";
     const formData = new FormData();
-    
+
     formData.append("image", image);
     const res = await axios({
       timeout: 6000,
@@ -38,12 +37,14 @@ const BookDetailsImage = ({
 
   return (
     <div
-      className={`mb-4 relative w-[270px] h-[430px] duration-200 ${isEditing && "hover:scale-105"}`}
+      className={`mb-4 relative w-[270px] h-[430px] duration-200 ${
+        isEditing && "hover:scale-105"
+      }`}
     >
       {login.usuario?.admin && isEditing && (
         <label
           htmlFor="image"
-          className="bg-[url(https://png.pngtree.com/png-vector/20190419/ourmid/pngtree-vector-add-icon-png-image_956621.jpg)] bg-contain bg-center w-full h-full absolute cursor-pointer z-20 opacity-50"
+          className="bg-[url(https://i.ibb.co/jz1b8XC/add-icon-png-2486.png)] bg-white bg-opacity-80 object-contain bg-center w-full h-full absolute cursor-pointer z-20 opacity-50"
         >
           <input
             {...register("imageUrl")}
