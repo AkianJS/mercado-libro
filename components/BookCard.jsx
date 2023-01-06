@@ -8,7 +8,7 @@ const BookCard = ({ book, withPrice, quantity }) => {
   const discount =
     book?.descuento !== 0 ? (book?.descuento / 100) * book?.precio : null;
   return (
-    <li className="rounded-md shadow-lg bg-white flex flex-col items-center relative w-[250px] h-[380px] pb-1 overflow-hidden">
+    <li className="border-2 rounded-md shadow-lg bg-white flex flex-col items-center relative w-[250px] h-[380px] pb-1 overflow-hidden duration-150 hover:border-violet-600 hover:border-2">
       {discount > 0 && (
         <p className="absolute left-0 top-0 bg-red-600 text-white p-2 pl-4 pr-4 font-bold rounded-sm shadow-md">
           - {book.descuento} %
