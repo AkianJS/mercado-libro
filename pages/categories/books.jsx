@@ -1,33 +1,46 @@
-import React from 'react'
-import BooksGrid from '../../components/BooksGrid'
-import Layout from '../../components/layout/Layout'
-import { getBooks } from '../../utils/getBooks'
+import React from "react";
+import BooksGrid from "../../components/BooksGrid";
+import Layout from "../../components/layout/Layout";
+import { getBooks } from "../../utils/getBooks";
 
-const CategoryBooks = ({books, query}) => {
+const CategoryBooks = ({ books, query }) => {
   return (
     <Layout>
-
-    <section>
+      <section>
         <BooksGrid books={books} texth3={query} withPrice={true} />
-    </section>
+      </section>
     </Layout>
-  )
-}
+  );
+};
 
 export async function getServerSideProps(context) {
-    const { query: { query } } = context;
-  
-    const res = await getBooks({category: query})
+  const {
+    query: { query },
+  } = context;
+
+  try {
+    const res = await getBooks({ category: query });
     const {
-      data: { getLibro: { libro } },
+      data: {
+        getLibro: { libro },
+      },
     } = res;
     const books = libro;
     return {
       props: {
         books,
-        query
+        query,
+      },
+    };
+  } catch (error) {
+    const books = [];
+    return {
+      props: {
+        books,
+        query,
       },
     };
   }
+}
 
-export default CategoryBooks
+export default CategoryBooks;
