@@ -21,7 +21,7 @@ const RegisterForm = () => {
     let password = data.password;
     setUser({ name: name, email: email, password: password }).then((data) => {
       data.errors
-        ? setMessage("Error al registrar usuario, sistema caído")
+        ? setTimeout(()=> setMessage("Error al registrar usuario, intente más tarde"), 3000)
         : setMessage(data.data.singUp.message);
     });
   };
@@ -32,7 +32,7 @@ const RegisterForm = () => {
     let email = decoded.email;
     let password = decoded.sub;
     setUser({name: name, email: email, password: password}).then(data => {
-      if (data.errors || !data) setMessage('Error al registrar, su cuenta no ha sido creada')
+      if (data.errors || !data.data) setTimeout(()=> setMessage("Error al registrar usuario, intente más tarde"), 3000)
       else setMessage(data.data?.signUp?.message)
     })
   };
