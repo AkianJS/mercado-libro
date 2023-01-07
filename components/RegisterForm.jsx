@@ -4,10 +4,13 @@ import styles from "../styles/FormSpan.module.css";
 import Google from "./Google";
 import jwt_decode from "jwt-decode";
 import { setUser } from "../utils/setUser";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { getUserState } from "../utils/getUserState";
+import AppContext from "../context/AppContext";
 
 const RegisterForm = () => {
   const [message, setMessage] = useState(null);
+  const { setState } = useContext(AppContext);
 
   const {
     register,
@@ -21,20 +24,30 @@ const RegisterForm = () => {
     let password = data.password;
     setUser({ name: name, email: email, password: password }).then((data) => {
       data.errors
-        ? setTimeout(()=> setMessage("Error al registrar usuario, intente más tarde"), 3000)
+        ? setTimeout(
+            () => setMessage("Error al registrar usuario, intente más tarde"),
+            3000
+          )
         : setMessage(data.data.singUp.message);
     });
   };
 
   const handleGoogleSuccess = (credentialResponse) => {
     const decoded = jwt_decode(credentialResponse.credential);
-    let name = decoded.name
+    let name = decoded.name;
     let email = decoded.email;
     let password = decoded.sub;
-    setUser({name: name, email: email, password: password}).then(data => {
-      if (data.errors || !data.data) setTimeout(()=> setMessage("Error al registrar usuario, intente más tarde"), 3000)
-      else setMessage(data.data?.signUp?.message)
-    })
+    getUserState({ name: name, email: email, password: password }).then(
+      (data) => {
+        if (data.errors || !data.data) {
+          setMessage("Error al registrar usuario, intente más tarde");
+          setTimeout(() => setMessage(null), 3000);
+        } else {
+          setMessage(data.data?.login?.message);
+          setState(data.data);
+        }
+      }
+    );
   };
 
   return (
@@ -89,7 +102,7 @@ const RegisterForm = () => {
             Contraseña
           </span>
         </div>
-        { message && <p className="text-sm">{message}</p> }
+        {message && <p className="text-sm">{message}</p>}
 
         <div className="w-3/4">
           <Button type="submit">Registrarse</Button>

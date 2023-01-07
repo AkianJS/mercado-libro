@@ -4,10 +4,11 @@ export const getUserState = async ({
   email = "",
   password = "",
   token = "",
+  name = ""
 } = {}) => {
   const QUERY = `query
   {
-      login(correo: "${email}", contrasenia: "${password}" , tokenUser: "${token}") {
+      login(nombre: "${name}" correo: "${email}", contrasenia: "${password}" , tokenUser: "${token}") {
         message
         success
         accessToken

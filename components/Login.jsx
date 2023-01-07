@@ -1,11 +1,12 @@
 import styles from "../styles/FormSpan.module.css";
-import { set, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useContext, useState } from "react";
 import Button from "./ui/Button";
 import Google from "./Google";
 import AppContext from "../context/AppContext";
 import jwt_decode from "jwt-decode";
 import { getUserState } from "../utils/getUserState";
+import Link from "next/link";
 
 const Login = () => {
   const { setState, state } = useContext(AppContext);
@@ -37,24 +38,22 @@ const Login = () => {
     }
   };
 
-  const handleGoogleSuccess = async (credentialResponse) => {
+  const handleGoogleSuccess = (credentialResponse) => {
     const decoded = jwt_decode(credentialResponse.credential);
+    let name = decoded.name;
     let email = decoded.email;
     let password = decoded.sub;
-    try {
-      const res = await getUserState({ email: email, password: password });
-      const { errors, data } = res;
-      if (errors || !data) return setState("Error en el servidor");
-      setState(data)
-      setMessage(data.login?.message);
-      if (data?.login?.success)
-        window.localStorage.setItem(
-          "userToken",
-          JSON.stringify(data.login.accessToken)
-        );
-    } catch (err) {
-      setMessage(err);
-    }
+    getUserState({ name: name, email: email, password: password }).then(
+      (data) => {
+        if (data.errors || !data.data) {
+          setMessage("Error al registrar usuario, intente más tarde");
+          setTimeout(() => setMessage(null), 3000);
+        } else {
+          setMessage(data.data?.login?.message);
+          setState(data.data);
+        }
+      }
+    );
   };
 
   return (
@@ -89,8 +88,13 @@ const Login = () => {
         </div>
         {message && <p className="text-sm">{message}</p>}
         <div className="w-3/4">
-          <Button type="submit" >Ingresar</Button>
+          <Button type="submit">Ingresar</Button>
         </div>
+        <Link href="/pass-recover">
+          <p className="text-sm text-blue-500 hover:text-blue-600">
+            Olvidé mi contraseña
+          </p>
+        </Link>
         <Google handleGoogleSuccess={handleGoogleSuccess} />
       </div>
     </form>

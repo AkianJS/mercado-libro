@@ -62,8 +62,9 @@ const Navbar = () => {
         </div>
         <li className="font-light ml-2 max-md:m-auto text-2xl tracking-widest">
           <Link href="/">
-            <span className="font-bold">Mercado</span>
-            <i>libro</i>
+            <span className="font-bold min-[420px]:hidden">ML</span>
+            <span className="font-bold max-[420px]:hidden">Mercado</span>
+            <i className="max-[420px]:hidden">libro</i>
           </Link>
         </li>
         <div className="flex gap-4 max-md:hidden">
