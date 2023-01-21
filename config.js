@@ -1,1 +1,1 @@
-export const ENDPOINT = "https://backend-mercadolibro-production-efc9.up.railway.app/graphql"
+export const ENDPOINT = "https://backend-mercadolibro-production.up.railway.app/graphql"
