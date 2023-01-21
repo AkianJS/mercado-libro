@@ -50,14 +50,11 @@ const Payment = () => {
               Para ver una guía de como pagar en mercado pago sandbox, dirígete
               a:{" "}
             </h1>
-            <Link
-              legacyBehavior={true}
-              href="https://github.com/AkianJS/mercado-libro/blob/main/README.md"
-            >
+            <a href="https://github.com/AkianJS/mercado-libro/blob/main/README.md">
               <p className="text-blue-500 cursor-pointer">
                 https://github.com/AkianJS/mercado-libro/blob/main/README.md
               </p>
-            </Link>
+            </a>
             <br />
             <h2 className="text-lg">
               Si tu dirección es correcta has click en <i>pagar</i>!

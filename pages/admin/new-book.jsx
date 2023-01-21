@@ -9,6 +9,7 @@ import Layout from "../../components/layout/Layout";
 import Image from "next/image";
 import axios from "axios";
 import ProtectedRoute from "../../components/ProtectedRoute";
+import Swal from "sweetalert2";
 
 const AdminAddBook = ({ getTemas }) => {
   const {
@@ -20,6 +21,7 @@ const AdminAddBook = ({ getTemas }) => {
     setValue,
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -29,7 +31,7 @@ const AdminAddBook = ({ getTemas }) => {
   });
   const { fields, append, remove } = useFieldArray({ control, name: "themes" });
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const author = JSON.stringify([data.author]);
     const themes = data.themes.map((item) => item.nombre);
     const description = JSON.stringify(data.description);
@@ -49,7 +51,28 @@ const AdminAddBook = ({ getTemas }) => {
       themes: JSON.stringify(themes),
       title: data.title,
     };
-    setBook(values).then((data) => console.log(data));
+    const res = await setBook(values);
+    if (res.errors || !res.data)
+      return Swal.fire({
+        title: "Error",
+        text: "Los servidores están caídos, intente más tarde",
+        icon: "error",
+      });
+    else if (res.data.insertLibro.success) {
+      reset()
+      return Swal.fire({
+        title: "Éxito",
+        text: "Se ha agregado el libro correctamente",
+        icon: "success",
+      });
+    }
+    else {
+      Swal.fire({ 
+        title: "Error",
+        text: "No se pudo registrar el libro",
+        icon: "error"
+      })
+    }
   };
 
   //  Código relacionado a la carga de la imagen
@@ -82,7 +105,11 @@ const AdminAddBook = ({ getTemas }) => {
 
   return (
     <Layout>
-      <ProtectedRoute isLoading={login.isLoading} myBoolean={login.usuario?.admin} path="/">
+      <ProtectedRoute
+        isLoading={login.isLoading}
+        myBoolean={login.usuario?.admin}
+        path="/"
+      >
         <div className="max-w-2xl m-auto pt-4 pb-4 pr-2 pl-2">
           <form onSubmit={handleSubmit(onSubmit)}>
             <label className="uppercase text-sm">autor/es</label>
