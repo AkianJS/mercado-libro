@@ -8,8 +8,8 @@ const Google = ({handleGoogleSuccess, handleGoogleError}) => {
     <GoogleOAuthProvider clientId={clientId}>
       <GoogleLogin
         onSuccess={handleGoogleSuccess}
-        onError={() => {
-          
+        onError={(err) => {
+          console.log(err)
         }}
       ></GoogleLogin>
     </GoogleOAuthProvider>

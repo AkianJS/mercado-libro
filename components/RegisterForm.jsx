@@ -44,6 +44,10 @@ const RegisterForm = () => {
           setTimeout(() => setMessage(null), 3000);
         } else {
           setMessage(data.data?.login?.message);
+          window.localStorage.setItem(
+            "userToken",
+            JSON.stringify(data.data.login.accessToken)
+          );
           setState(data.data);
         }
       }

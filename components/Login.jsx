@@ -46,10 +46,14 @@ const Login = () => {
     getUserState({ name: name, email: email, password: password }).then(
       (data) => {
         if (data.errors || !data.data) {
-          setMessage("Error al registrar usuario, intente más tarde");
+          setMessage("Error al ingresar el usuario, intente más tarde");
           setTimeout(() => setMessage(null), 3000);
         } else {
           setMessage(data.data?.login?.message);
+          window.localStorage.setItem(
+            "userToken",
+            JSON.stringify(data.data.login.accessToken)
+          );
           setState(data.data);
         }
       }
