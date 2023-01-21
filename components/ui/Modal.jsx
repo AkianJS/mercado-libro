@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 
 function Modal({ children, show }) {
@@ -10,7 +10,7 @@ function Modal({ children, show }) {
 
   const modalContent = show ? (
     <div className="w-[100vw] h-[100vh] bg-slate-900 bg-opacity-60 fixed top-0 z-[1000] flex items-center justify-center overflow-hidden duration-200">
-        {children}
+      {children}
     </div>
   ) : null;
 
