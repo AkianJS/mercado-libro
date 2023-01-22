@@ -78,6 +78,7 @@ const CategoryCard = ({ theme }) => {
             </>
           )}
           <h3
+          onClick={handleGoToBooks}
             className={`uppercase text-5xl text-center text-white z-10 ${styles.themeTitle}`}
           >
             {theme.nombre}

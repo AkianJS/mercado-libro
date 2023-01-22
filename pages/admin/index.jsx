@@ -1,17 +1,16 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import Layout from "../../components/layout/Layout";
 import ProtectedRoute from "../../components/ProtectedRoute";
 import SalesCard from "../../components/SalesCard";
 import AppContext from "../../context/AppContext";
 import { getSellsStats } from "../../utils/getSellsStats";
-import styles from "../../styles/Admin.module.css"
+import styles from "../../styles/Admin.module.css";
+import TotalSales from "../../components/TotalSales";
 
 const AdminPanel = ({ saleStats, error }) => {
   const {
     state: { login },
   } = useContext(AppContext);
-
-  console.log(saleStats);
 
   return (
     <Layout title="Panel del Administrador">
@@ -23,13 +22,10 @@ const AdminPanel = ({ saleStats, error }) => {
         <section className="max-w-screen-xl m-auto mt-4 p-4">
           {saleStats && (
             <div>
-              <h1 className="text-xl font-bold">
-                Ventas de los últimos 30 días
-              </h1>
-              <div className={styles.grid}>
-                {saleStats.ventasDia.map((item) => (
-                  <SalesCard key={item.fechaVentas} salesLast30Days={item} />
-                ))}
+
+              <div className="flex flex-wrap justify-center">
+                <SalesCard salesLast30Days={saleStats.ventasDia} />
+                <TotalSales saleStats={saleStats} />
               </div>
             </div>
           )}
