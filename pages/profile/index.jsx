@@ -83,21 +83,23 @@ const Profile = () => {
       >
         <section className="p-8">
           <UserInfo />
-          <div className="mt-4 grid grid-cols-2 gap-4 max-[580px]:grid-cols-1">
-            <Button
-              handleClick={() => setIsUpdating(true)}
-              className="max-w-xs"
-            >
-              Cambiar contraseña
-            </Button>
-            <Button
-              handleClick={() => setIsRemoving(true)}
-              background="rgb(185 28 28)"
-              className="max-w-xs"
-            >
-              Eliminar cuenta
-            </Button>
-          </div>
+          {!login.usuario?.admin && (
+            <div className="mt-4 grid grid-cols-2 gap-4 place-items-center max-[580px]:grid-cols-1">
+              <Button
+                handleClick={() => setIsUpdating(true)}
+                className="max-w-xs"
+              >
+                Cambiar contraseña
+              </Button>
+              <Button
+                handleClick={() => setIsRemoving(true)}
+                background="rgb(185 28 28)"
+                className="max-w-xs"
+              >
+                Eliminar cuenta
+              </Button>
+            </div>
+          )}
           {/* Modal al cambiar contraseña */}
           <Modal show={isUpdating}>
             <div className="bg-white p-8 rounded-md relative">
