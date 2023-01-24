@@ -1,42 +1,37 @@
 import styles from "../styles/BooksGrid.module.css";
 import BookCard from "./BookCard";
 import BookAddCard from "./BookAddCard";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import AppContext from "../context/AppContext";
+import collect from 'collect.js';
 
 const BooksGrid = ({ texth3, books, withPrice = false, order = false }) => {
   const {
     state: { login },
   } = useContext(AppContext);
   const [checked, setChecked] = useState(0);
-  const [selectedOrder, setSelectedOrder] = useState("normal");
+  const [sortedBooks, setSortedBooks] = useState(collect(books))
 
-  const orderObj = {
-    normal: () => {},
-    handleOrderAZ: (prev, curr) => prev.titulo > curr.titulo,
-    handleOrderZA: (prev, curr) => prev.titulo < curr.titulo,
-    handleOrderLowestPrice: (prev, curr) => prev.precio > curr.precio,
-    handleOrderHighgestPrice: (prev, curr) => prev.precio < curr.precio,
-  };
+  
   // Lógica del ordenamiento más control para saber cuál botón se oprimió
   const handleOrderAZ = () => {
     setChecked(1);
-    setSelectedOrder("handleOrderAZ");
+    setSortedBooks(sortedBooks.sortBy("titulo"))
   };
 
   const handleOrderZA = () => {
     setChecked(2);
-    setSelectedOrder("handleOrderZA");
+    setSortedBooks(sortedBooks.sortByDesc("titulo"))
   };
 
   const handleOrderLowestPrice = () => {
     setChecked(3);
-    setSelectedOrder("handleOrderLowestPrice");
+    setSortedBooks(sortedBooks.sortBy("precio"))
   };
 
   const handleOrderHighgestPrice = () => {
     setChecked(4);
-    setSelectedOrder("handleOrderHighgestPrice");
+    setSortedBooks(sortedBooks.sortByDesc("precio"))
   };
 
   return (
@@ -84,7 +79,7 @@ const BooksGrid = ({ texth3, books, withPrice = false, order = false }) => {
 
       <ul className={`${styles.grid} w-full`}>
         {login.usuario?.admin && <BookAddCard />}
-        {books?.sort(orderObj[selectedOrder]).map((item) => (
+        {sortedBooks.map((item) => (
           <BookCard withPrice={withPrice} book={item} key={item.isbn}>
             {" "}
           </BookCard>
