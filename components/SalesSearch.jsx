@@ -7,53 +7,105 @@ export default function SalesSearch() {
   const datesRef = useRef();
   const [searchedSales, setSearchedSales] = useState([]);
   const [error, setError] = useState(null);
+  console.log(searchedSales);
 
   const handleSalesSearch = async (e) => {
     e.preventDefault();
-    const from = () => {
-      let dataToArray = datesRef.current[0].value.split("-");
-      return `${dataToArray[2]}/${dataToArray[1]}/${dataToArray[0]}`;
-    };
-    const to = () => {
-      let dataToArray = datesRef.current[1].value.split("-");
-      return `${dataToArray[2]}/${dataToArray[1]}/${dataToArray[0]}`;
-    };
+    const from = formatDate(datesRef.current[0].value);
+    const to = formatDate(datesRef.current[1].value);
 
     const { data, errors } = await getSalesBySearch({
-      from: from(),
-      to: to(),
+      from: from,
+      to: to,
       limit: 10,
       offset: 0,
     });
 
     if (data?.getVentas?.success) {
-      setSearchedSales(data.getVentas.orden);
+      setSearchedSales(data.getVentas);
+    } else {
+      setError("Error al buscar las ventas, servidor caído");
+    }
+  };
+
+  const handleNextPage = async () => {
+    const from = formatDate(datesRef.current[0].value);
+    const to = formatDate(datesRef.current[1].value);
+
+    const { data, errors } = await getSalesBySearch({
+      from: from,
+      to: to,
+      limit: 10,
+      offset: searchedSales.page * 10,
+    });
+
+    if (data?.getVentas?.success) {
+      setSearchedSales(data.getVentas);
+    } else {
+      setError("Error al buscar las ventas, servidor caído");
+    }
+  };
+
+  const handlePrevPage = async () => {
+    const from = formatDate(datesRef.current[0].value);
+    const to = formatDate(datesRef.current[1].value);
+
+    const { data, errors } = await getSalesBySearch({
+      from: from,
+      to: to,
+      limit: 10,
+      offset: searchedSales.page * 10 - 20,
+    });
+
+    if (data?.getVentas?.success) {
+      setSearchedSales(data.getVentas);
     } else {
       setError("Error al buscar las ventas, servidor caído");
     }
   };
 
   return (
-    <form ref={datesRef}>
-      <div className="flex flex-col items-center my-4">
-        <p className="text font-bold">Buscar ventas entre:</p>
-        <div className="my-2 flex items-center">
-          <input
-            className="px-2 py-1 border border-black"
-            type="date"
-            pattern="\d{1,2}/\d{1,2}/\d{4}"
-          />
-          <p className="mx-2">Y</p>
-          <input className="px-2 py-1 border border-black" type="date" />
+    <>
+      <form ref={datesRef}>
+        <div className="flex flex-col items-center my-4">
+          <p className="text font-bold">Buscar ventas entre:</p>
+          <div className="my-2 flex items-center">
+            <input
+              className="px-2 py-1 border border-black"
+              type="date"
+              pattern="\d{1,2}/\d{1,2}/\d{4}"
+            />
+            <p className="mx-2">Y</p>
+            <input className="px-2 py-1 border border-black" type="date" />
+          </div>
+          <p>{error}</p>
+          <div>
+            <Button handleClick={handleSalesSearch} type="submit">
+              Buscar
+            </Button>
+          </div>
+          {searchedSales?.length !== 0 && (
+            <SalesTable orders={searchedSales.orden} />
+          )}
         </div>
-        <p>{error}</p>
-        <div>
-          <Button handleClick={handleSalesSearch} type="submit">
-            Buscar
-          </Button>
+      </form>
+
+      {searchedSales?.length !== 0 && (
+        <div className="flex justify-center gap-4 text-blue-500">
+          {searchedSales.page !== 1 && <button onClick={handlePrevPage}>««</button>}
+          <p className="text-black">
+            {searchedSales?.page} de {searchedSales?.maxPage}
+          </p>
+          {searchedSales?.page !== searchedSales?.maxPage && (
+            <button onClick={handleNextPage}>»»</button>
+          )}
         </div>
-        {searchedSales.length !== 0 && <SalesTable orders={searchedSales} />}
-      </div>
-    </form>
+      )}
+    </>
   );
+}
+
+export function formatDate(date) {
+  let dataToArray = date.split("-");
+  return `${dataToArray[2]}/${dataToArray[1]}/${dataToArray[0]}`;
 }

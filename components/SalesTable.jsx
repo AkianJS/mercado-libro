@@ -2,11 +2,10 @@ import { useRouter } from "next/router";
 import React from "react";
 
 export default function SalesTable({ orders }) {
-  console.log(orders);
     const router = useRouter()
 
   const handleGoToDetails = (item) => {
-    router.push(`/admin/sales-details/?date=${item.fecha}`)
+    router.push(`/admin/sales-details/?date=${item.fecha}&offset=0`)
   }
 
   return (

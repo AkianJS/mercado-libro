@@ -22,7 +22,7 @@ const NavNotifications = ({ notifications, updateUserInfo }) => {
         )}
       </li>
       <div
-        className={`absolute top-10 left-[50%] -translate-x-[50%] w-60 duration-200 overflow-hidden`}
+        className={`absolute top-10 left-[50%] -translate-x-[50%] w-60 duration-200 overflow-hidden ${show? "" : "h-0"}`}
       >
         <div
           className={`duration-150 bg-white ${
