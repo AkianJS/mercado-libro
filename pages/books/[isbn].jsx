@@ -3,7 +3,7 @@ import Layout from "../../components/layout/Layout";
 import AppContext from "../../context/AppContext";
 import Button from "../../components/ui/Button";
 import Swal from "sweetalert2";
-import { FaCartPlus, FaWindowClose } from "react-icons/fa";
+import { FaCartPlus } from "react-icons/fa";
 import { getBooks } from "../../utils/getBooks";
 import { setBookTocart } from "../../utils/setBookToCart";
 import Opine from "../../components/Opine";
@@ -270,7 +270,7 @@ const Book = ({ book, getTemas }) => {
               register={register}
             />
             <br />
-            {login.usuario?.admin && <Button type="submit">Modificar</Button>}
+            {login.usuario?.admin && <Button type="submit">guardar cambios</Button>}
           </form>
           {login.usuario?.admin && (
             <Button

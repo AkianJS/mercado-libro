@@ -1,14 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { getUserState } from "../utils/getUserState";
 import { removeFav } from "../utils/removeFavourite";
 import { setFav } from "../utils/setFavourite";
+
+const useIsomorphicLayoutEffect =
+  typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
 const useUserState = () => {
   const [state, setState] = useState({
     login: { success: false, isLoading: true },
   });
 
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (window.localStorage.getItem("userToken")) {
       const userToken = JSON.parse(window.localStorage.getItem("userToken"));
       getUserState({ token: userToken }).then((res) => {

@@ -17,6 +17,7 @@ export const getUserState = async ({
           correo
           contrasenia
           admin
+          registroRedSocial
           direccion {
             direccion
             nombre

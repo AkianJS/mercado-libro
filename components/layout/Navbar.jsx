@@ -42,7 +42,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="w-full bg-white drop-shadow-md sticky top-0 z-50 pr-1 pl-1">
+    <nav className="w-full bg-white drop-shadow-md sticky top-0 z-[200] pr-1 pl-1">
       <ul
         className={`flex gap-4 m-auto max-w-screen-xl h-16 items-center ${styles.navItems}`}
       >

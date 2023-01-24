@@ -4,13 +4,15 @@ import ProtectedRoute from "../../components/ProtectedRoute";
 import SalesCard from "../../components/SalesCard";
 import AppContext from "../../context/AppContext";
 import { getSellsStats } from "../../utils/getSellsStats";
-import styles from "../../styles/Admin.module.css";
 import TotalSales from "../../components/TotalSales";
+import Link from "next/link";
+import SalesSearch from "../../components/SalesSearch";
 
 const AdminPanel = ({ saleStats, error }) => {
   const {
     state: { login },
   } = useContext(AppContext);
+
 
   return (
     <Layout title="Panel del Administrador">
@@ -21,7 +23,12 @@ const AdminPanel = ({ saleStats, error }) => {
       >
         <section className="max-w-screen-xl m-auto mt-4 p-4">
           {saleStats && (
-            <div>
+            <div className="w-full">
+              <button className="ml-auto block text-blue-500 duration-150 hover:scale-105">
+                <Link href="/admin/coupons">Administrar cupones »»</Link>
+              </button>
+
+              <SalesSearch />
 
               <div className="flex flex-wrap justify-center">
                 <SalesCard salesLast30Days={saleStats.ventasDia} />
