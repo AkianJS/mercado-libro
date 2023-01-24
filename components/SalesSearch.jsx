@@ -66,21 +66,25 @@ export default function SalesSearch() {
 
   return (
     <>
-      <form ref={datesRef}>
+      <form onSubmit={handleSalesSearch} ref={datesRef}>
         <div className="flex flex-col items-center my-4">
           <p className="text font-bold">Buscar ventas entre:</p>
           <div className="my-2 flex items-center">
             <input
+              required
               className="px-2 py-1 border border-black"
               type="date"
-              pattern="\d{1,2}/\d{1,2}/\d{4}"
             />
             <p className="mx-2">Y</p>
-            <input className="px-2 py-1 border border-black" type="date" />
+            <input
+              required
+              className="px-2 py-1 border border-black"
+              type="date"
+            />
           </div>
           <p>{error}</p>
           <div>
-            <Button handleClick={handleSalesSearch} type="submit">
+            <Button type="submit">
               Buscar
             </Button>
           </div>
@@ -92,11 +96,13 @@ export default function SalesSearch() {
 
       {searchedSales?.length !== 0 && (
         <div className="flex justify-center gap-4 text-blue-500">
-          {searchedSales.page !== 1 && <button onClick={handlePrevPage}>««</button>}
+          {searchedSales.page !== 1 && (
+            <button onClick={handlePrevPage}>««</button>
+          )}
           <p className="text-black">
             {searchedSales?.page} de {searchedSales?.maxPage}
           </p>
-          {searchedSales?.page !== searchedSales?.maxPage && (
+          {searchedSales?.page !== searchedSales?.maxPage && !searchedSales?.maxPage == 0 && (
             <button onClick={handleNextPage}>»»</button>
           )}
         </div>
