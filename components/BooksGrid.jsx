@@ -9,10 +9,10 @@ const BooksGrid = ({ texth3, books, withPrice = false, order = false }) => {
     state: { login },
   } = useContext(AppContext);
   const [checked, setChecked] = useState(0);
-  const [selectedOrder, setSelectedOrder] = useState("normal")
+  const [selectedOrder, setSelectedOrder] = useState("normal");
 
   const orderObj = {
-    normal : () => {},
+    normal: () => {},
     handleOrderAZ: (prev, curr) => prev.titulo > curr.titulo,
     handleOrderZA: (prev, curr) => prev.titulo < curr.titulo,
     handleOrderLowestPrice: (prev, curr) => prev.precio > curr.precio,
@@ -21,22 +21,22 @@ const BooksGrid = ({ texth3, books, withPrice = false, order = false }) => {
   // Lógica del ordenamiento más control para saber cuál botón se oprimió
   const handleOrderAZ = () => {
     setChecked(1);
-    setSelectedOrder("handleOrderAZ")
+    setSelectedOrder("handleOrderAZ");
   };
 
   const handleOrderZA = () => {
     setChecked(2);
-    setSelectedOrder("handleOrderZA")
+    setSelectedOrder("handleOrderZA");
   };
 
   const handleOrderLowestPrice = () => {
     setChecked(3);
-    setSelectedOrder("handleOrderLowestPrice")
+    setSelectedOrder("handleOrderLowestPrice");
   };
 
   const handleOrderHighgestPrice = () => {
     setChecked(4);
-    setSelectedOrder("handleOrderHighgestPrice")
+    setSelectedOrder("handleOrderHighgestPrice");
   };
 
   return (
