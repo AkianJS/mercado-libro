@@ -9,7 +9,9 @@ import { getSalesBySearch } from "../../../utils/getSalesBySearch";
 
 export default function SalesDEtails({ data, error = false }) {
   const router = useRouter();
-  const { state: login } = useContext(AppContext);
+  const {
+    state: { login },
+  } = useContext(AppContext);
   if (error)
     return (
       <Layout>
