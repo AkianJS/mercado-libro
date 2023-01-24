@@ -50,7 +50,6 @@ const Profile = () => {
   const handleRemoveAccount = async () => {
     setIsRemoving(false);
     const res = await removeAccount({ token: login.accessToken });
-    console.log(res);
     if (res.errors || !res.data)
       Swal.fire({
         title: "Error",

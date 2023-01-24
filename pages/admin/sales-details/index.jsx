@@ -50,7 +50,6 @@ export async function getServerSideProps({ query }) {
   });
   const { data, errors } = res;
   const error = true;
-  console.log(res);
 
   if (errors || !data)
     return {

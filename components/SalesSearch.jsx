@@ -7,7 +7,6 @@ export default function SalesSearch() {
   const datesRef = useRef();
   const [searchedSales, setSearchedSales] = useState([]);
   const [error, setError] = useState(null);
-  console.log(searchedSales);
 
   const handleSalesSearch = async (e) => {
     e.preventDefault();

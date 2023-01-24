@@ -9,26 +9,34 @@ const BooksGrid = ({ texth3, books, withPrice = false, order = false }) => {
     state: { login },
   } = useContext(AppContext);
   const [checked, setChecked] = useState(0);
+  const [selectedOrder, setSelectedOrder] = useState("normal")
 
+  const orderObj = {
+    normal : () => {},
+    handleOrderAZ: (prev, curr) => prev.titulo > curr.titulo,
+    handleOrderZA: (prev, curr) => prev.titulo < curr.titulo,
+    handleOrderLowestPrice: (prev, curr) => prev.precio > curr.precio,
+    handleOrderHighgestPrice: (prev, curr) => prev.precio < curr.precio,
+  };
   // Lógica del ordenamiento más control para saber cuál botón se oprimió
   const handleOrderAZ = () => {
     setChecked(1);
-    books.sort((prev, curr) => prev.titulo > curr.titulo)
+    setSelectedOrder("handleOrderAZ")
   };
 
   const handleOrderZA = () => {
     setChecked(2);
-    books.sort((prev, curr) => prev.titulo < curr.titulo);
+    setSelectedOrder("handleOrderZA")
   };
 
   const handleOrderLowestPrice = () => {
     setChecked(3);
-    books.sort((prev, curr) => prev.precio > curr.precio);
+    setSelectedOrder("handleOrderLowestPrice")
   };
 
   const handleOrderHighgestPrice = () => {
     setChecked(4);
-    books.sort((prev, curr) => prev.precio < curr.precio)
+    setSelectedOrder("handleOrderHighgestPrice")
   };
 
   return (
@@ -76,7 +84,7 @@ const BooksGrid = ({ texth3, books, withPrice = false, order = false }) => {
 
       <ul className={`${styles.grid} w-full`}>
         {login.usuario?.admin && <BookAddCard />}
-        {books?.map((item) => (
+        {books?.sort(orderObj[selectedOrder]).map((item) => (
           <BookCard withPrice={withPrice} book={item} key={item.isbn}>
             {" "}
           </BookCard>

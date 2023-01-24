@@ -36,6 +36,7 @@ const Home = ({ books }) => {
 };
 
 export async function getStaticProps() {
+  
   try {
     const res = await getBooks({ discount: true });
     const {
