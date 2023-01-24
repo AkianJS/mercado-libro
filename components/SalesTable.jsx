@@ -26,7 +26,7 @@ export default function SalesTable({ orders }) {
               className={index % 2 === 0 ? "bg-white" : "bg-gray-400"}
               key={item.id}
             >
-              <td onClick={() => handleGoToDetails(item)} className="px-4 py-2 border border-black">{item.fecha}</td>
+              <td onClick={() => handleGoToDetails(item)} className="px-4 py-2 border border-black cursor-pointer text-blue-600">{item.fecha}</td>
               <td className="px-4 py-2 border border-black">
                 {item.cupon ? item.cupon.codigo_cupon : "-"}
               </td>
