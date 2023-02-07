@@ -90,7 +90,7 @@ export default function Coupons({ coupons }) {
         isLoading={login.isLoading}
         path="/login"
       >
-        <section className="px-4 flex flex-col gap-4 justify-center items-center my-8 overflow-scroll">
+        <section className="px-4 flex flex-col gap-4 justify-center items-center my-8 overflow-auto max-sm:text-[12px]">
           <table className="table-fixed text-center border border-black text-slate-800">
             <thead className="bg-gray-400">
               <tr className="text-black">
