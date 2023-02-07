@@ -1,3 +1,4 @@
 .verticalText {
     writing-mode: sideways-lr;
+    -ms-writing-mode: sideways-lr;
 }

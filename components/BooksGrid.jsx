@@ -1,7 +1,7 @@
 import styles from "../styles/BooksGrid.module.css";
 import BookCard from "./BookCard";
 import BookAddCard from "./BookAddCard";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import AppContext from "../context/AppContext";
 import collect from 'collect.js';
 
@@ -12,7 +12,9 @@ const BooksGrid = ({ texth3, books, withPrice = false, order = false }) => {
   const [checked, setChecked] = useState(0);
   const [sortedBooks, setSortedBooks] = useState(collect(books))
 
-  
+  useEffect(() => {
+    setSortedBooks(collect(books))
+  },[books])
   // Lógica del ordenamiento más control para saber cuál botón se oprimió
   const handleOrderAZ = () => {
     setChecked(1);

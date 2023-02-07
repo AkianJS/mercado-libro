@@ -9,7 +9,7 @@ const NavSearch = ({ isSearching }) => {
   const handleSearch = (e) => {
     e.preventDefault();
     const search = searchRef.current.value;
-    router.push(`/books/?query=${search}`);
+    router.push(`/books?query=${search}`);
     searchRef.current.value = "";
   };
 

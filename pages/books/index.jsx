@@ -4,9 +4,10 @@ import BooksGrid from "../../components/BooksGrid";
 import { getBooks } from "../../utils/getBooks";
 
 const Books = ({ books, booksByAuthor, query }) => {
+
   return (
     <Layout title="Libros">
-      <BooksGrid books={books} texth3="Libros" withPrice={true} order />
+      <BooksGrid books={books} texth3="Libros" withPrice order />
       {query !== "" && (
         <BooksGrid books={booksByAuthor.libro} texth3="Autor" withPrice order />
       )}
@@ -14,13 +15,10 @@ const Books = ({ books, booksByAuthor, query }) => {
   );
 };
 
-export async function getServerSideProps(context) {
-  const {
-    query: { query = "" },
-  } = context;
+export const getServerSideProps = async ({query}) => {
 
   try {
-    const res = await getBooks({ title: query });
+    const res = await getBooks({ title: query.query || '' });
     const {
       data: {
         getLibro: { libro },
@@ -38,7 +36,6 @@ export async function getServerSideProps(context) {
     };
   } catch (error) {
     const books = [];
-    const booksByAuthor = [];
     return {
       props: { books },
     };
