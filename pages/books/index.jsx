@@ -31,7 +31,7 @@ export const getServerSideProps = async ({query}) => {
       props: {
         books,
         booksByAuthor,
-        query,
+        query: query?.query ?? "",
       },
     };
   } catch (error) {
