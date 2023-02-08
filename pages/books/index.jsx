@@ -4,7 +4,6 @@ import BooksGrid from "../../components/BooksGrid";
 import { getBooks } from "../../utils/getBooks";
 
 const Books = ({ books, booksByAuthor, query }) => {
-console.log(booksByAuthor)
   return (
     <Layout title="Libros">
       <BooksGrid books={books} texth3="Libros" withPrice order />
