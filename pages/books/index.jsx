@@ -4,7 +4,7 @@ import BooksGrid from "../../components/BooksGrid";
 import { getBooks } from "../../utils/getBooks";
 
 const Books = ({ books, booksByAuthor, query }) => {
-
+console.log(booksByAuthor)
   return (
     <Layout title="Libros">
       <BooksGrid books={books} texth3="Libros" withPrice order />
@@ -25,7 +25,7 @@ export const getServerSideProps = async ({query}) => {
       },
     } = res;
     const books = libro;
-    const resAuthor = await getBooks({ author: query });
+    const resAuthor = await getBooks({ author: query.query });
     const booksByAuthor = resAuthor?.data?.getLibro || [];
     return {
       props: {
