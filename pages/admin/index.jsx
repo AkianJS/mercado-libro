@@ -44,6 +44,7 @@ const AdminPanel = ({ saleStats, error }) => {
 export const getStaticProps = async () => {
   try {
     const data = await getSellsStats();
+    console.log(data);
     if (data.errors || !data.data) {
       const error = "No se pudieron obtener los datos";
       const saleStats = null;
@@ -53,7 +54,7 @@ export const getStaticProps = async () => {
           saleStats,
         },
       };
-    } else {
+    } else if (data.data.getEstadisticas.success) {
       const error = null;
       const saleStats = data.data.getEstadisticas;
       return {
@@ -62,6 +63,15 @@ export const getStaticProps = async () => {
           saleStats,
         },
         revalidate: 10,
+      };
+    } else {
+      const error = "No se pudieron obtener los datos";
+      const saleStats = null;
+      return {
+        props: {
+          error,
+          saleStats,
+        },
       };
     }
   } catch (err) {
