@@ -13,7 +13,6 @@ const AdminPanel = ({ saleStats, error }) => {
     state: { login },
   } = useContext(AppContext);
 
-
   return (
     <Layout title="Panel del Administrador">
       <ProtectedRoute
@@ -42,7 +41,7 @@ const AdminPanel = ({ saleStats, error }) => {
   );
 };
 
-export async function getStaticProps() {
+export const getStaticProps = async () => {
   try {
     const data = await getSellsStats();
     if (data.errors || !data.data) {
@@ -54,7 +53,7 @@ export async function getStaticProps() {
           saleStats,
         },
       };
-    } else if (data.data.getEstadisticas.success) {
+    } else {
       const error = null;
       const saleStats = data.data.getEstadisticas;
       return {
@@ -75,6 +74,6 @@ export async function getStaticProps() {
       },
     };
   }
-}
+};
 
 export default AdminPanel;
