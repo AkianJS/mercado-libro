@@ -3,7 +3,7 @@ import styles from "../styles/SalesCard.module.css";
 
 export default function SalesCard({ salesLast30Days }) {
   const salesQuantityArray = salesLast30Days.map((item) => item.ventas);
-  const max = Math.max(...salesQuantityArray);
+  const max = salesQuantityArray.length ? Math.max(...salesQuantityArray) : 0;
   return (
     <div className="my-4">
       <h1 className="text-xl text-center font-bold">

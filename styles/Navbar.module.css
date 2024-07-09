@@ -24,23 +24,3 @@
 .dropdownMenuOut {
   transform: translateX(-100%);
 }
-
-.closeSesion {
-  animation: in .2s ;
-  animation-delay: .2s;
-  -webkit-animation: in .2s;
-  -webkit-animation-delay: .2s;
-  -moz-animation: in .2s;
-  -moz-animation-delay: .2s;
-}
-
-@keyframes in {
-  from {
-    scale: 0;
-    transform: translateY(-100%);
-  }
-  to {
-    scale: 1;
-    transform: translateY(0);
-  }  
-}

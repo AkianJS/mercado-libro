@@ -78,8 +78,8 @@ const NavUser = ({ login, setState }) => {
             onClick={handleCloseSesion}
             className={`mt-2 bg-white rounded-full p-1 border-2 hover:scale-110 duration-300 cursor-pointer ${
               dropdownUser
-                ? `${styles.closeSesion} translate-y-0`
-                : "-translate-y-full scale-0 delay-200"
+                ? `translate-y-0`
+                : "-translate-y-full scale-0"
             }`}
           >
             {" "}

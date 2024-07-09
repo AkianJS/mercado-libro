@@ -1,4 +1,8 @@
 .verticalText {
-    writing-mode: sideways-lr;
-    -ms-writing-mode: sideways-lr;
+    /* Modern browsers */
+    writing-mode: vertical-lr; /* Corrects the direction to vertical */
+    /* For older versions of IE */
+    -ms-writing-mode: tb-lr; /* IE */
+    /* Fallback for older browsers (if needed) */
+    transform-origin: left top;
 }

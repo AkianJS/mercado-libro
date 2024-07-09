@@ -44,7 +44,6 @@ const AdminPanel = ({ saleStats, error }) => {
 export const getStaticProps = async () => {
   try {
     const data = await getSellsStats();
-    console.log(data);
     if (data.errors || !data.data) {
       const error = "No se pudieron obtener los datos";
       const saleStats = null;
