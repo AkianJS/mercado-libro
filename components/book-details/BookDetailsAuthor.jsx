@@ -10,12 +10,12 @@ const BookDetailsAuthor = ({ book, login, isEditing, register }) => {
           <input
           placeholder="Autor/es"
             {...register("author")}
-            className="p-1 bg-gray-200 rounded-sm outline-none w-[40vw] max-w-xl"
+            className="bg-slate-100 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg p-2 outline-none text-slate-800 dark:text-slate-100 focus:border-indigo-500 transition-colors w-[40vw] max-w-xl"
             type="text"
           />
         </>
       ) : (
-        <p className="text-gray-600">{author.join(", ")}</p>
+        <p className="text-slate-500 dark:text-slate-400 transition-colors">{author.join(", ")}</p>
       )}
     </div>
   );

@@ -12,8 +12,8 @@ const UserInfo = () => {
     <section className="max-w-7xl m-auto mt-2">
       {login.usuario?.admin && (
         <div className="flex flex-col justify-center items-center gap-4">
-          <h4 className="text-xl font-bold">
-            Cuenta de <span className="text-blue-800"> administración</span>
+          <h4 className="text-xl font-bold text-slate-800 dark:text-slate-100">
+            Cuenta de <span className="text-indigo-600 dark:text-indigo-400"> administración</span>
           </h4>
           <div>
             <Button>Cambiar contraseña</Button>
@@ -21,30 +21,30 @@ const UserInfo = () => {
         </div>
       )}
       {!login.usuario?.admin && (
-        <div className="mr-8 ml-8 max-[380px]:mr-2 max-[380px]:ml-2 inline-flex flex-col items-center justify-center">
+        <div className="mr-8 ml-8 max-[380px]:mr-2 max-[380px]:ml-2 inline-flex flex-col items-center justify-center bg-white dark:bg-slate-800 p-6 rounded-xl border border-slate-200 dark:border-slate-700 transition-colors" style={{boxShadow: 'var(--card-shadow)'}}>
           <div className="w-full flex gap-2">
-            <p className="font-bold">Nombre:</p>
-            <span>{usuario?.nombre}</span>
+            <p className="font-semibold text-slate-800 dark:text-slate-100">Nombre:</p>
+            <span className="text-slate-600 dark:text-slate-300">{usuario?.nombre}</span>
           </div>
           <div className="w-full flex gap-2">
-            <p className="font-bold">DNI:</p>
-            <span>{usuario?.direccion?.dni}</span>
+            <p className="font-semibold text-slate-800 dark:text-slate-100">DNI:</p>
+            <span className="text-slate-600 dark:text-slate-300">{usuario?.direccion?.dni}</span>
           </div>
           <div className="w-full flex gap-2">
-            <p className="font-bold">Dirección:</p>
-            <span>{usuario?.direccion?.direccion}</span>
+            <p className="font-semibold text-slate-800 dark:text-slate-100">Dirección:</p>
+            <span className="text-slate-600 dark:text-slate-300">{usuario?.direccion?.direccion}</span>
           </div>
           <div className="w-full flex gap-2">
-            <p className="font-bold">Teléfono:</p>
-            <span>{usuario?.direccion?.telefono}</span>
+            <p className="font-semibold text-slate-800 dark:text-slate-100">Teléfono:</p>
+            <span className="text-slate-600 dark:text-slate-300">{usuario?.direccion?.telefono}</span>
           </div>
           <div className="w-full flex gap-2">
-            <p className="font-bold">Código Postal:</p>
-            <span>{usuario?.direccion?.ciudad?.cp}</span>
+            <p className="font-semibold text-slate-800 dark:text-slate-100">Código Postal:</p>
+            <span className="text-slate-600 dark:text-slate-300">{usuario?.direccion?.ciudad?.cp}</span>
           </div>
           <div className="w-full flex gap-2">
-            <p className="font-bold">Info Adicional:</p>
-            <span>{usuario?.direccion?.infoAdicional}</span>
+            <p className="font-semibold text-slate-800 dark:text-slate-100">Info Adicional:</p>
+            <span className="text-slate-600 dark:text-slate-300">{usuario?.direccion?.infoAdicional}</span>
           </div>
         </div>
       )}

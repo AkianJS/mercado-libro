@@ -11,11 +11,11 @@ const Layout = ({ children, title }) => {
         <title>{title || "MercadoLibro"}</title>
         <meta
           name="description"
-          content="Página principal con todos los libros"
+          content="Pagina principal con todos los libros"
         />
       </Head>
       <Navbar />
-      <div className="body-layout overflow-hidden">{children}</div>
+      <div className="body-layout overflow-hidden bg-[#F8F7F4] dark:bg-slate-900 transition-colors duration-300">{children}</div>
       <Footer />
     </>
   );

@@ -42,7 +42,7 @@ const Cart = () => {
             />
           ))}
           {!cartHasSomething && (
-            <p className="w-full text-red-600 text-xl">
+            <p className="w-full text-slate-500 dark:text-slate-400 text-xl text-center mt-8">
               Aun no has agregado nada a tu carrito!
             </p>
           )}

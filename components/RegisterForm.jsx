@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import Button from "./ui/Button";
 import styles from "../styles/FormSpan.module.css";
 import Google from "./Google";
-import jwt_decode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import { setUser } from "../utils/setUser";
 import { useContext, useState } from "react";
 import { getUserState } from "../utils/getUserState";
@@ -33,7 +33,7 @@ const RegisterForm = () => {
   };
 
   const handleGoogleSuccess = (credentialResponse) => {
-    const decoded = jwt_decode(credentialResponse.credential);
+    const decoded = jwtDecode(credentialResponse.credential);
     let name = decoded.name;
     let email = decoded.email;
     let password = decoded.sub;
@@ -61,11 +61,11 @@ const RegisterForm = () => {
           <input
             required="required"
             {...register("name")}
-            className={`bg-gray-200 border-2 border-black rounded-sm w-full p-2 outline-none ${styles.placeholder}`}
+            className={`bg-slate-100 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg w-full p-3 outline-none text-slate-800 dark:text-slate-100 focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-1 focus:ring-indigo-500/20 transition-all ${styles.placeholder}`}
             type="text"
           />
           <span
-            className={`absolute left-0 pl-2 pr-2 opacity-60 duration-300 pointer-events-none font-bold`}
+            className={`absolute left-0 pl-3 pr-2 opacity-60 duration-300 pointer-events-none font-medium text-slate-500 dark:text-slate-400`}
           >
             Nombre Completo
           </span>
@@ -80,33 +80,33 @@ const RegisterForm = () => {
                 message: "Mínimo 6 caracteres",
               },
             })}
-            className={`bg-gray-200 border-2 border-black rounded-sm w-full p-2 outline-none ${styles.placeholder}`}
+            className={`bg-slate-100 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg w-full p-3 outline-none text-slate-800 dark:text-slate-100 focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-1 focus:ring-indigo-500/20 transition-all ${styles.placeholder}`}
             type="email"
           />
           <span
-            className={`absolute left-0 pl-2 pr-2 opacity-60 duration-300 pointer-events-none font-bold`}
+            className={`absolute left-0 pl-3 pr-2 opacity-60 duration-300 pointer-events-none font-medium text-slate-500 dark:text-slate-400`}
           >
             Email
           </span>
         </div>
         {errors.email && (
-          <p className="text-red-700">{errors.email?.message}</p>
+          <p className="text-red-500 dark:text-red-400 text-sm">{errors.email?.message}</p>
         )}
 
         <div className="w-3/4 flex justify-center relative items-center">
           <input
             required="required"
             {...register("password")}
-            className={`border-2 bg-slate-200 border-black rounded-sm w-full p-2 outline-none ${styles.placeholder}`}
+            className={`bg-slate-100 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg w-full p-3 outline-none text-slate-800 dark:text-slate-100 focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-1 focus:ring-indigo-500/20 transition-all ${styles.placeholder}`}
             type="password"
           />
           <span
-            className={`absolute left-0 pl-2 pr-2 opacity-60 duration-300 pointer-events-none font-bold`}
+            className={`absolute left-0 pl-3 pr-2 opacity-60 duration-300 pointer-events-none font-medium text-slate-500 dark:text-slate-400`}
           >
             Contraseña
           </span>
         </div>
-        {message && <p className="text-sm">{message}</p>}
+        {message && <p className="text-sm text-slate-600 dark:text-slate-400">{message}</p>}
 
         <div className="w-3/4">
           <Button type="submit">Registrarse</Button>

@@ -16,23 +16,23 @@ const NavSearch = ({ isSearching }) => {
   return (
     <form className="absolute" onSubmit={handleSearch}>
       <div
-        className={`w-full h-10 fixed top-16 left-0 z-30 m-auto overflow-hidden ${
+        className={`w-full h-12 fixed top-16 left-0 z-30 m-auto overflow-hidden ${
           isSearching ? "" : "pointer-events-none"
         }`}
       >
         <div
-          className={`w-full max-w-screen-xl h-full relative flex justify-center  items-center m-auto transition-transform ${
-            isSearching ? "translate-y-0" : "pointer-events-none -translate-y-12"
+          className={`w-full max-w-screen-xl h-full relative flex justify-center items-center m-auto transition-transform ${
+            isSearching ? "translate-y-0" : "pointer-events-none -translate-y-14"
           }`}
         >
           <input
             ref={searchRef}
-            className="w-full max-w-screen-xl h-full outline-none pl-8 bg-white rounded-b-md"
+            className="w-full max-w-screen-xl h-full outline-none pl-10 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 border-b border-slate-200 dark:border-slate-700 placeholder:text-slate-400 dark:placeholder:text-slate-500 shadow-lg transition-colors"
             type="text"
-            placeholder="Título del libro, isbn, autor..."
+            placeholder="Titulo del libro, isbn, autor..."
           />
           <button
-            className="max-w-screen-xl border-none outline-none bg-transparent absolute left-0 pl-2"
+            className="max-w-screen-xl border-none outline-none bg-transparent absolute left-0 pl-3 text-slate-400 dark:text-slate-500"
             type="submit"
           >
             <FaSearch />

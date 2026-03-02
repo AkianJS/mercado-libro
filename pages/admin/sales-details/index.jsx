@@ -27,7 +27,7 @@ export default function SalesDEtails({ data, error = false }) {
         myBoolean={login.usuario?.admin}
       >
         <section className="max-w-7xl mx-auto mt-4">
-          <h1 className="mx-4 text-xl font-bold">
+          <h1 className="mx-4 text-xl font-bold text-slate-800 dark:text-slate-100">
             Ventas del {router.query.date}
           </h1>
           {data?.getVentas?.orden?.map((item) => (

@@ -67,21 +67,21 @@ export default function SalesSearch() {
     <>
       <form onSubmit={handleSalesSearch} ref={datesRef}>
         <div className="flex flex-col items-center my-4">
-          <p className="text font-bold">Buscar ventas entre:</p>
+          <p className="font-semibold text-slate-800 dark:text-slate-100">Buscar ventas entre:</p>
           <div className="my-2 flex items-center">
             <input
               required
-              className="px-2 py-1 border border-black"
+              className="px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-800 dark:text-slate-100 outline-none focus:border-indigo-500 transition-colors"
               type="date"
             />
-            <p className="mx-2">Y</p>
+            <p className="mx-2 text-slate-500 dark:text-slate-400">Y</p>
             <input
               required
-              className="px-2 py-1 border border-black"
+              className="px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-800 dark:text-slate-100 outline-none focus:border-indigo-500 transition-colors"
               type="date"
             />
           </div>
-          <p>{error}</p>
+          <p className="text-red-500 dark:text-red-400 text-sm">{error}</p>
           <div>
             <Button type="submit">
               Buscar
@@ -94,15 +94,15 @@ export default function SalesSearch() {
       </form>
 
       {searchedSales?.length !== 0 && (
-        <div className="flex justify-center gap-4 text-blue-500">
+        <div className="flex justify-center gap-4 text-indigo-500 dark:text-indigo-400">
           {searchedSales.page !== 1 && (
-            <button onClick={handlePrevPage}>««</button>
+            <button onClick={handlePrevPage} className="hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors">««</button>
           )}
-          <p className="text-black">
+          <p className="text-slate-700 dark:text-slate-300">
             {searchedSales?.page} de {searchedSales?.maxPage}
           </p>
           {searchedSales?.page !== searchedSales?.maxPage && !searchedSales?.maxPage == 0 && (
-            <button onClick={handleNextPage}>»»</button>
+            <button onClick={handleNextPage} className="hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors">»»</button>
           )}
         </div>
       )}

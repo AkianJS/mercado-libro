@@ -8,25 +8,26 @@ import { getBooks } from "../utils/getBooks";
 const Home = ({ books }) => {
   return (
     <Layout>
-      <div className="w-full relative h-90vh bg-black">
+      <div className="w-full relative h-90vh bg-slate-900">
         <Image
-          className="object-cover h-90vh opacity-80"
+          className="object-cover h-90vh opacity-70"
           alt="prueba"
           src={book}
         />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-900/80" />
         <div
-          className={`w-3/4 h-auto xl:whitespace-pre absolute  text-white text-center uppercase top-24 max-xl:top-12 left-2/4 -translate-x-2/4 text-9xl max-sm:text-[18vw] max-lg:text-9xl xl:text-9xl ${styles.headerText}`}
+          className={`w-3/4 h-auto xl:whitespace-pre absolute text-white text-center uppercase top-24 max-xl:top-12 left-2/4 -translate-x-2/4 text-9xl max-sm:text-[18vw] max-lg:text-9xl xl:text-9xl ${styles.headerText}`}
         >
-          <h1 className={`leading-tight`}>
+          <h1 className={`leading-tight drop-shadow-lg`}>
             <strong>cyber </strong>
-            <i>monday</i>
+            <i className="text-indigo-300">monday</i>
           </h1>
         </div>
         <h2
-          className={`text-white text-center bottom-28 absolute left-2/4 -translate-x-2/4 whitespace-pre text-9xl max-sm:text-[18vw] max-lg:text-9xl ${styles.headerText2}`}
+          className={`text-white text-center bottom-28 absolute left-2/4 -translate-x-2/4 whitespace-pre text-9xl max-sm:text-[18vw] max-lg:text-9xl drop-shadow-lg ${styles.headerText2}`}
         >
           <i>
-            <strong>30%</strong> OFF
+            <strong className="text-indigo-300">30%</strong> OFF
           </i>
         </h2>
       </div>
@@ -36,7 +37,7 @@ const Home = ({ books }) => {
 };
 
 export async function getStaticProps() {
-  
+
   try {
     const res = await getBooks({ discount: true });
     const {

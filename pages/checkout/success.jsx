@@ -23,7 +23,7 @@ const Success = () => {
     <Layout>
       <button
         onClick={handleOnClick}
-        className="bg-teal-600 text-white mt-4 ml-4 p-1 pl-2 pr-2 rounded-sm flex items-center gap-2 hover:scale-105 ease-linear duration-100"
+        className="bg-indigo-500 hover:bg-indigo-600 text-white mt-6 ml-6 py-2 px-4 rounded-lg flex items-center gap-2 hover:-translate-y-0.5 transition-all duration-200 font-medium text-sm"
       >
         Volver <FaAngleDoubleLeft />
       </button>

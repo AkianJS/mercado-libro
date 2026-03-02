@@ -11,6 +11,20 @@ class MainDocument extends Document {
       <Html>
         <Head />
         <body>
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+                (function() {
+                  try {
+                    var theme = localStorage.getItem('theme');
+                    if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                      document.documentElement.classList.add('dark');
+                    }
+                  } catch(e) {}
+                })();
+              `,
+            }}
+          />
           <Main />
           <NextScript />
           {/*Below we add the modal wrapper*/}

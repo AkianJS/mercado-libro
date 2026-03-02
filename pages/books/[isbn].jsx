@@ -184,7 +184,7 @@ const Book = ({ book, getTemas }) => {
 
   return (
     <Layout title={book.titulo}>
-      <section className="mt-8 pl-4 pr-4 flex flex-wrap justify-center gap-6 max-w-screen-xl ml-auto mr-auto">
+      <section className="mt-8 pl-4 pr-4 flex flex-wrap justify-center gap-8 max-w-screen-xl ml-auto mr-auto">
         <BookDetailsImage
           book={book}
           login={login}
@@ -225,8 +225,8 @@ const Book = ({ book, getTemas }) => {
               register={register}
             />
 
-            <hr className="mt-8" />
-            <h4 className="mt-4 mb-4 text-2xl">
+            <hr className="mt-8 border-slate-200 dark:border-slate-700" />
+            <h4 className="mt-4 mb-4 text-2xl text-slate-800 dark:text-slate-100">
               <strong>Descripción</strong>
             </h4>
 
@@ -275,15 +275,15 @@ const Book = ({ book, getTemas }) => {
           {login.usuario?.admin && (
             <Button
               handleClick={() => setModalShow(true)}
-              background="rgba(220,38,38, .9)"
+              background="rgb(239 68 68)"
               className="mt-4"
             >
               Eliminar Libro
             </Button>
           )}
           <Modal show={modalShow}>
-            <div className="bg-white p-4 rounded-lg flex flex-col gap-2">
-              <h4>Está seguro de eliminar {book.titulo}?</h4>
+            <div className="bg-white dark:bg-slate-800 p-6 rounded-xl flex flex-col gap-3 border border-slate-200 dark:border-slate-700">
+              <h4 className="text-slate-800 dark:text-slate-100">Está seguro de eliminar {book.titulo}?</h4>
               <div className="grid grid-cols-2 gap-4">
                 <Button handleClick={handleRemoveBook}>Eliminar</Button>
                 <Button handleClick={() => setModalShow(false)}>
@@ -294,14 +294,14 @@ const Book = ({ book, getTemas }) => {
           </Modal>
           <div>
             {!login.usuario?.admin && (
-              <div className="min-w-72 max-w-screen-md mt-2 flex flex-wrap gap-4">
+              <div className="min-w-72 max-w-screen-md mt-4 flex flex-wrap gap-4">
                 <div onClick={handleAddToCart} className="relative w-72">
                   <Button type="button">Agregar al carrito</Button>
                   <FaCartPlus className="absolute right-2 top-1.5 text-white text-3xl cursor-pointer" />
                 </div>
                 <select
                   ref={buyQuantityRef}
-                  className={`bg-black w-12 text-white rounded-[0.25rem] pl-2 pr-1`}
+                  className="bg-indigo-500 w-12 text-white rounded-lg pl-2 pr-1 outline-none"
                 >
                   {book.stock > 0 &&
                     [...Array(book.stock).keys()].map((item) => (
@@ -317,7 +317,7 @@ const Book = ({ book, getTemas }) => {
       </section>
       <br />
       <br />
-      <hr className="max-w-screen-xl m-auto " />
+      <hr className="max-w-screen-xl m-auto border-slate-200 dark:border-slate-700" />
       <br />
       <Opine
         book={book}

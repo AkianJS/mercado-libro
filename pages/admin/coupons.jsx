@@ -91,55 +91,55 @@ export default function Coupons({ coupons }) {
         path="/login"
       >
         <section className="px-4 flex flex-col gap-4 justify-center items-center my-8 overflow-auto max-sm:text-[12px]">
-          <table className="table-fixed text-center border border-black text-slate-800">
-            <thead className="bg-gray-400">
-              <tr className="text-black">
-                <th className="px-4 py-2 border border-black">Cupón</th>
-                <th className="px-4 py-2 border border-black">Descuento</th>
-                <th className="px-4 py-2 border border-black">Usado</th>
-                <th className="px-4 py-2 border border-black">-</th>
+          <table className="table-fixed text-center border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 rounded-lg overflow-hidden">
+            <thead className="bg-slate-100 dark:bg-slate-700">
+              <tr className="text-slate-800 dark:text-slate-200">
+                <th className="px-4 py-3 border border-slate-200 dark:border-slate-600 font-semibold">Cupón</th>
+                <th className="px-4 py-3 border border-slate-200 dark:border-slate-600 font-semibold">Descuento</th>
+                <th className="px-4 py-3 border border-slate-200 dark:border-slate-600 font-semibold">Usado</th>
+                <th className="px-4 py-3 border border-slate-200 dark:border-slate-600 font-semibold">-</th>
               </tr>
             </thead>
             <tbody>
               {coupons.cupones.map((item, index) => (
                 <tr
-                  className={index % 2 === 0 ? "bg-white" : "bg-gray-400"}
+                  className={index % 2 === 0 ? "bg-white dark:bg-slate-800" : "bg-slate-50 dark:bg-slate-700/50"}
                   key={item.codigo_cupon}
                 >
-                  <td className="px-4 py-2 border border-black">
+                  <td className="px-4 py-3 border border-slate-200 dark:border-slate-700">
                     {item.codigo_cupon}
                   </td>
-                  <td className="px-4 py-2 border border-black">
+                  <td className="px-4 py-3 border border-slate-200 dark:border-slate-700">
                     {item.porc_descuento} %
                   </td>
-                  <td className="px-4 py-2 border border-black">
+                  <td className="px-4 py-3 border border-slate-200 dark:border-slate-700">
                     {item.utilizado ? "Sí" : "No"}
                   </td>
                   <td
                     onClick={() => handleRemoveCoupon(item.codigo_cupon)}
-                    className="px-4 py-2 border border-black text-red-600 cursor-pointer"
+                    className="px-4 py-3 border border-slate-200 dark:border-slate-700 text-red-500 dark:text-red-400 cursor-pointer hover:text-red-700 dark:hover:text-red-300 transition-colors"
                   >
                     Eliminar
                   </td>
                 </tr>
               ))}
               {isAdding && (
-                <tr>
-                  <td className="border border-black">
+                <tr className="bg-white dark:bg-slate-800">
+                  <td className="border border-slate-200 dark:border-slate-700">
                     <div className="w-18 mx-auto">
                       <input
                         required
                         ref={couponCodeRef}
                         placeholder="BLACFR1D4Y"
-                        className="w-full py-2 px-4 outline-none"
+                        className="w-full py-2 px-4 outline-none bg-transparent text-slate-800 dark:text-slate-100 placeholder:text-slate-400"
                         type="text"
                       />
                     </div>
                   </td>
-                  <td className="border border-black">
+                  <td className="border border-slate-200 dark:border-slate-700">
                     <input
                       ref={amountRef}
-                      className="w-16 py-2 outline-none"
+                      className="w-16 py-2 outline-none bg-transparent text-slate-800 dark:text-slate-100 text-center"
                       type="number"
                       required
                       defaultValue={1}
@@ -148,8 +148,8 @@ export default function Coupons({ coupons }) {
                     />
                   </td>
                   <td></td>
-                  <td className="border-l border-black">
-                    <button onClick={handleSetCoupon} className="text-blue-500">
+                  <td className="border-l border-slate-200 dark:border-slate-700">
+                    <button onClick={handleSetCoupon} className="text-indigo-500 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 font-medium transition-colors">
                       Guardar
                     </button>
                   </td>
@@ -157,19 +157,19 @@ export default function Coupons({ coupons }) {
               )}
             </tbody>
           </table>
-          <div className="flex gap-4 text-blue-500">
+          <div className="flex gap-4 text-indigo-500 dark:text-indigo-400">
             {coupons.page !== 1 && (
-              <button onClick={handlePreviousPage} className="mx-4">
+              <button onClick={handlePreviousPage} className="mx-4 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors">
                 ««
               </button>
             )}
 
-            <p className="text-black">
+            <p className="text-slate-700 dark:text-slate-300">
               {coupons.page} de {coupons.maxPage}
             </p>
 
             {coupons.page !== coupons.maxPage && (
-              <button onClick={handleNextPage} className="mx-4">
+              <button onClick={handleNextPage} className="mx-4 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors">
                 »»
               </button>
             )}

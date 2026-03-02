@@ -16,13 +16,13 @@ const History = () => {
         path="/login"
       >
         <section className="max-w-screen-xl m-auto">
-          <h3 className="mt-4 mb-12 ml-6 uppercase bold text-4xl">Historial</h3>
+          <h3 className="mt-4 mb-12 ml-6 uppercase font-bold text-3xl tracking-wide text-slate-800 dark:text-slate-100">Historial</h3>
           {login?.usuario?.orden?.map((item) => (
             <HistoryBooksGrid key={item.id} order={item} />
           ))}
 
           {!login?.usuario?.orden?.length && (
-            <p className="text-2xl text-red-600 p-6">
+            <p className="text-xl text-slate-500 dark:text-slate-400 p-6">
               Usted aun no ha comprado ningún libro
             </p>
           )}

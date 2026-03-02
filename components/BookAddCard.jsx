@@ -4,10 +4,10 @@ import React from "react";
 
 const Book = () => {
   return (
-    <li className="w-[250px] h-[380px] relative flex items-center justify-center shadow-md cursor-pointer hover:scale-110 hover:z-10 duration-100">
+    <li className="w-[240px] h-[390px] relative flex items-center justify-center rounded-xl cursor-pointer hover:scale-105 hover:z-10 duration-200 border-2 border-dashed border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 transition-colors">
       <Link href="/admin/new-book">
         <Image
-          className=""
+          className="opacity-40 dark:opacity-30"
           alt="Add Book"
           src="/Add.png"
           width={200}

@@ -9,7 +9,7 @@ function Modal({ children, show }) {
   }, []);
 
   const modalContent = show ? (
-    <div className="w-[100vw] h-[100vh] bg-slate-900 bg-opacity-60 fixed top-0 z-[1000] flex items-center justify-center overflow-hidden duration-200">
+    <div className="w-[100vw] h-[100vh] bg-slate-900/70 dark:bg-black/70 backdrop-blur-sm fixed top-0 z-[1000] flex items-center justify-center overflow-hidden duration-200">
       {children}
     </div>
   ) : null;

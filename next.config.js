@@ -1,9 +1,13 @@
 /** @type {import('next').NextConfig} */
 
-module.exports = { 
+module.exports = {
   reactStrictMode: true,
-  swcMinify: true,
   images: {
-    domains: ['s3.amazonaws.com', 'm.media-amazon.com', 'cdn.pixabay.com', 'i.ibb.co']
-  }
+    remotePatterns: [
+      { protocol: 'https', hostname: 's3.amazonaws.com' },
+      { protocol: 'https', hostname: 'm.media-amazon.com' },
+      { protocol: 'https', hostname: 'cdn.pixabay.com' },
+      { protocol: 'https', hostname: 'i.ibb.co' },
+    ],
+  },
 }

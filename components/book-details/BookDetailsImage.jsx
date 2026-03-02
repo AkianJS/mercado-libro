@@ -44,7 +44,7 @@ const BookDetailsImage = ({
       {login.usuario?.admin && isEditing && (
         <label
           htmlFor="image"
-          className="bg-[url(https://i.ibb.co/jz1b8XC/add-icon-png-2486.png)] bg-white bg-opacity-80 object-contain bg-center w-full h-full absolute cursor-pointer z-20 opacity-50"
+          className="bg-[url(https://i.ibb.co/jz1b8XC/add-icon-png-2486.png)] bg-white/80 dark:bg-slate-800/80 object-contain bg-center w-full h-full absolute cursor-pointer z-20 opacity-50 transition-colors"
         >
           <input
             {...register("imageUrl")}

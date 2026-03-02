@@ -23,8 +23,8 @@ const AdminPanel = ({ saleStats, error }) => {
         <section className="max-w-screen-xl m-auto mt-4 p-4">
           {saleStats && (
             <div className="w-full">
-              <button className="ml-auto block text-blue-500 duration-150 hover:scale-105">
-                <Link href="/admin/coupons">Administrar cupones »»</Link>
+              <button className="ml-auto block text-indigo-500 dark:text-indigo-400 duration-150 hover:text-indigo-700 dark:hover:text-indigo-300 font-medium text-sm transition-colors">
+                <Link href="/admin/coupons">Administrar cupones &raquo;&raquo;</Link>
               </button>
 
               <SalesSearch />

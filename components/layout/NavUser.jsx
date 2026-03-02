@@ -46,12 +46,12 @@ const NavUser = ({ login, setState }) => {
       {!login?.success ? (
         <Link href={login?.success ? "" : "/login"}>
           <li>
-            <FaUser className="text-2xl" />
+            <FaUser className="text-xl text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors" />
           </li>
         </Link>
       ) : (
-        <li ref={userIconRef} onClick={handleDropDownMenu}>
-          <FaUser className="text-2xl" />
+        <li ref={userIconRef} onClick={handleDropDownMenu} className="cursor-pointer">
+          <FaUser className="text-xl text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors" />
         </li>
       )}
 
@@ -66,24 +66,24 @@ const NavUser = ({ login, setState }) => {
         >
           <Link href={"/profile"}>
             <li
-              className={`scale-0 bg-white rounded-full p-1 border-2 ${
+              className={`scale-0 bg-white dark:bg-slate-800 rounded-full p-1 border-2 border-slate-200 dark:border-slate-600 shadow-md ${
                 dropdownUser ? "translate-y-0 scale-100" : "-translate-y-full"
-              }`}
+              } transition-all duration-200`}
             >
               {" "}
-              <FaUserCircle className="text-4xl" />{" "}
+              <FaUserCircle className="text-4xl text-slate-600 dark:text-slate-300" />{" "}
             </li>
           </Link>
           <div
             onClick={handleCloseSesion}
-            className={`mt-2 bg-white rounded-full p-1 border-2 hover:scale-110 duration-300 cursor-pointer ${
+            className={`mt-2 bg-white dark:bg-slate-800 rounded-full p-1 border-2 border-slate-200 dark:border-slate-600 shadow-md hover:scale-110 duration-300 cursor-pointer ${
               dropdownUser
                 ? `translate-y-0`
                 : "-translate-y-full scale-0"
-            }`}
+            } transition-all`}
           >
             {" "}
-            <IoMdLogOut className="text-4xl" />
+            <IoMdLogOut className="text-4xl text-slate-600 dark:text-slate-300" />
           </div>
         </div>
       </div>

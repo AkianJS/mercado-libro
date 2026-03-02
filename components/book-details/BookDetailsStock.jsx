@@ -5,20 +5,20 @@ const BookDetailsStock = ({ book, login, isEditing, register }) => {
     <div className="mt-4 flex gap-2">
       {login.usuario?.admin && isEditing ? (
         <>
-          <p>Stock: </p>
+          <p className="text-slate-800 dark:text-slate-100 transition-colors">Stock: </p>
           <input
             {...register("stock")}
             defaultValue={book.stock}
-            className="p-1 bg-gray-200 rounded-sm"
+            className="bg-slate-100 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg p-2 outline-none text-slate-800 dark:text-slate-100 focus:border-indigo-500 transition-colors"
             type="number"
           />
         </>
       ) : (
-        <p className="mt-6 text-gray-600 text-sm uppercase">
+        <p className="mt-6 text-slate-500 dark:text-slate-400 text-sm uppercase transition-colors">
           {book.stock > 0 ? (
             `${book.stock} ejemplares disponibles`
           ) : (
-            <span className="text-red-500">Ningun ejemplar disponible</span>
+            <span className="text-red-500 dark:text-red-400">Ningun ejemplar disponible</span>
           )}
         </p>
       )}

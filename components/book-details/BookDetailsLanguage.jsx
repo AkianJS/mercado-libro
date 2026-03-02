@@ -5,16 +5,16 @@ const BookDetailsLanguage = ({book, login, isEditing, register}) => {
         <div className='mt-4 flex gap-2'>
           {login.usuario?.admin && isEditing ? (
             <>
-            <p>Idioma: </p>
+            <p className="text-slate-800 dark:text-slate-100 transition-colors">Idioma: </p>
               <input
               {...register("language")}
                 defaultValue={book.idioma?.nombre}
-                className="p-1 bg-gray-200 rounded-sm"
+                className="bg-slate-100 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg p-2 outline-none text-slate-800 dark:text-slate-100 focus:border-indigo-500 transition-colors"
                 type="text"
               />
             </>
           ) : (
-            <p className="text-gray-600">Idioma: {book.idioma?.nombre}</p>
+            <p className="text-slate-500 dark:text-slate-400 transition-colors">Idioma: {book.idioma?.nombre}</p>
           )}
         </div>
       );

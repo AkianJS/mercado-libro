@@ -62,8 +62,8 @@ const Opine = ({ book, login, Toast, isLoading }) => {
     <section className="max-w-screen-xl m-auto">
       {!opinedState.opino && opinedState.compro && (
         <>
-          <h4 className="text-lg text-center font-bold">
-            Dejanos tu opinión debajo!
+          <h4 className="text-lg text-center font-bold text-slate-800 dark:text-slate-100">
+            Dejanos tu opinion debajo!
           </h4>
 
           <form onSubmit={handleOnSubmit}>
@@ -72,12 +72,12 @@ const Opine = ({ book, login, Toast, isLoading }) => {
                 ref={textAreaRef}
                 rows="4"
                 cols="50"
-                className={`bg-gray-200 border-2 w-full max-w-lg border-black rounded-sm p-2 outline-none`}
+                className="bg-slate-100 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 w-full max-w-lg rounded-lg p-3 outline-none text-slate-800 dark:text-slate-100 focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-1 focus:ring-indigo-500/20 transition-all"
                 type="text"
               ></textarea>
               <button
                 type="submit"
-                className="bg-teal-600 text-white mt-4 ml-4 p-1 pl-2 pr-2 rounded-sm flex items-center gap-2 hover:scale-105 ease-linear duration-100"
+                className="bg-indigo-500 hover:bg-indigo-600 text-white mt-4 py-2 px-4 rounded-lg flex items-center gap-2 hover:-translate-y-0.5 transition-all duration-200 font-medium text-sm"
               >
                 Opinar <FaAngleDoubleDown />
               </button>
@@ -85,7 +85,7 @@ const Opine = ({ book, login, Toast, isLoading }) => {
           </form>
         </>
       )}
-      {book?.opinion.length > 0 ? <h3 className="max-w-2xl m-auto font-bold text-xl">Opiniones</h3> : undefined}
+      {book?.opinion.length > 0 ? <h3 className="max-w-2xl m-auto font-bold text-xl text-slate-800 dark:text-slate-100 mt-4">Opiniones</h3> : undefined}
       {book?.opinion?.map((item) => (
         <OpinedCard key={item?.usuario?.id} book={item} />
       ))}

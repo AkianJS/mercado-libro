@@ -4,12 +4,12 @@ import Loader from "../ui/Loader";
 const BookDetailsTitle = ({ book, login, isEditing, register }) => {
   if (!book || login.isLoading) <Loader />;
   return (
-    <div className="text-2xl">
+    <div className="text-2xl text-slate-800 dark:text-slate-100 transition-colors">
       {login.usuario?.admin && isEditing ? (
         <>
           <input
             {...register("title")}
-            className="p-1 bg-gray-200 rounded-sm outline-none w-full"
+            className="bg-slate-100 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg p-2 outline-none text-slate-800 dark:text-slate-100 focus:border-indigo-500 transition-colors w-full"
             type="text"
           />
         </>

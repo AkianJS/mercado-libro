@@ -43,7 +43,7 @@ const TotalAmountCart = ({
     });
     const { errors, data } = res;
     if (errors || !data)
-      setMessage("Error en el servidor, no se pudo cargar el cupón");
+      setMessage("Error en el servidor, no se pudo cargar el cupon");
     else if (
       data.agregarCupon?.cupon &&
       data.agregarCupon?.success &&
@@ -51,8 +51,8 @@ const TotalAmountCart = ({
     )
       setMessage("Cupon cargado correctamente!");
     else if (data.agregarCupon?.cupon?.utilizado)
-      setMessage("Cupón ya utilizado");
-    else setMessage("No hay ningún cupón para cargar");
+      setMessage("Cupon ya utilizado");
+    else setMessage("No hay ningun cupon para cargar");
     updateUserInfo();
     setTimeout(() => {
       setMessage(null);
@@ -61,30 +61,30 @@ const TotalAmountCart = ({
 
   return (
     <div className="max-w-3xl ml-auto mr-auto p-6">
-      <hr className="border-t-2 mr-8 ml-8 " />
+      <hr className="border-slate-200 dark:border-slate-700 mr-8 ml-8" />
       {cartHasSomething && (
-        <div className="w-3/4  p-4 m-auto flex flex-col justify-center items-center mt-4 border-gray-600 border-2">
-          <p className="text-xl font-bold">
+        <div className="w-3/4 p-6 m-auto flex flex-col justify-center items-center mt-4 border border-slate-200 dark:border-slate-700 rounded-xl bg-white dark:bg-slate-800 transition-colors" style={{boxShadow: 'var(--card-shadow)'}}>
+          <p className="text-xl font-bold text-slate-800 dark:text-slate-100">
             Cantidad de libros: {totalOfBooks}
           </p>
-          <div className="flex justify-center items-center w-full">
-            <h4 className="text-xl font-bold">Total: </h4>
+          <div className="flex justify-center items-center w-full mt-2">
+            <h4 className="text-xl font-bold text-slate-800 dark:text-slate-100">Total: </h4>
             <p
-              className={`ml-auto font-bold ${
-                discountCoupon ? "line-through" : undefined
+              className={`ml-auto font-bold text-slate-800 dark:text-slate-200 ${
+                discountCoupon ? "line-through text-slate-400 dark:text-slate-500" : undefined
               }`}
             >
               {total} $
             </p>
           </div>
 
-          {/* Lógica del descuento por cupón */}
+          {/* Logica del descuento por cupon */}
           {discountCoupon && (
             <div className="flex justify-center items-center w-full">
-              <h4 className="text-lg font-bold">
-                Cupón: {discountCoupon?.codigo_cupon}
+              <h4 className="text-lg font-bold text-slate-800 dark:text-slate-100">
+                Cupon: {discountCoupon?.codigo_cupon}
               </h4>
-              <p className="ml-auto font-bold text-emerald-600">
+              <p className="ml-auto font-bold text-emerald-600 dark:text-emerald-400">
                 {(
                   total -
                   (discountCoupon?.porc_descuento / 100) * total
@@ -95,29 +95,29 @@ const TotalAmountCart = ({
           )}
 
           {!login.usuario?.carrito?.cupon?.utilizado && (
-            <div className="mt-4 flex flex-wrap justify-center items-center w-full bg-gray-400 p-2 pl-1 pr-1">
-              <FaCaretRight />
+            <div className="mt-4 flex flex-wrap justify-center items-center w-full bg-slate-100 dark:bg-slate-700 p-3 rounded-lg">
+              <FaCaretRight className="text-slate-500 dark:text-slate-400" />
               <input
                 ref={couponRef}
-                className="bg-gray-400 border-b-2 border-black placeholder:opacity-70 placeholder:text-black outline-none w-[30vw] max-w-sm"
-                placeholder="Cupón de descuento"
+                className="bg-transparent border-b border-slate-400 dark:border-slate-500 placeholder:text-slate-400 dark:placeholder:text-slate-500 text-slate-800 dark:text-slate-200 outline-none w-[30vw] max-w-sm"
+                placeholder="Cupon de descuento"
                 type="text"
               />
 
               <button
                 onClick={handleAddCoupon}
-                className={`bg-black text-white ml-4 p-1 pl-2 pr-2 rounded-sm ${
-                  discountCoupon ? "pointer-events-none" : undefined
+                className={`bg-indigo-500 hover:bg-indigo-600 text-white ml-4 py-1.5 px-3 rounded-lg text-sm font-medium transition-colors ${
+                  discountCoupon ? "pointer-events-none opacity-50" : undefined
                 }`}
               >
                 Agregar
               </button>
             </div>
           )}
-          {message && <p className="text-center">{message}</p>}
+          {message && <p className="text-center text-sm mt-2 text-slate-600 dark:text-slate-400">{message}</p>}
           <button
             onClick={handleOnClick}
-            className={`bg-teal-600 text-white mt-4 ml-4 p-1 pl-2 pr-2 rounded-sm flex items-center gap-2 hover:scale-105 ease-linear duration-100 `}
+            className="bg-indigo-500 hover:bg-indigo-600 text-white mt-4 py-2 px-4 rounded-lg flex items-center gap-2 hover:-translate-y-0.5 transition-all duration-200 font-medium text-sm"
           >
             {finalButtonText} <FaAngleDoubleRight />
           </button>

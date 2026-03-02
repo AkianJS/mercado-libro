@@ -87,39 +87,39 @@ const CategoryAddCard = ({
   };
   return (
     <div
-      className={`h-56 bg-gray-800 relative rounded-md shadow-lg flex items-center justify-center overflow-hidden duration-200 ${
-        !isAdding && "hover:scale-110"
-      }  cursor-pointer`}
+      className={`h-56 bg-slate-700 dark:bg-slate-800 relative rounded-xl shadow-lg flex items-center justify-center overflow-hidden duration-200 ${
+        !isAdding && "hover:scale-105"
+      } cursor-pointer`}
     >
       <Image
         onClick={() => setIsAdding(true)}
         className="absolute nextImageCategoryCard"
         fill
-        sizes="15rem"
+        sizes="16rem"
         alt={isAdding ? "" : "Card Add Category"}
         src={isAdding ? newImage || bookImage : "/Add.png"}
       />
 
       {isAdding && (
-        <div className="w-full h-full absolute top-0 left-0 z-20 flex flex-col items-center justify-center gap-2">
+        <div className="w-full h-full absolute top-0 left-0 z-20 flex flex-col items-center justify-center gap-2 bg-black/40">
           <button
             onClick={() => {
               setIsEditing && setIsEditing(false);
               setIsAdding(isEditing);
             }}
-            className="absolute top-2 right-2 text-3xl text-white bg-black z-20"
+            className="absolute top-2 right-2 text-2xl text-white hover:text-red-400 z-20 transition-colors"
           >
             <FaWindowClose />
           </button>
           <input
             ref={titleRef}
             name="title"
-            className="bg-white border-black border-2 p-1 rounded-md placeholder-black placeholder-opacity-70 outline-none"
+            className="bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 p-2 rounded-lg placeholder-slate-400 outline-none text-slate-800 dark:text-slate-100 focus:border-indigo-500 transition-colors"
             type="text"
             placeholder="Titulo"
           />
           <label
-            className="p-1 bg-white border-2 border-black rounded-md cursor-pointer duration-100 hover:scale-105"
+            className="py-1.5 px-3 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg cursor-pointer duration-100 hover:scale-105 text-slate-800 dark:text-slate-100 text-sm font-medium"
             htmlFor="imageAddCategory"
           >
             Subir Imagen
@@ -134,7 +134,7 @@ const CategoryAddCard = ({
           />
           <button
             onClick={handleSubmit}
-            className="absolute bottom-2 p-1 rounded-md bg-emerald-500 text-white"
+            className="absolute bottom-3 py-1.5 px-4 rounded-lg bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-medium transition-colors"
           >
             Confirmar
           </button>

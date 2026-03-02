@@ -45,23 +45,23 @@ const Payment = () => {
         isLoading={login.isLoading}
       >
         <div className="max-w-7xl m-auto mt-4 flex justify-center">
-          <div className="">
-            <h1>
+          <div>
+            <h1 className="text-slate-800 dark:text-slate-100">
               Para ver una guía de como pagar en mercado pago sandbox, dirígete
               a:{" "}
             </h1>
             <a href="https://github.com/AkianJS/mercado-libro/blob/main/README.md">
-              <p className="text-blue-500 cursor-pointer">
+              <p className="text-indigo-500 dark:text-indigo-400 cursor-pointer hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors">
                 https://github.com/AkianJS/mercado-libro/blob/main/README.md
               </p>
             </a>
             <br />
-            <h2 className="text-lg">
+            <h2 className="text-lg text-slate-800 dark:text-slate-100">
               Si tu dirección es correcta has click en <i>pagar</i>!
             </h2>
             <br />
             <Link href="/checkout">
-              <p className="float-right inline-block text-sm relative after:h-[1px] after:w-0 after:bg-black after:content-[' '] after:absolute after:left-0 after:bottom-0 hover:after:w-full after:duration-100">
+              <p className="float-right inline-block text-sm relative text-indigo-600 dark:text-indigo-400 after:h-[1px] after:w-0 after:bg-indigo-600 dark:after:bg-indigo-400 after:content-[' '] after:absolute after:left-0 after:bottom-0 hover:after:w-full after:duration-200 font-medium">
                 EDITAR INFO
               </p>
             </Link>

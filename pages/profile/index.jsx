@@ -83,7 +83,7 @@ const Profile = () => {
         <section className="p-8">
           <UserInfo />
           {!login.usuario?.admin && (
-            <div className="mt-4 grid grid-cols-2 gap-4 place-items-center max-[580px]:grid-cols-1">
+            <div className="mt-6 grid grid-cols-2 gap-4 place-items-center max-[580px]:grid-cols-1">
               <Button
                 handleClick={() => setIsUpdating(true)}
                 className="max-w-xs"
@@ -92,7 +92,7 @@ const Profile = () => {
               </Button>
               <Button
                 handleClick={() => setIsRemoving(true)}
-                background="rgb(185 28 28)"
+                background="rgb(239 68 68)"
                 className="max-w-xs"
               >
                 Eliminar cuenta
@@ -101,19 +101,19 @@ const Profile = () => {
           )}
           {/* Modal al cambiar contraseña */}
           <Modal show={isUpdating}>
-            <div className="bg-white p-8 rounded-md relative">
-              <p className="text-center">Digite su nueva contraseña</p>
+            <div className="bg-white dark:bg-slate-800 p-8 rounded-xl relative border border-slate-200 dark:border-slate-700">
+              <p className="text-center text-slate-800 dark:text-slate-100 font-medium">Digite su nueva contraseña</p>
               <div className="w-full mt-4">
-                <label className="text-sm font-bold">Nueva contraseña</label>
+                <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Nueva contraseña</label>
                 <input
                   ref={newPassword}
-                  className="bg-gray-400 w-full rounded-md p-2 outline-none"
+                  className="bg-slate-100 dark:bg-slate-700 w-full rounded-lg p-3 outline-none border border-slate-300 dark:border-slate-600 text-slate-800 dark:text-slate-100 focus:border-indigo-500 transition-colors mt-1"
                   type="text"
                 />
               </div>
               <div
                 onClick={() => setIsUpdating(false)}
-                className="absolute right-2 top-2 text-2xl hover:scale-105 cursor-pointer"
+                className="absolute right-3 top-3 text-xl hover:scale-105 cursor-pointer text-slate-400 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-300 transition-colors"
               >
                 <FaWindowClose />
               </div>
@@ -126,8 +126,8 @@ const Profile = () => {
           {/* Modal al eliminar cuenta */}
 
           <Modal show={isRemoving}>
-            <div className="bg-white p-8 rounded-md relative">
-              <p className="text-center">Está seguro de eliminar su cuenta?</p>
+            <div className="bg-white dark:bg-slate-800 p-8 rounded-xl relative border border-slate-200 dark:border-slate-700">
+              <p className="text-center text-slate-800 dark:text-slate-100 font-medium">Está seguro de eliminar su cuenta?</p>
               <div className="mt-4 grid grid-cols-2 gap-4">
                 <Button handleClick={handleRemoveAccount}>Sí</Button>
                 <Button handleClick={() => setIsRemoving(false)}>
@@ -136,7 +136,7 @@ const Profile = () => {
               </div>
               <div
                 onClick={() => setIsRemoving(false)}
-                className="absolute right-2 top-2 text-2xl hover:scale-105 cursor-pointer"
+                className="absolute right-3 top-3 text-xl hover:scale-105 cursor-pointer text-slate-400 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-300 transition-colors"
               >
                 <FaWindowClose />
               </div>

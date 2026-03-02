@@ -67,7 +67,7 @@ const AdminAddBook = ({ getTemas }) => {
       });
     }
     else {
-      Swal.fire({ 
+      Swal.fire({
         title: "Error",
         text: "No se pudo registrar el libro",
         icon: "error"
@@ -103,6 +103,9 @@ const AdminAddBook = ({ getTemas }) => {
     setValue("imageUrl", data.data?.display_url);
   };
 
+  const inputClass = "bg-slate-100 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg w-full p-2.5 outline-none text-slate-800 dark:text-slate-100 focus:border-indigo-500 dark:focus:border-indigo-400 transition-colors";
+  const labelClass = "uppercase text-xs font-semibold text-slate-500 dark:text-slate-400 tracking-wider mt-3 mb-1 block";
+
   return (
     <Layout>
       <ProtectedRoute
@@ -110,130 +113,130 @@ const AdminAddBook = ({ getTemas }) => {
         myBoolean={login.usuario?.admin}
         path="/"
       >
-        <div className="max-w-2xl m-auto pt-4 pb-4 pr-2 pl-2">
+        <div className="max-w-2xl m-auto pt-6 pb-6 px-4">
           <form onSubmit={handleSubmit(onSubmit)}>
-            <label className="uppercase text-sm">autor/es</label>
+            <label className={labelClass}>autor/es</label>
             <input
               placeholder="George R.R Martin"
               required="required"
               {...register("author")}
-              className={`bg-gray-200 border-2 border-black rounded-sm w-full p-2 outline-none`}
+              className={inputClass}
               type="text"
             />
 
-            <label className="uppercase text-sm">isbn</label>
+            <label className={labelClass}>isbn</label>
             <input
               placeholder="345248753"
               required="required"
               {...register("isbn")}
-              className={`bg-gray-200 border-2 border-black rounded-sm w-full p-2 outline-none`}
+              className={inputClass}
               type="text"
             />
 
-            <label className="uppercase text-sm">titulo</label>
+            <label className={labelClass}>titulo</label>
             <input
               placeholder="Harry Potter y La Piedra Filosofal"
               required="required"
               {...register("title")}
-              className={`bg-gray-200 border-2 border-black rounded-sm w-full p-2 outline-none`}
+              className={inputClass}
               type="text"
             />
 
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-              <div className="">
-                <label className="uppercase text-sm">precio</label>
+              <div>
+                <label className={labelClass}>precio</label>
                 <input
                   placeholder="2300"
                   required="required"
                   {...register("price")}
-                  className={`bg-gray-200 border-2 border-black rounded-sm w-full p-2 outline-none`}
+                  className={inputClass}
                   type="number"
                 />
               </div>
 
               <div>
-                <label className="uppercase text-sm">descuento</label>
+                <label className={labelClass}>descuento</label>
                 <input
                   placeholder="15"
                   {...register("discount")}
-                  className={`bg-gray-200 border-2 border-black rounded-sm w-full p-2 outline-none`}
+                  className={inputClass}
                   type="number"
                 />
               </div>
 
               <div>
-                <label className="uppercase text-sm">stock</label>
+                <label className={labelClass}>stock</label>
                 <input
                   placeholder="7"
                   required="required"
                   {...register("stock")}
-                  className={`bg-gray-200 border-2 border-black rounded-sm w-full p-2 outline-none`}
+                  className={inputClass}
                   type="number"
                 />
               </div>
             </div>
 
-            <label className="uppercase text-sm">descripción</label>
+            <label className={labelClass}>descripción</label>
             <textarea
               rows="10"
               cols="50"
               required="required"
               {...register("description")}
-              className={`bg-gray-200 border-2 border-black rounded-sm w-full p-2 outline-none`}
+              className={inputClass}
               type="text"
             ></textarea>
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="uppercase text-sm">fecha de ingreso</label>
+                <label className={labelClass}>fecha de ingreso</label>
                 <input
                   placeholder="dd/mm/aaaa"
                   {...register("entryDate")}
-                  className={`bg-gray-200 border-2 border-black rounded-sm w-full p-2 outline-none`}
+                  className={inputClass}
                   type="text"
                 />
               </div>
 
               <div>
-                <label className="uppercase text-sm">fecha de edición</label>
+                <label className={labelClass}>fecha de edición</label>
                 <input
                   placeholder="dd/mm/aaaa"
                   required="required"
                   {...register("editionDate")}
-                  className={`bg-gray-200 border-2 border-black rounded-sm w-full p-2 outline-none`}
+                  className={inputClass}
                   type="text"
                 />
               </div>
             </div>
 
-            <label className="uppercase text-sm">idioma</label>
+            <label className={labelClass}>idioma</label>
             <input
               placeholder="Español"
               required="required"
               {...register("language")}
-              className={`bg-gray-200 border-2 border-black rounded-sm w-full p-2 outline-none`}
+              className={inputClass}
               type="text"
             />
 
-            <label className="uppercase text-sm">editorial</label>
+            <label className={labelClass}>editorial</label>
             <input
               placeholder="OnlineCapture"
               required="required"
               {...register("editorial")}
-              className={`bg-gray-200 border-2 border-black rounded-sm w-full p-2 outline-none`}
+              className={inputClass}
               type="text"
             />
 
-            <div className=" mb-4 grid grid-cols-3 gap-4">
+            <div className="mb-4 grid grid-cols-3 gap-4">
               {fields.map((field, index) => (
                 <div className="flex flex-col" key={field.id}>
-                  <label className="uppercase text-sm">tema/s</label>
-                  <div className="flex gap-4">
+                  <label className={labelClass}>tema/s</label>
+                  <div className="flex gap-4 items-center">
                     <select
                       name="themes"
                       required="required"
                       {...register(`themes.${index}.nombre`)}
-                      className={`bg-gray-200 border-2 border-black rounded-sm w-full p-2 outline-none`}
+                      className={inputClass}
                       type="text"
                     >
                       {getTemas.temas.map((item) => (
@@ -245,7 +248,7 @@ const AdminAddBook = ({ getTemas }) => {
                     {index >= 1 ? (
                       <FaMinus
                         onClick={() => remove(index)}
-                        className="text-2xl cursor-pointer hover:scale-110 ease-in"
+                        className="text-xl cursor-pointer hover:scale-110 ease-in text-slate-500 dark:text-slate-400 hover:text-red-500 dark:hover:text-red-400 transition-colors"
                       />
                     ) : undefined}
                   </div>
@@ -255,12 +258,13 @@ const AdminAddBook = ({ getTemas }) => {
             <div className="w-full flex gap-4 mt-4 mb-4 transition-all">
               <FaPlus
                 onClick={() => append()}
-                className="ml-auto text-2xl cursor-pointer hover:scale-110 ease-in"
+                className="ml-auto text-xl cursor-pointer hover:scale-110 ease-in text-slate-500 dark:text-slate-400 hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors"
               />
             </div>
-            <h4 className="mt-4 mb-4 font-bold text-xl">Imagen: </h4>
+            <h4 className="mt-4 mb-4 font-bold text-xl text-slate-800 dark:text-slate-100">Imagen: </h4>
             <div
-              className={`mb-4 inline-block relative duration-200 hover:scale-105 shadow-md`}
+              className={`mb-4 inline-block relative duration-200 hover:scale-105 rounded-lg overflow-hidden`}
+              style={{boxShadow: 'var(--card-shadow)'}}
             >
               <label
                 htmlFor="image"

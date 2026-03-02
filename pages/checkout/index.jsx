@@ -59,40 +59,35 @@ const Checkout = ({data}) => {
     if (data?.agregarDireccion?.success) router.push("/checkout/payment");
   };
 
+  const inputClass = `bg-slate-100 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg w-full p-3 outline-none text-slate-800 dark:text-slate-100 focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-1 focus:ring-indigo-500/20 transition-all ${styles.placeholder}`;
+  const spanClass = "absolute left-0 pl-3 pr-2 opacity-60 duration-300 pointer-events-none text-slate-500 dark:text-slate-400 font-medium";
+
   return (
     <Layout>
       <ProtectedRoute isLoading={login.isLoading} myBoolean={login.success} path='/cart' >
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="flex items-center h-screen m-auto w-full max-w-xl flex-col gap-6 pt-20">
-            <h4 className="font-bold text-lg">
+            <h4 className="font-bold text-lg text-slate-800 dark:text-slate-100">
               Agregue o modifique sus datos de envío:
             </h4>
             <div className="w-3/4 flex justify-center relative items-center">
               <input
                 required="required"
                 {...register("name")}
-                className={`border-2 border-black rounded-md w-full p-2 outline-none ${styles.placeholder}`}
+                className={inputClass}
                 type="text"
               />
-              <span
-                className={`absolute left-0 pl-2 pr-2 opacity-60 duration-300 pointer-events-none`}
-              >
-                Nombre
-              </span>
+              <span className={spanClass}>Nombre</span>
             </div>
 
             <div className="w-3/4 flex justify-center relative items-center">
               <input
                 required="required"
                 {...register("address")}
-                className={`border-2 border-black rounded-md w-full p-2 outline-none ${styles.placeholder}`}
+                className={inputClass}
                 type="text"
               />
-              <span
-                className={`absolute left-0 pl-2 pr-2 opacity-60 duration-300 pointer-events-none`}
-              >
-                Dirección
-              </span>
+              <span className={spanClass}>Dirección</span>
             </div>
 
             <div className="w-3/4 flex justify-center relative items-center">
@@ -100,59 +95,43 @@ const Checkout = ({data}) => {
                 name="cp"
                 required="required"
                 {...register("cp")}
-                className={`border-2 border-black rounded-md w-full p-2 outline-none ${styles.placeholder}`}
+                className={inputClass}
                 type="number"
               >
-                {data?.getCiudades?.ciudad?.map(item => 
+                {data?.getCiudades?.ciudad?.map(item =>
                   <option key={item.cp} value={item.cp}>{item.nombre}</option>
                   )}
                 </select>
-              <span
-                className={`absolute left-0 pl-2 pr-2 opacity-60 duration-300 pointer-events-none`}
-              >
-                Ciudad
-              </span>
+              <span className={spanClass}>Ciudad</span>
             </div>
 
             <div className="w-3/4 flex justify-center relative items-center">
               <input
                 required="required"
                 {...register("dni")}
-                className={`border-2 border-black rounded-md w-full p-2 outline-none ${styles.placeholder}`}
+                className={inputClass}
                 type="number"
               />
-              <span
-                className={`absolute left-0 pl-2 pr-2 opacity-60 duration-300 pointer-events-none`}
-              >
-                DNI
-              </span>
+              <span className={spanClass}>DNI</span>
             </div>
 
             <div className="w-3/4 flex justify-center relative items-center">
               <input
                 required="required"
                 {...register("phone")}
-                className={`border-2 border-black rounded-md w-full p-2 outline-none ${styles.placeholder}`}
+                className={inputClass}
                 type="text"
               />
-              <span
-                className={`absolute left-0 pl-2 pr-2 opacity-60 duration-300 pointer-events-none`}
-              >
-                Teléfono
-              </span>
+              <span className={spanClass}>Teléfono</span>
             </div>
 
             <div className="w-3/4 flex justify-center relative items-center">
               <input
                 {...register("additionalInfo")}
-                className={`border-2 border-black rounded-md w-full p-2 outline-none ${styles.placeholder}`}
+                className={inputClass}
                 type="text"
               />
-              <span
-                className={`absolute left-0 pl-2 pr-2 opacity-60 duration-300 pointer-events-none`}
-              >
-                Información Adicional
-              </span>
+              <span className={spanClass}>Información Adicional</span>
             </div>
 
             <div className="w-3/4">

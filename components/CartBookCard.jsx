@@ -13,7 +13,7 @@ const CartBookCard = ({ cartBook, token, updateUserInfo }) => {
     ? (libro.descuento / 100) * libro.precio
     : null;
 
-  // Funciones para añadir, restar o eliminar libros
+  // Funciones para anadir, restar o eliminar libros
   const handleRemoveOne = async () => {
     await removeOneFromCart({ quantity: 1, isbn: libro.isbn, token: token });
     updateUserInfo();
@@ -30,11 +30,11 @@ const CartBookCard = ({ cartBook, token, updateUserInfo }) => {
   };
 
   return (
-    <div className="flex justify-center flex-wrap gap-6">
+    <div className="flex justify-center flex-wrap gap-6 bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 transition-colors" style={{boxShadow: 'var(--card-shadow)'}}>
       <div className="relative w-36 h-48">
         <Link href={`/books/${libro.isbn}`}>
           <Image
-            className="rounded-lg"
+            className="rounded-lg object-cover"
             fill
             alt={libro.titulo}
             src={libro.url_imagen}
@@ -43,36 +43,36 @@ const CartBookCard = ({ cartBook, token, updateUserInfo }) => {
       </div>
       <div className="w-72">
         <Link href={`/books/${libro.isbn}`}>
-          <h3 className="font-bold text-base text-center">{libro?.titulo}</h3>
+          <h3 className="font-semibold text-base text-center text-slate-800 dark:text-slate-100">{libro?.titulo}</h3>
         </Link>
-        <p className="text-sm text-gray-600">{author}</p>
+        <p className="text-sm text-slate-500 dark:text-slate-400">{author}</p>
 
         <div className="mt-4">
           {discount ? (
             <>
-              <p className="line-through text-sm">{libro.precio} $</p>
-              <div className="flex gap-4">
-                <p className="font-bold text-emerald-600">
+              <p className="line-through text-sm text-slate-400 dark:text-slate-500">{libro.precio} $</p>
+              <div className="flex gap-4 items-center">
+                <p className="font-bold text-emerald-600 dark:text-emerald-400">
                   {(libro.precio - discount).toFixed(2)} $
                 </p>
-                <p className="font-bold text-white bg-red-500 pr-2 pl-2">
+                <p className="font-semibold text-white bg-red-500 dark:bg-red-600 px-2 py-0.5 rounded text-sm">
                   - {libro.descuento} %
                 </p>
               </div>
             </>
           ) : (
-            <p>{libro.precio} $</p>
+            <p className="text-slate-800 dark:text-slate-200 font-medium">{libro.precio} $</p>
           )}
-          <div className="mt-4 flex gap-4 justify-center items-center ">
-            <p>Total: {libro.precio * cartBook.cantidad} $</p>
-            <button onClick={handleRemoveOne} className="bg-black p-1">
-              <FaMinus className="text-white" />
+          <div className="mt-4 flex gap-4 justify-center items-center">
+            <p className="text-slate-700 dark:text-slate-300 font-medium">Total: {libro.precio * cartBook.cantidad} $</p>
+            <button onClick={handleRemoveOne} className="bg-indigo-500 hover:bg-indigo-600 p-1.5 rounded-md transition-colors">
+              <FaMinus className="text-white text-xs" />
             </button>
-            <p>{cartBook.cantidad}</p>
-            <button onClick={handleAddOne} className="bg-black p-1">
-              <FaPlus className="text-white" />
+            <p className="font-semibold text-slate-800 dark:text-slate-100 w-6 text-center">{cartBook.cantidad}</p>
+            <button onClick={handleAddOne} className="bg-indigo-500 hover:bg-indigo-600 p-1.5 rounded-md transition-colors">
+              <FaPlus className="text-white text-xs" />
             </button>
-            <button onClick={handleRemoveAll} className="text-2xl ml-auto">
+            <button onClick={handleRemoveAll} className="text-xl ml-auto text-slate-400 hover:text-red-500 dark:text-slate-500 dark:hover:text-red-400 transition-colors">
               <FaTrash />
             </button>
           </div>
